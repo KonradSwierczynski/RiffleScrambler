@@ -192,3 +192,4 @@ venv.bak/
 *.app
 
 .idea/
+tmp/
