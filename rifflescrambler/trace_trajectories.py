@@ -1,5 +1,6 @@
 from typing import List
 from bin_mat import BinMatrix
+from riffle_permutation import inverted_riffle_permutation
 
 
 # For given permutation of length 2^g generates g numbers (trajectories) of length 2^g
