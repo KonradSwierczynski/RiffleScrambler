@@ -26,7 +26,23 @@ def riffle_permutation(B: int, length: int) -> List[int]:
     return [riffle_permutation_value(binary_form, i) for i in range(length)]
 
 
+def complement_riffle_permutation(B: int, length: int) -> List[int]:
+    binary_form = num_to_bin_str(B, length)
+    binary_form = binary_complement(binary_form)
+    return [riffle_permutation_value(binary_form, i) for i in range(length)]
+
+
+def binary_complement(binary_string: str) -> str:
+    return binary_string.replace('0', 'x').replace('1', '0').replace('x', '1')
+
+
+
+def inverted(perm: List[int], val: int) -> int:
+    return perm.index(val)
+
+
 # Calculates index of given value in Riffle Permutation indced by given number B
 def inverted_riffle_permutation(B: int, length: int, searched_value: int) -> int:
     perm = riffle_permutation(B, length)
     return perm.index(searched_value)
+
