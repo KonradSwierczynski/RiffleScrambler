@@ -32,9 +32,7 @@ class BinMatrix:
 
         row = ""
         for num in self.list:
-            print(num_to_bin_str(num, self.b_lenght))
             row += num_to_bin_str(num, self.b_lenght)[row_index]
-        print(row)
         return int(row, 2)
 
 # Example

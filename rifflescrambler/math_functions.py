@@ -14,7 +14,6 @@ def trace_trajectories(B):
 def trace_trajectories_(B):
     trajectories = [B[0]]
     for i in range(1, len(B)):
-        print(i, B[i-1], B[i], inverted_riffle_permutation(B[i - 1], B[i]), sep=" : ")
         trajectories.append(inverted_riffle_permutation(trajectories[i - 1], B[i]))
     return trajectories
 
