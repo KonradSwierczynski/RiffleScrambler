@@ -3,8 +3,19 @@ from typing import List
 
 # Rank on binary word B (b_0, b_1,...,b_{n-1}
 # Count number of occurrences of bit B[index] in position before index
+zeros = 0
+ones = 0
+total_zeros = 0
 def rank(binary_word: str, index: int) -> int:
-    return binary_word[:index].count(binary_word[index])
+    global zeros
+    global ones
+    if binary_word[index] == '1':
+        ones += 1
+        return ones - 1
+    else:
+        zeros += 1
+        return zeros - 1
+    # return binary_word[:index].count(binary_word[index])
 
 
 # Converts number to string of the given length binary form
@@ -15,20 +26,31 @@ def num_to_bin_str(num: int, length: int) -> str:
 
 # Calculates Riffle Permutation value for given binary word at given index
 def riffle_permutation_value(binary_word: str, index: int) -> int:
-    return rank(binary_word, index) if binary_word[index] == '0' else rank(binary_word, index) + binary_word.count('0')
+    return rank(binary_word, index) if binary_word[index] == '0' else rank(binary_word, index) + total_zeros
 
+
+
+def zero_counters(text):
+    global zeros
+    global ones
+    global total_zeros
+    zeros = 0
+    ones = 0
+    total_zeros = text.count('0')
 
 # Calculates Riffle Permutation for given number B for given binary length
 # Riffle Permutation example:
 # 11100100 -> [4, 5, 6, 0, 1, 7, 2, 3]
 def riffle_permutation(B: int, length: int) -> List[int]:
     binary_form = num_to_bin_str(B, length)
+    zero_counters(binary_form)
     return [riffle_permutation_value(binary_form, i) for i in range(length)]
 
 
 def complement_riffle_permutation(B: int, length: int) -> List[int]:
     binary_form = num_to_bin_str(B, length)
     binary_form = binary_complement(binary_form)
+    zero_counters(binary_form)
     return [riffle_permutation_value(binary_form, i) for i in range(length)]
 
 
