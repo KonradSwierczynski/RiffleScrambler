@@ -7,7 +7,6 @@ from riffle_permutation import *
 def gen_graph(g: int, perm: List[int]) -> List[List[int]]:
     perm_matrix = BinMatrix(perm, g)
     B = [perm_matrix.get_row_as_num(i) for i in range(g)]
-    print(B)
     edges = [[[] for _ in range(2**g)] for _ in range(2*g)]
 
     for row in range(g):
