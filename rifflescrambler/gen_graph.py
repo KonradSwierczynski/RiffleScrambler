@@ -1,6 +1,6 @@
 from typing import List
 from bin_mat import BinMatrix
-from riffle_permutation import *
+from riffle_permutation import riffle_permutation, complement_riffle_permutation
 
 
 # For given list of 2^g numbers of length g generates graph (2^g)-Double-Riffle-Grapph

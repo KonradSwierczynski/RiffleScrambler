@@ -15,7 +15,6 @@ def rank(binary_word: str, index: int) -> int:
     else:
         zeros += 1
         return zeros - 1
-    # return binary_word[:index].count(binary_word[index])
 
 
 # Converts number to string of the given length binary form
@@ -29,14 +28,15 @@ def riffle_permutation_value(binary_word: str, index: int) -> int:
     return rank(binary_word, index) if binary_word[index] == '0' else rank(binary_word, index) + total_zeros
 
 
-
-def zero_counters(text):
+# Prepare cache value to run riffle permutation
+def zero_counters(text: str):
     global zeros
     global ones
     global total_zeros
     zeros = 0
     ones = 0
     total_zeros = text.count('0')
+
 
 # Calculates Riffle Permutation for given number B for given binary length
 # Riffle Permutation example:
@@ -47,6 +47,7 @@ def riffle_permutation(B: int, length: int) -> List[int]:
     return [riffle_permutation_value(binary_form, i) for i in range(length)]
 
 
+# Calculates Riffle Permutation for complement of given number B in given lenght
 def complement_riffle_permutation(B: int, length: int) -> List[int]:
     binary_form = num_to_bin_str(B, length)
     binary_form = binary_complement(binary_form)
@@ -54,6 +55,8 @@ def complement_riffle_permutation(B: int, length: int) -> List[int]:
     return [riffle_permutation_value(binary_form, i) for i in range(length)]
 
 
+# Calculates complement for given string containing zeros and ones
+# by switching '0' to '1' and '1' to '0'
 def binary_complement(binary_string: str) -> str:
     return binary_string.replace('0', 'x').replace('1', '0').replace('x', '1')
 

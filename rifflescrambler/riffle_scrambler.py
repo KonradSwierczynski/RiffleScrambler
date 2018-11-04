@@ -12,6 +12,10 @@ def riffle_scrambler(salt, g, x, depth, hash_func):
     edges = gen_graph(g, perm)
     print("Generated graph")
 
+    return evaluate_graph(edges, g, x, depth, hash_func)
+
+
+def evaluate_graph(edges, g, x, depth, hash_func):
     element = hash_func(x)
     first_row = [element]
     for _ in range(2**g - 1):
@@ -47,4 +51,6 @@ def hash_func(*args):
 
 if __name__ == '__main__':
     import cProfile
-    cProfile.run("print(riffle_scrambler(b'salt', 18, b'test', 20, hash_func))")
+    cProfile.run("print(riffle_scrambler(b'salt', 14, b'test', 10, hash_func))")
+
+# salt 14 test 10 fae26723f07b3e53ef88b9dda3a6706bc733d948
