@@ -112,7 +112,7 @@ def faster_riffle_shuffle(length: int, salt: bytes) -> List[int]:
 if __name__ == '__main__':
     import cProfile
 
-    cProfile.run("print(faster_riffle_shuffle(2 ** 16, b'test'))")
+    cProfile.run("print(faster_riffle_shuffle(2 ** 20, b'test'))")
 
 
 
