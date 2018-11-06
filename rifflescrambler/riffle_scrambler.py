@@ -51,6 +51,6 @@ def hash_func(*args):
 
 if __name__ == '__main__':
     import cProfile
-    cProfile.run("print(riffle_scrambler(b'salt', 14, b'test', 10, hash_func))")
+    cProfile.run("print(riffle_scrambler(b'salt', 12, b'test', 10, hash_func))")
 
 # salt 14 test 10 fae26723f07b3e53ef88b9dda3a6706bc733d948
