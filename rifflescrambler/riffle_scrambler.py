@@ -2,8 +2,14 @@ from riffle_shuffle import riffle_shuffle, faster_riffle_shuffle
 from gen_graph import gen_graph
 import hashlib
 
+def hash_func(*args):
+    val = b''
+    for x in args:
+        val += x
 
-def riffle_scrambler(salt, g, x, depth, hash_func):
+    return hashlib.sha1(val).hexdigest().encode()
+
+def riffle_scrambler(salt, g, x, depth):
     print("Generating permutation...")
     # perm = riffle_shuffle(2 ** g, salt, hash_func)
     perm = faster_riffle_shuffle(2 ** g, salt)
@@ -41,16 +47,12 @@ def evaluate_graph(edges, g, x, depth, hash_func):
     return second_row[-1]
 
 
-def hash_func(*args):
-    val = b''
-    for x in args:
-        val += x
 
-    return hashlib.sha1(val).hexdigest().encode()
 
 
 if __name__ == '__main__':
     import cProfile
-    cProfile.run("print(riffle_scrambler(b'salt', 15, b'test', 10, hash_func))")
+    cProfile.run("print(riffle_scrambler(b'salt', 14, b'test', 10))")
     # print(gen_graph(2, [3, 1, 0, 2]))
-# salt 14 test 10 fae26723f07b3e53ef88b9dda3a6706bc733d948
+    # salt 14 test 10 fae26723f07b3e53ef88b9dda3a6706bc733d948
+
