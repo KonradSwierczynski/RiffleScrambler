@@ -39,19 +39,20 @@ def riffle_shuffle(length: bytes, salt: int, hash_func: Callable[[bytes, bytes],
 class PermElement:
     def __init__(self, id):
         self._id = id
-        self._value = ''
+        self._value_b = 0
 
-    def get_first_bit(self):
-        return self._value[0] == '1'
+    def get_bit_b(self, index):
+        return (self._value_b >> index) & 1
 
-    def add_bit(self, bit):
-        self._value = str(int(bit)) + self._value
+    def set_bit_b(self, index, value=True):
+        if value:
+            self._value_b |= 1 << index
 
     def get_id(self):
         return self._id
 
-    def get_value(self):
-        return self._value
+    def get_value_b(self):
+        return self._value_b
 
 
 class PRNG:
@@ -82,37 +83,47 @@ def faster_riffle_shuffle(length: int, salt: bytes) -> List[int]:
     good_permutation = False
     iterations = 0
     while not good_permutation:
-        iterations += 1
         num_of_ones = 0
         for perm_elem in permutation:
             new_bit = prng.get_next_bit()
             num_of_ones += new_bit
-            perm_elem.add_bit(new_bit)
+            perm_elem.set_bit_b(iterations, new_bit)
+            # perm_elem.add_bit(new_bit)
 
         new_perm = [None] * length
         last_index = 0
         last_zero_index = num_of_ones
         for i in range(length):
-            if permutation[i].get_first_bit():
+            if permutation[i].get_bit_b(iterations):
                 new_perm[last_index] = permutation[i]
                 last_index += 1
             else:
                 new_perm[last_zero_index] = permutation[i]
                 last_zero_index += 1
+            # if permutation[i].get_first_bit():
+            #     new_perm[last_index] = permutation[i]
+            #     last_index += 1
+            # else:
+            #     new_perm[last_zero_index] = permutation[i]
+            #     last_zero_index += 1
 
         permutation = new_perm
         good_permutation = True
         for i in range(1, length):
-            if permutation[i].get_value() == permutation[i - 1].get_value():
+            if permutation[i].get_value_b() == permutation[i - 1].get_value_b():
                 good_permutation = False
                 break
+            # if permutation[i].get_value() == permutation[i - 1].get_value():
+            #     good_permutation = False
+            #     break
+        iterations += 1
     print(iterations)
     return [perm_elem.get_id() for perm_elem in permutation]
 
 if __name__ == '__main__':
     import cProfile
 
-    cProfile.run("print(faster_riffle_shuffle(2 ** 20, b'test'))")
+    cProfile.run("print(faster_riffle_shuffle(2 ** 18, b'test'))")
 
 
 
