@@ -20,6 +20,7 @@ void riffle_shuffle_t(const uint64_t len) {
     std::cout << "Done!" << std::endl;
 }
 
+
 void evp_sha(const unsigned char *message, size_t message_len, unsigned char **digest, unsigned int *digest_len) {
 
     EVP_MD_CTX *md_ctx;
