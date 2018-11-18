@@ -12,11 +12,17 @@
 #include <sstream>
 #include <iomanip>
 
+#include <memory>
+
 #include <openssl/evp.h>
+
+#include <riffle/HashFunctions/hashPRBG.h>
 
 
 void riffle_shuffle_t(const uint64_t len) {
-    auto perm = riffle_shuffle(len, "test");
+
+    auto ptr = std::make_shared<hashPRBG>("salt", 4);
+    auto perm = riffle_shuffle(len, "test", ptr);
     std::cout << "Done!" << std::endl;
 }
 
@@ -72,7 +78,8 @@ void gen_g_t() {
     for(uint64_t g = 0; g < 20; g++) {
         uint64_t l = uint64_t(1) << g;
         std::cout << g << " " << l << std::endl;
-        auto perm = riffle_shuffle(l, "test");
+        auto ptr = std::make_shared<hashPRBG>("salt", 4);
+        auto perm = riffle_shuffle(l, "test", ptr);
         std::cout << "RF finished" << std::endl;
         auto grap = gen_graph(perm, g);
         std::cout << "Graph generated!" << std::endl;
@@ -82,7 +89,8 @@ void gen_g_t() {
 void test_eval(const uint64_t g, const uint64_t depth) {
     uint64_t l = uint64_t (1) << g;
     std::cout << g << " " << l << std::endl;
-    auto perm = riffle_shuffle(l, "test");
+    auto prbg = std::make_shared<hashPRBG>("salt", 4);
+    auto perm = riffle_shuffle(l, "test", prbg);
     std::cout << "RF finished" << std::endl;
     auto grap = gen_graph(perm, g);
     std::cout << "Graph generated!" << std::endl;
@@ -99,7 +107,8 @@ void eval_range(const uint64_t max_g, const uint64_t depth) {
 int main() {
 //    test_eval(20, 1);
 
-    auto res = riffle_shuffle(uint64_t (uint64_t (1) << 20), "salt");
+    auto prbg = std::make_shared<hashPRBG>("salt", 4);
+    auto res = riffle_shuffle(uint64_t (uint64_t (1) << 20), "salt", prbg);
     std::cout << "Perm size: " << res.size() << std::endl;
     std::cout << res[0] << " " << res[1] << " " << res[res.size() - 1] << std::endl;
 
