@@ -6,6 +6,7 @@
 #define CPP_HASHELEMENT_H
 
 #include <openssl/evp.h>
+#include <string>
 
 class HashElement {
     unsigned char md[EVP_MAX_MD_SIZE];
@@ -24,6 +25,8 @@ public:
     const unsigned char* getDigest() const;
 
     unsigned int getDigestLength() const;
+
+    std::string toString() const;
 
 };
 

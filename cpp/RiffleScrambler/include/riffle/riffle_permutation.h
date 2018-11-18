@@ -7,7 +7,7 @@
 
 #include <vector>
 #include <cstdint>
-#include "BinMatrix.h"
+#include <riffle/BinMatrix.h>
 
 std::vector<uint64_t> riffle_permutation(const BinMatrix bm, const uint64_t row, const uint64_t length);
 

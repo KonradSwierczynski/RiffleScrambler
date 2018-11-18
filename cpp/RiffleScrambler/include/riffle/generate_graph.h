@@ -7,7 +7,7 @@
 
 #include <cstdint>
 #include <vector>
-#include "BinMatrix.h"
+#include <riffle/BinMatrix.h>
 
 std::vector<std::vector<std::vector<uint64_t> > > gen_graph(const std::vector<uint64_t> seeds, const uint64_t g);
 

@@ -2,8 +2,9 @@
 // Created by konrad on 11.11.18.
 //
 
-#include "../include/generate_graph.h"
-#include "../include/riffle_permutation.h"
+#include <riffle/generate_graph.h>
+#include <riffle/riffle_permutation.h>
+
 
 std::vector<std::vector<std::vector<uint64_t> > > gen_graph(const std::vector<uint64_t> seeds, const uint64_t g) {
     BinMatrix bin_matrix(seeds);
