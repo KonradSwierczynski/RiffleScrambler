@@ -2,13 +2,12 @@
 // Created by konrad on 12.11.18.
 //
 
-#define CATCH_CONFIG_MAIN  // This tells Catch to provide a main() - only do this in one cpp file
 #include "catch.hpp"
 
 #include <vector>
 
-#include "../include/BinMatrix.h"
-#include "../include/riffle_permutation.h"
+#include "riffle/BinMatrix.h"
+#include "riffle/riffle_permutation.h"
 
 TEST_CASE( "Bin Matrix - Small vector", "[binmatrix]" ) {
     BinMatrix m({1, 2, 3});
@@ -27,16 +26,11 @@ TEST_CASE( "Bin Matrix - Small vector", "[binmatrix]" ) {
 }
 
 TEST_CASE( "Bin Matrix - Big vector", "[binmatrix]" ) {
-    const std::vector<uint64_t> v(1 << 14);
-    BinMatrix m(v);https://9gag.com/
-    /*
-    col    0 1 2
-    row 1: 0 1 1
-    row 0: 1 0 1
-     */
+    const std::vector<uint64_t> v(uint64_t(1) << 14);
+    BinMatrix m(v);
 
     REQUIRE(m.getBit(0, 0) == false);
-    REQUIRE(m.getBit(1 << 13, 1 << 13) == false);
+    REQUIRE(m.getBit(uint64_t(1) << 13, uint64_t(1) << 13) == false);
 }
 
 TEST_CASE( "Riffle permutation", "[rifflepermutation]" ) {

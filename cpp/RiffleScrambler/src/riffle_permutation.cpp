@@ -2,7 +2,7 @@
 // Created by konrad on 11.11.18.
 //
 
-#include "../include/riffle_permutation.h"
+#include <riffle/riffle_permutation.h>
 
 
 uint64_t count_zeros(const BinMatrix bm, const uint64_t row, const uint64_t length) {

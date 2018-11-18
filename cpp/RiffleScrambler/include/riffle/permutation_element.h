@@ -12,17 +12,15 @@ class PermutationElement {
     uint64_t v;
 
 public:
-    PermutationElement(const uint64_t id) {
-        this->id = id;
-        this->v = 0;
+    PermutationElement(const uint64_t id) : id{id}, v{0} {
     }
 
     bool getBit(uint64_t index) {
-        return (this->v >> index) & 1;
+        return ((this->v >> index) & 1) == 1;
     }
 
     void setBit(uint64_t index) {
-        this->v |= 1<<index;
+        this->v |= uint64_t(1) << index;
     }
 
     uint64_t getId() {

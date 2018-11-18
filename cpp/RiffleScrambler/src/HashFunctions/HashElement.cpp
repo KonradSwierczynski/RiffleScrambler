@@ -2,8 +2,11 @@
 // Created by konrad on 15.11.18.
 //
 
-#include "../../include/HashFunctions/HashElement.h"
-#include "../../include/HashFunctions/EVP_MD_Context_Adapter.h"
+#include <riffle/HashFunctions/HashElement.h>
+#include <riffle/HashFunctions/EVP_MD_Context_Adapter.h>
+
+#include <sstream>
+#include <iomanip>
 
 
 HashElement::HashElement() {}
@@ -32,5 +35,13 @@ const unsigned char* HashElement::getDigest() const {
 
 unsigned int HashElement::getDigestLength() const {
     return md_len;
+}
+
+std::string HashElement::toString() const {
+    std::stringstream ss;
+    for(int i = 0; i < this->md_len; i++) {
+        ss << std::hex << std::setw(2) << std::setfill('0') << (int)this->md[i];
+    }
+    return ss.str();
 }
 

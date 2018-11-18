@@ -2,8 +2,8 @@
 // Created by konrad on 15.11.18.
 //
 
+#include <riffle/HashFunctions/EVP_MD_Context_Adapter.h>
 
-#include "../../include/HashFunctions/EVP_MD_Context_Adapter.h"
 
 EVP_MD_Context_Adapter::EVP_MD_Context_Adapter() {
     if((this->ctx = EVP_MD_CTX_create()) == NULL) {

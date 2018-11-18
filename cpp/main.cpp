@@ -1,6 +1,7 @@
-#include "../include/riffle_shuffle.h"
-#include "../include/riffle_permutation.h"
-#include "../include/generate_graph.h"
+#include <riffle/riffle_shuffle.h>
+#include <riffle/riffle_permutation.h>
+#include <riffle/generate_graph.h>
+#include <riffle/evaluate_graph.h>
 
 #include <iostream>
 #include <vector>
@@ -13,7 +14,6 @@
 
 #include <openssl/evp.h>
 
-#include "../include/evaluate_graph.h"
 
 void riffle_shuffle_t(const uint64_t len) {
     auto perm = riffle_shuffle(len, "test");
@@ -69,8 +69,8 @@ void sha_test() {
 
 
 void gen_g_t() {
-    for(uint64_t g = 8; g > 0; g--) {
-        uint64_t l = 1 << g;
+    for(uint64_t g = 0; g < 20; g++) {
+        uint64_t l = uint64_t(1) << g;
         std::cout << g << " " << l << std::endl;
         auto perm = riffle_shuffle(l, "test");
         std::cout << "RF finished" << std::endl;
@@ -79,28 +79,32 @@ void gen_g_t() {
     }
 }
 
-void test_eval() {
-    const uint64_t g = 12, depth = 10;
-    uint64_t l = 1 << g;
+void test_eval(const uint64_t g, const uint64_t depth) {
+    uint64_t l = uint64_t (1) << g;
     std::cout << g << " " << l << std::endl;
     auto perm = riffle_shuffle(l, "test");
     std::cout << "RF finished" << std::endl;
     auto grap = gen_graph(perm, g);
     std::cout << "Graph generated!" << std::endl;
-    auto result = eval_graph(grap, depth, g, "testtestetestesttestestestestestestestestestestestestestestest");
+    auto result = eval_graph(grap, depth, g, "password");
     std::cout << "Eval done: " << result << std::endl;
 }
 
-int main() {
-//    gen_g_t();
-//    sha_test();
-//    evp_test();
-//    test_eval();
-    for(uint64_t i = 0; i < 18; i++) {
-        std::cout << "RF " << i << std::endl;
-        riffle_shuffle_t(1 << i);
+void eval_range(const uint64_t max_g, const uint64_t depth) {
+    for(uint64_t g = 0; g < max_g; g++) {
+        test_eval(g, depth);
     }
+}
 
+int main() {
+//    test_eval(20, 1);
+
+    auto res = riffle_shuffle(uint64_t (uint64_t (1) << 20), "salt");
+    std::cout << "Perm size: " << res.size() << std::endl;
+    std::cout << res[0] << " " << res[1] << " " << res[res.size() - 1] << std::endl;
+
+//    gen_g_t();
+//    eval_range(20, 3);
 
     return 0;
 }
