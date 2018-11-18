@@ -3,7 +3,7 @@
 //
 #include <riffle/riffle_shuffle.h>
 #include <riffle/permutation_element.h>
-#include <riffle/HashFunctions/hashPRBG.h>
+#include <riffle/PRBG.h>
 
 #include <openssl/evp.h>
 #include <openssl/sha.h>
@@ -15,7 +15,7 @@
 #include <iostream>
 
 
-std::vector<uint64_t> riffle_shuffle(const uint64_t length, const char *salt) {
+std::vector<uint64_t> riffle_shuffle(const uint64_t length, const char *salt, std::shared_ptr<PRBG> prbg) {
     std::vector<PermutationElement> permutation;
     std::vector<PermutationElement> swapVector;
     swapVector.reserve(length);
@@ -25,7 +25,6 @@ std::vector<uint64_t> riffle_shuffle(const uint64_t length, const char *salt) {
         swapVector.emplace_back(i);
     }
 
-    hashPRBG prbg(salt, strlen(salt));
     bool goodPermutation = false;
     uint64_t iterations = 0;
 
@@ -35,7 +34,7 @@ std::vector<uint64_t> riffle_shuffle(const uint64_t length, const char *salt) {
         }
         uint64_t numOfOnes = 0;
         for(uint64_t i = 0; i < length; i++) {
-            const bool newBit = prbg.getNextBit();
+            const bool newBit = prbg->getNextBit();
             numOfOnes += (uint64_t )newBit;
             if(newBit) {
                 permutation[i].setBit(iterations);

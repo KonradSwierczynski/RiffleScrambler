@@ -8,7 +8,7 @@
 #include <riffle/HashFunctions/EVP_MD_Context_Adapter.h>
 #include <riffle/PRBG.h>
 
-class hashPRBG : public PRBG {
+class hashPRBG: public PRBG {
     EVP_MD_Context_Adapter ctx;
     unsigned char md[EVP_MAX_MD_SIZE];
     unsigned int md_len = 0;
@@ -18,7 +18,7 @@ class hashPRBG : public PRBG {
 
 public:
     hashPRBG(const void * const message, const size_t message_len);
-    bool getNextBit();
+    bool getNextBit() override;
 };
 
 

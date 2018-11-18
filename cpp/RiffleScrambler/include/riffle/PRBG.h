@@ -8,6 +8,7 @@
 class PRBG {
 public:
     virtual bool getNextBit() = 0;
+    virtual ~PRBG() = default;
 };
 
 #endif //CPP_PRBG_H

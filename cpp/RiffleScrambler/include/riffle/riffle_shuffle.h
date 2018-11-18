@@ -8,7 +8,11 @@
 #include <vector>
 #include <string>
 #include <cstdint>
+#include <memory>
 
-std::vector<uint64_t> riffle_shuffle(const uint64_t length, const char *salt);
+#include <riffle/PRBG.h>
+
+
+std::vector<uint64_t> riffle_shuffle(const uint64_t length, const char *salt, std::shared_ptr<PRBG> prbg);
 
 #endif //CPP_RIFFLE_SHUFFLE_H
