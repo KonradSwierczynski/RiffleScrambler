@@ -11,7 +11,6 @@
 
 std::vector<uint64_t> riffle_permutation(const BinMatrix bm, const uint64_t row, const uint64_t length);
 
-
 std::vector<uint64_t> complement_riffle_permutation(const BinMatrix bm, const uint64_t row, const uint64_t length);
 
 

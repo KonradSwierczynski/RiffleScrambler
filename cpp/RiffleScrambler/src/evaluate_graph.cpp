@@ -10,16 +10,16 @@
 
 
 
-std::string eval_graph(const std::vector<std::vector<std::vector<uint64_t>>> edges, const uint64_t depth, const uint64_t g, const std::string value) {
+std::string eval_graph(const riffle_graph edges, const uint64_t depth, const uint64_t g, const std::string value) {
+    std::cout << "\tDepth: ";
     const uint64_t length = uint64_t(1) << g;
     std::vector<HashElement> first_row(length), second_row(length);
     first_row[0].update(value.c_str(), value.length());
     for(uint64_t i = 1; i < length; i++) {
         first_row[i].update(first_row[i - 1]);
     }
-
     for(uint64_t d = 0; d < depth; d++) {
-        std::cout << "Depth: " << d << std::endl;
+        std::cout <<  d << ".. ";
         for(uint64_t row = 0; row < 2 * g; row++) {
 
             second_row[0].update(first_row[length - 1]);
@@ -37,6 +37,7 @@ std::string eval_graph(const std::vector<std::vector<std::vector<uint64_t>>> edg
             std::swap(first_row, second_row);
         }
     }
+    std::cout << " done!" << std::endl;
 
    return second_row[length - 1].toString();
 }

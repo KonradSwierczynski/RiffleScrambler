@@ -9,6 +9,8 @@
 #include <cstdint>
 #include <string>
 
-std::string eval_graph(const std::vector<std::vector<std::vector<uint64_t>>> edges, const uint64_t depth, const uint64_t g, const std::string value);
+#include <riffle/generate_graph.h>
+
+std::string eval_graph(const riffle_graph edges, const uint64_t depth, const uint64_t g, const std::string value);
 
 #endif //CPP_EVALUATE_GRAPH_H

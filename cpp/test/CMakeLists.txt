@@ -11,6 +11,14 @@ function(addCatchTest target)
     target_link_libraries(${target} CatchLib RiffleScrambler)
 endfunction()
 
+
 addCatchTest(catch_test
         test
+        test_bin_matrix
+        test_evaluate_graph
+        test_generate_graph
+        test_permutation_element
+        test_riffle_permutation
+        test_riffle_shuffle
+        test_riffle_scrambler
         )
