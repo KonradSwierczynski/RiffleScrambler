@@ -5,7 +5,6 @@
 #include <riffle/HashFunctions/hashPRBG.h>
 #include <riffle/HashFunctions/EVP_MD_Context_Adapter.h>
 
-#include <fstream>
 
 void hashPRBG::generateNewBuffor(const void * const message, const size_t message_len) {
     EVP_DigestInit_ex(ctx.getContext(), EVP_sha256(), nullptr);
@@ -25,10 +24,6 @@ bool hashPRBG::getNextBit() {
 
     bool result = (this->md[position / CHAR_BIT] & (1 << (position % CHAR_BIT))) > 0;
     position++;
-
-    std::ofstream outfile;
-    outfile.open("bits.txt", std::ios_base::app);
-    outfile << result;
 
     return result;
 }

@@ -15,19 +15,19 @@ public:
     PermutationElement(const uint64_t id) : id{id}, v{0} {
     }
 
-    bool getBit(uint64_t index) {
+    bool getBit(const uint64_t index) const {
         return ((this->v >> index) & 1) == 1;
     }
 
-    void setBit(uint64_t index) {
+    void setBit(const uint64_t index) {
         this->v |= uint64_t(1) << index;
     }
 
-    uint64_t getId() {
+    uint64_t getId() const {
         return this->id;
     }
 
-    uint64_t getV() {
+    uint64_t getV() const {
         return this->v;
     }
 };

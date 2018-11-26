@@ -13,6 +13,6 @@
 #include <riffle/PRBG.h>
 
 
-std::vector<uint64_t> riffle_shuffle(const uint64_t length, const char *salt, std::shared_ptr<PRBG> prbg);
+std::vector<uint64_t> riffle_shuffle(const uint64_t length, std::shared_ptr<PRBG> prbg);
 
 #endif //CPP_RIFFLE_SHUFFLE_H

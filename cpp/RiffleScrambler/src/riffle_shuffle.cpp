@@ -15,7 +15,7 @@
 #include <iostream>
 
 
-std::vector<uint64_t> riffle_shuffle(const uint64_t length, const char *salt, std::shared_ptr<PRBG> prbg) {
+std::vector<uint64_t> riffle_shuffle(const uint64_t length, std::shared_ptr<PRBG> prbg) {
     std::vector<PermutationElement> permutation;
     std::vector<PermutationElement> swapVector;
     swapVector.reserve(length);
@@ -29,9 +29,6 @@ std::vector<uint64_t> riffle_shuffle(const uint64_t length, const char *salt, st
     uint64_t iterations = 0;
 
     while(!goodPermutation) {
-        if (iterations > 40) {
-            std::cout << "Iteration: " << iterations << std::endl;
-        }
         uint64_t numOfOnes = 0;
         for(uint64_t i = 0; i < length; i++) {
             const bool newBit = prbg->getNextBit();
@@ -63,7 +60,7 @@ std::vector<uint64_t> riffle_shuffle(const uint64_t length, const char *salt, st
         iterations++;
     }
 
-    std::cout << "Done! Iterations: " << iterations << std::endl;
+    std::cout << "\tDone! Iterations: " << iterations << std::endl;
     std::vector<uint64_t> finishedPermutation(length);
     for(uint64_t i = 0; i < length; i++) {
         finishedPermutation[i] = permutation[i].getId();
