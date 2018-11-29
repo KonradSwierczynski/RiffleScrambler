@@ -37,7 +37,7 @@ void rs_test(std::string password, std::string salt, uint64_t max_g, uint64_t d)
 }
 
 int main() {
-    std::cout << "Hash: " << riffle_scrambler("test", "salt", 12, 5) << std::endl;
+    std::cout << "Hash: " << riffle_scrambler("test", "salt", 12, 4, "sha256") << std::endl;
 
 //    rs_test("test", "salt", 20, 5);
 
