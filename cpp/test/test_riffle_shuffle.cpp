@@ -4,29 +4,32 @@
 
 #include "catch.hpp"
 
-#include <riffle/riffle_shuffle.h>
+#include <riffle/hash_functions/hashPRBG.h>
 #include <riffle/PRBG.h>
-#include <riffle/HashFunctions/hashPRBG.h>
+#include <riffle/riffle_shuffle.h>
 
-#include <string>
 #include <memory>
 #include <set>
+#include <string>
 
-class bitReader: public PRBG {
+class bitReader : public PRBG {
     uint64_t position;
     const std::string bits;
 
-public:
-    bitReader(const std::string bits): position{0}, bits{bits} {
-    }
+  public:
+    bitReader(const std::string bits) : position{0}, bits{bits} {}
 
-    bool getNextBit() override {
-        return bits[position++] == '1';
-    }
+    bool getNextBit() override { return bits[position++] == '1'; }
 };
 
 TEST_CASE("Riffle shuffle for given bits", "[riffle_shuffle]") {
-    const std::string bits = "11000110111000100101100101101011010110011001000011010000101001000100000111101110001101111111000101011101111101101001100110000010010110011111010011011111001001001001000110000001100010100110000011101010100100110010001000110011100010110010100001110001111010010100110001001011011110001111000111101001010011111000101100101011100100111001101101101011111100100101100000111011101111001111001";
+    const std::string bits =
+        "1100011011100010010110010110101101011001100100001101000010100100010000"
+        "0111101110001101111111000101011101111101101001100110000010010110011111"
+        "0100110111110010010010010001100000011000101001100000111010101001001100"
+        "1000100011001110001011001010000111000111101001010011000100101101111000"
+        "1111000111101001010011111000101100101011100100111001101101101011111100"
+        "100101100000111011101111001111001";
     auto prbg = std::make_shared<bitReader>(bits);
 
     SECTION("Pemrutation len = 2") {
@@ -37,11 +40,11 @@ TEST_CASE("Riffle shuffle for given bits", "[riffle_shuffle]") {
 
     SECTION("Pemrutation len = 14") {
         const auto perm = riffle_shuffle(14, prbg);
-        std::vector<uint64_t> expected_perm = {10, 6, 3, 0, 11, 1, 2, 5, 8, 7, 13, 9, 4, 12};
+        std::vector<uint64_t> expected_perm = {10, 6, 3, 0,  11, 1, 2,
+                                               5,  8, 7, 13, 9,  4, 12};
         REQUIRE(perm == expected_perm);
     }
 }
-
 
 TEST_CASE("Riffle shuffle for hash PRBG", "[riffle_shuffle]") {
     const std::string salt = "salt";
@@ -55,7 +58,8 @@ TEST_CASE("Riffle shuffle for hash PRBG", "[riffle_shuffle]") {
 
     SECTION("Permutation len = 11") {
         const auto perm = riffle_shuffle(11, prbg);
-        std::vector<uint64_t> expected_perm = {9, 0, 7, 10, 8, 3, 2, 5, 4, 1, 6};
+        std::vector<uint64_t> expected_perm = {9, 0, 7, 10, 8, 3,
+                                               2, 5, 4, 1,  6};
         REQUIRE(perm == expected_perm);
     }
 

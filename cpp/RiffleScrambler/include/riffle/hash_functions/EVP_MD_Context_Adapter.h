@@ -8,14 +8,14 @@
 #include <openssl/evp.h>
 
 class EVP_MD_Context_Adapter {
-    EVP_MD_CTX * ctx;
+    EVP_MD_CTX *ctx;
 
-public:
+  public:
     EVP_MD_Context_Adapter();
 
-    EVP_MD_CTX* getContext() const;
+    EVP_MD_CTX *getContext() const;
 
     ~EVP_MD_Context_Adapter();
 };
 
-#endif //CPP_EVP_MD_CONTEXT_ADAPTER_H
+#endif // CPP_EVP_MD_CONTEXT_ADAPTER_H
