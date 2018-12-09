@@ -5,7 +5,7 @@
 #include <riffle/riffle_scrambler.h>
 
 #include <riffle/hash_functions/hashPRBG.h>
-#include <riffle/hash_functions/md__utils.h>
+#include <riffle/hash_functions/md_utils.h>
 #include <riffle/evaluate_graph.h>
 #include <riffle/generate_graph.h>
 #include <riffle/riffle_shuffle.h>

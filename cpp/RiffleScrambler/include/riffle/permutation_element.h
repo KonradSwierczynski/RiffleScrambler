@@ -12,7 +12,7 @@ class PermutationElement {
     uint64_t v;
 
   public:
-    PermutationElement(const uint64_t id) : id{id}, v{0} {}
+    explicit PermutationElement(const uint64_t id) : id{id}, v{0} {}
 
     bool getBit(const uint64_t index) const {
         return ((this->v >> index) & 1) == 1;

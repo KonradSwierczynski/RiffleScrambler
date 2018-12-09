@@ -6,13 +6,11 @@
 #include <riffle/hash_functions/md_types.h>
 #include <riffle/evaluate_graph.h>
 
-#include <iostream>
 #include <string>
 
 std::string eval_graph(const riffle_graph edges, const uint64_t depth,
                        const uint64_t g, const std::string value,
                        const MD_Wrapper wrapper) {
-    std::cout << "\tDepth: ";
     const uint64_t length = uint64_t(1) << g;
     std::vector<HashElement> first_row, second_row;
     first_row.reserve(length);
@@ -26,7 +24,6 @@ std::string eval_graph(const riffle_graph edges, const uint64_t depth,
         first_row[i].update(first_row[i - 1]);
     }
     for (uint64_t d = 0; d < depth; d++) {
-        std::cout << d << ".. ";
         for (uint64_t row = 0; row < 2 * g; row++) {
 
             second_row[0].update(first_row[length - 1]);
@@ -44,7 +41,6 @@ std::string eval_graph(const riffle_graph edges, const uint64_t depth,
             std::swap(first_row, second_row);
         }
     }
-    std::cout << " done!" << std::endl;
 
     return second_row[length - 1].toString();
 }

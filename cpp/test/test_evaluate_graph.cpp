@@ -4,7 +4,7 @@
 
 #include "catch.hpp"
 
-#include <riffle/hash_functions/md__utils.h>
+#include <riffle/hash_functions/md_utils.h>
 #include <riffle/evaluate_graph.h>
 #include <riffle/generate_graph.h>
 

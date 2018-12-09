@@ -2,7 +2,7 @@
 // Created by konrad on 29.11.18.
 //
 
-#include <riffle/hash_functions/md__utils.h>
+#include <riffle/hash_functions/md_utils.h>
 
 #include <riffle/hash_functions/md_types.h>
 

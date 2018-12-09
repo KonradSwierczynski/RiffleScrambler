@@ -14,7 +14,7 @@ class hashPRBG : public PRBG {
     unsigned int md_len = 0;
     unsigned int position = 0;
 
-    void generateNewBuffor(const void *const message, const size_t message_len);
+    void generateNewBuffer(const void *const message, const size_t message_len);
 
   public:
     hashPRBG(const void *const message, const size_t message_len);
