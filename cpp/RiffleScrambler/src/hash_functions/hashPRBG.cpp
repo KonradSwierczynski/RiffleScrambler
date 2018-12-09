@@ -5,7 +5,7 @@
 #include <riffle/hash_functions/EVP_MD_Context_Adapter.h>
 #include <riffle/hash_functions/hashPRBG.h>
 
-void hashPRBG::generateNewBuffor(const void *const message,
+void hashPRBG::generateNewBuffer(const void *const message,
                                  const size_t message_len) {
     EVP_DigestInit_ex(ctx.getContext(), EVP_sha256(), nullptr);
     EVP_DigestUpdate(ctx.getContext(), message, message_len);
@@ -13,12 +13,12 @@ void hashPRBG::generateNewBuffor(const void *const message,
 }
 
 hashPRBG::hashPRBG(const void *const message, const size_t message_len) {
-    generateNewBuffor(message, message_len);
+    generateNewBuffer(message, message_len);
 }
 
 bool hashPRBG::getNextBit() {
     if (position > md_len * CHAR_BIT) {
-        this->generateNewBuffor(md, md_len);
+        this->generateNewBuffer(md, md_len);
         position = 0;
     }
 

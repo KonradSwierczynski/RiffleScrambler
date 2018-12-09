@@ -8,11 +8,8 @@
 #include <openssl/evp.h>
 #include <openssl/sha.h>
 
-#include <iostream>
-
 #include <string.h>
 
-#include <iostream>
 
 std::vector<uint64_t> riffle_shuffle(const uint64_t length,
                                      std::shared_ptr<PRBG> prbg) {
@@ -60,7 +57,6 @@ std::vector<uint64_t> riffle_shuffle(const uint64_t length,
         iterations++;
     }
 
-    std::cout << "\tDone! Iterations: " << iterations << std::endl;
     std::vector<uint64_t> finishedPermutation(length);
     for (uint64_t i = 0; i < length; i++) {
         finishedPermutation[i] = permutation[i].getId();
