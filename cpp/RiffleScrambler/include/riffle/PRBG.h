@@ -6,9 +6,9 @@
 #define CPP_PRBG_H
 
 class PRBG {
-public:
+  public:
     virtual bool getNextBit() = 0;
     virtual ~PRBG() = default;
 };
 
-#endif //CPP_PRBG_H
+#endif // CPP_PRBG_H

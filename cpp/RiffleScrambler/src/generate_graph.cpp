@@ -7,13 +7,13 @@
 
 #include <iostream>
 
-
 riffle_graph gen_graph(const std::vector<uint64_t> seeds, const uint64_t g) {
     std::cout << "\tGenerating graph...";
     BinMatrix bin_matrix(seeds);
     const uint64_t length = 1 << g;
-    riffle_graph edges (2 * g, std::vector<std::vector<uint64_t>>(length, std::vector<uint64_t>(2)));
-    for(uint64_t row = 0; row < g; row++) {
+    riffle_graph edges(2 * g, std::vector<std::vector<uint64_t>>(
+                                  length, std::vector<uint64_t>(2)));
+    for (uint64_t row = 0; row < g; row++) {
         auto rp = riffle_permutation(bin_matrix, row, length);
         for(uint64_t i = 0; i < length; i++) {
             edges[row][rp[i]][0] = i;
