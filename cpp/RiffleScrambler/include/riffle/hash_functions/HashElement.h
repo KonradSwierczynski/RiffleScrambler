@@ -11,9 +11,9 @@
 #include <string>
 #include <vector>
 
-#include <riffle/HashFunctions/EVP_MD_Context_Adapter.h>
-#include <riffle/HashFunctions/md_types.h>
-#include <riffle/HashFunctions/message_digests.h>
+#include <riffle/hash_functions/EVP_MD_Context_Adapter.h>
+#include <riffle/hash_functions/md_types.h>
+#include <riffle/hash_functions/message_digests.h>
 
 class HashElement {
     const MD_Wrapper wrapper;

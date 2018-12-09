@@ -4,7 +4,7 @@
 
 #include "catch.hpp"
 
-#include <riffle/HashFunctions/hashPRBG.h>
+#include <riffle/hash_functions/hashPRBG.h>
 #include <riffle/PRBG.h>
 #include <riffle/riffle_shuffle.h>
 

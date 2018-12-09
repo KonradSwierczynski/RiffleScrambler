@@ -5,7 +5,7 @@
 #ifndef CPP_HASHPRBG_H
 #define CPP_HASHPRBG_H
 
-#include <riffle/HashFunctions/EVP_MD_Context_Adapter.h>
+#include <riffle/hash_functions/EVP_MD_Context_Adapter.h>
 #include <riffle/PRBG.h>
 
 class hashPRBG : public PRBG {

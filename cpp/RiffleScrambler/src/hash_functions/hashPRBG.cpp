@@ -2,8 +2,8 @@
 // Created by konrad on 16.11.18.
 //
 
-#include <riffle/HashFunctions/EVP_MD_Context_Adapter.h>
-#include <riffle/HashFunctions/hashPRBG.h>
+#include <riffle/hash_functions/EVP_MD_Context_Adapter.h>
+#include <riffle/hash_functions/hashPRBG.h>
 
 void hashPRBG::generateNewBuffor(const void *const message,
                                  const size_t message_len) {

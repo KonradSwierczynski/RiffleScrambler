@@ -2,9 +2,9 @@
 // Created by konrad on 29.11.18.
 //
 
-#include <riffle/HashFunctions/md__utils.h>
+#include <riffle/hash_functions/md__utils.h>
 
-#include <riffle/HashFunctions/md_types.h>
+#include <riffle/hash_functions/md_types.h>
 
 #include <map>
 #include <string>

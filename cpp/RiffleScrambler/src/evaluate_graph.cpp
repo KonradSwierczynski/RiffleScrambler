@@ -2,8 +2,8 @@
 // Created by konrad on 11.11.18.
 //
 
-#include <riffle/HashFunctions/HashElement.h>
-#include <riffle/HashFunctions/md_types.h>
+#include <riffle/hash_functions/HashElement.h>
+#include <riffle/hash_functions/md_types.h>
 #include <riffle/evaluate_graph.h>
 
 #include <iostream>
