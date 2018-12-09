@@ -9,7 +9,7 @@
 #include <string>
 #include <vector>
 
-#include <riffle/HashFunctions/message_digests.h>
+#include <riffle/hash_functions/message_digests.h>
 #include <riffle/generate_graph.h>
 
 std::string eval_graph(const riffle_graph edges, const uint64_t depth,

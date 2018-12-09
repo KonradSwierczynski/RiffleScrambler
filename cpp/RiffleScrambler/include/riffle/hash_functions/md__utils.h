@@ -5,7 +5,7 @@
 #ifndef CPP_MD_UTILS_H
 #define CPP_MD_UTILS_H
 
-#include <riffle/HashFunctions/message_digests.h>
+#include <riffle/hash_functions/message_digests.h>
 
 const MD_Wrapper get_md_by_name(const std::string &name);
 

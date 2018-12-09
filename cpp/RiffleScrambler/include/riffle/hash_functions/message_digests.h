@@ -5,7 +5,7 @@
 #ifndef CPP_MESSAGE_DIGESTS_H
 #define CPP_MESSAGE_DIGESTS_H
 
-#include <riffle/HashFunctions/md_types.h>
+#include <riffle/hash_functions/md_types.h>
 
 #include <memory>
 

@@ -17,7 +17,7 @@
 
 #include <openssl/evp.h>
 
-#include <riffle/HashFunctions/hashPRBG.h>
+#include <riffle/hash_functions/hashPRBG.h>
 
 void perm_test(std::string password, std::string salt, uint64_t g, uint64_t d) {
     auto prbg = std::make_shared<hashPRBG>(salt.c_str(), salt.length());
