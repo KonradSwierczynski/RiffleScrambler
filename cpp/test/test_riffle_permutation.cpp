@@ -6,8 +6,7 @@
 
 #include <riffle/riffle_permutation.h>
 
-
-TEST_CASE( "Riffle permutation", "[rifflepermutation]" ) {
+TEST_CASE("Riffle permutation", "[rifflepermutation]") {
     const std::vector<uint64_t> v{1, 1, 1, 0, 0, 1, 0, 0};
     BinMatrix m(v);
 
