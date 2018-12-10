@@ -3,6 +3,7 @@
 //
 
 #include <riffle/hash_functions/HashElement.h>
+#include <riffle/hash_functions/cleanup.h>
 #include <riffle/hash_functions/md_types.h>
 #include <riffle/evaluate_graph.h>
 
@@ -41,6 +42,9 @@ std::string eval_graph(const riffle_graph edges, const uint64_t depth,
             std::swap(first_row, second_row);
         }
     }
+    const std::string hash = second_row[length - 1].toString();
 
-    return second_row[length - 1].toString();
+    cleanup();
+
+    return hash;
 }
