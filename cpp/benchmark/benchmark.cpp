@@ -22,7 +22,7 @@ const string WIDTH_TIME_OUT_FILE_NAME = "width_time.out", NODE_TIME_OUT_FILE_NAM
 
 void benchmark_riffle_scrambler_width_time() {
     progress_bar bar{cout, 70, "Width time"};
-    const uint64_t max_graph_width = 12, repetitions = 10, graph_depth = 10;
+    const uint64_t max_graph_width = 20, repetitions = 10, graph_depth = 2;
     
     vector<vector<double>> execution_times{max_graph_width + 1};
     
@@ -50,7 +50,7 @@ void benchmark_riffle_scrambler_width_time() {
 }
 
 void benchmark_riffle_scrambler_node_time() {
-    const uint64_t max_graph_width = 16, vertices = 8000000, repetitions = 10;
+    const uint64_t max_graph_width = 20, vertices = 8000000, repetitions = 10;
     progress_bar bar{cout, 70, "Node time"};
 
     vector<vector<double>> execution_times{max_graph_width + 1};
