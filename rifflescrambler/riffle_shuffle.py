@@ -117,14 +117,12 @@ def faster_riffle_shuffle(length: int, salt: bytes) -> List[int]:
             #     good_permutation = False
             #     break
         iterations += 1
-    print(iterations)
     return [perm_elem.get_id() for perm_elem in permutation]
+
 
 if __name__ == '__main__':
     import cProfile
-
     cProfile.run("print(faster_riffle_shuffle(2 ** 18, b'test'))")
-
 
 
 def int_to_bytes(x):
