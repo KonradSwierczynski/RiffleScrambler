@@ -1,0 +1,160 @@
+import matplotlib.pyplot as plt
+
+
+CACHE_BENCH = 'cache_bench.out'
+MEM_BENCH = 'mem_bench.out'
+WIDTH_TIME_BENCH = 'width_time.out'
+NODE_TIME_BENCH = 'node_time.out'
+RESULTS_LOCATION = '../results/'
+
+
+def read_cache_bench_results():
+    x = []
+    y = []
+    with open(RESULTS_LOCATION + CACHE_BENCH) as file:
+        lines = file.readlines()
+
+    for line in lines:
+        line = line.strip()
+        index, value = line.split(' ')
+        index = int(index)
+        value = float(value.replace(',', '.'))
+        x.append(index)
+        y.append(value)
+
+    return x, y
+
+
+def read_mem_bench_results():
+    x = []
+    y = []
+    with open(RESULTS_LOCATION + MEM_BENCH) as file:
+        lines = file.readlines()
+
+    for line in lines:
+        line = line.strip()
+        index, value = line.split(' ')
+        index = int(index)
+        value = int(value)
+        x.append(index)
+        y.append(value)
+
+    return x, y
+
+def read_mem_bench_results():
+    x = []
+    y = []
+    with open(RESULTS_LOCATION + MEM_BENCH) as file:
+        lines = file.readlines()
+
+    for line in lines:
+        line = line.strip()
+        index, value = line.split(' ')
+        index = int(index)
+        value = int(value)
+        x.append(index)
+        y.append(value)
+
+    return x, y
+
+
+def read_width_time_bench_results():
+    x = []
+    y = []
+    with open(RESULTS_LOCATION + WIDTH_TIME_BENCH) as file:
+        lines = file.readlines()
+
+    for line in lines:
+        line = line.strip()
+        index, mean, median = line.split('\t')
+        index = int(index)
+        mean = float(mean)
+        median = float(median)
+        x.append(index)
+        y.append(median)
+
+    return x, y
+
+
+def read_node_time_bench_results():
+    x = []
+    y = []
+    z = []
+    with open(RESULTS_LOCATION + NODE_TIME_BENCH) as file:
+        lines = file.readlines()
+
+    for line in lines:
+        line = line.strip()
+        index, mean, median, node_mean, node_median = line.split('\t')
+        index = int(index)
+        mean = float(mean)
+        median = float(median)
+        node_mean= float(node_mean)
+        node_median = float(node_median)
+        x.append(index)
+        y.append(median)
+        z.append(node_median)
+
+    return x, y, z
+
+
+def draw_cache_bench():
+    x, y = read_cache_bench_results()
+    plt.plot(x, y)
+    plt.title("Cache misses")
+    plt.ylabel("Percentage")
+    plt.xlabel("Width - parameter")
+
+
+def draw_mem_bench():
+    x, y = read_mem_bench_results()
+    plt.plot(x, y)
+    plt.title("Memory usage")
+    plt.ylabel("Bytes")
+    plt.xlabel("Width - parameter")
+
+
+def draw_width_time_bench():
+    x, y = read_width_time_bench_results()
+    plt.plot(x, y)
+    plt.title("Calculation time")
+    plt.ylabel("Milliseconds")
+    plt.xlabel("Width - parameter")
+
+
+def draw_const_vertices_time_bench():
+    x, y, _ = read_node_time_bench_results()
+    plt.plot(x, y)
+    plt.title("Calculation time for const vertices number in graph")
+    plt.ylabel("Milliseconds")
+    plt.xlabel("Width - parameter")
+
+def draw_node_time_bench():
+    x, _, y = read_node_time_bench_results()
+    plt.plot(x, y)
+    plt.title("Calculation time for single node in graph")
+    plt.ylabel("Milliseconds")
+    plt.xlabel("Width - parameter")
+
+
+def draw_benchmarks():
+    plt.subplot(321)
+    draw_cache_bench()
+
+    plt.subplot(322)
+    draw_mem_bench()
+
+    plt.subplot(323)
+    draw_width_time_bench()
+
+    plt.subplot(324)
+    draw_node_time_bench()
+
+    plt.subplot(325)
+    draw_const_vertices_time_bench()
+    plt.tight_layout()
+    plt.show()
+
+
+if __name__ == "__main__":
+    draw_benchmarks()
