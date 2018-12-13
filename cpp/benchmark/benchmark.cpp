@@ -76,6 +76,8 @@ void benchmark_riffle_scrambler_node_time() {
     results_file << "Width\tMean\tMedian\tNode mean\tNode median"  << endl;
     for(int i = 1; i <= max_graph_width; i++) {
         uint64_t ui = static_cast<uint64_t>(i);
+        const uint64_t graph_depth = get_depth_for_width_and_vertices(ui, vertices);
+        const uint64_t vertices = get_number_of_vertices(ui, graph_depth);
         const auto mean = get_mean(execution_times[i]);
         const auto median = get_median(execution_times[i]);
         const auto node_mean = get_time_per_node_vertices(mean, ui, vertices);
