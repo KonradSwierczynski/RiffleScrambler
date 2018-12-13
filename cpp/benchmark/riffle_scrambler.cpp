@@ -13,6 +13,11 @@
 using namespace std;
 
 
+uint64_t get_number_of_vertices(const uint64_t width, const uint64_t depth) {
+    return (2 * width + 1) * pow(2, width) * depth;
+}
+
+
 uint64_t get_depth_for_width_and_vertices(const uint64_t width, const uint64_t vertices) {
     const double width_d = static_cast<double>(width);
     const double vertices_d = static_cast<double>(vertices);
