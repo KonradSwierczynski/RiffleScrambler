@@ -1,36 +1,26 @@
 \chapter{Wstęp}
 \thispagestyle{chapterBeginStyle}
 
-Praca dyplomowa inżynierska jest dokumentem opisującym zrealizowany system techniczny. Praca powinna być napisana poprawnym językiem odzwierciedlającym aspekty techniczne (informatyczne) omawianego zagadnienia. Praca powinna być napisana w trybie bezosobowym (w szczególności należy unikać trybu pierwszej osoby liczby pojedynczej i mnogiej). Zdania opisujące konstrukcję systemu informatycznego powinny być tworzone w stronie biernej. W poniższym dokumencie przykłady sformułowań oznaczono kolorem niebieskim. W opisie elementów systemu, komponentów, elementów kodów źródłowych, nazw plików, wejść i wyjść konsoli należy stosować czcionkę stałej szerokości, np: {\color{lgray}zmienna \verb|wynik| przyjmuje wartość zwracaną przez funkcję \verb|dodaj(a,b)|, dla argumentów \verb|a| oraz \verb|b| przekazywanych \ldots}.
 
-Układ poniższego dokumentu przedstawia wymaganą strukturę pracy, z rozdziałami zawierającymi analizę zagadnienia, opis projektu systemu oraz implementację (dobór podrozdziałów jest przykładowy i należy go dostosować do własnej tematyki pracy). 
-  
-Wstęp pracy (nie numerowany) powinien składać się z czterech części (które nie są wydzielane jako osobne podrozdziały): zakresu pracy, celu, analizy i porównania istniejących rozwiązań oraz przeglądu literatury, oraz opisu zawartości pracy.
-Każdy rozdział powinien rozpoczynać się od akapitu wprowadzającego, w którym zostaje w skrócie omówiona zawartość tego rozdziału.
+Moderately hard functions. Funkcje umiarkowanie ciężkie do obliczenia mają wiele zastosowań takich jak dowody pracy (ang. \textit{proofs of work}), funkcje wyprowadzenia klucza oraz password hashing.
+Przy przechowywaniu haseł ważne jest, aby zminimalizować skutki wycieknięcia pliku z hasłami.
+Zamiast przechowywać krotki ($login$, $password$) tekstem jawnym, dodaje się losową sól i przechowuje w postaci ($login$, $f(password, salt)$, $salt$), gdzie $f$ jest moderately hard function.
+Oznacza to, że funkcja ta musi być obliczana podczas każdego uwierzytelniania w celu sprawdzenia poprawności hasła. Nie może być ona zatem zbyt ciężka do obliczenia dla aplikacji uwierzytelniającej.
+Z drugiej strony, gdy krotka ($login$, $y$, $salt$) wycieknie, adwersarz może przeprowadzać atak słownikowy obliczając funkcję $f$ przy każdej próbie, co powinno być kosztowne.
+W tym celu zaczęto stosować funkcje, które obliczają wiele razy kryptograficzną funkcję skrótu. Popularnym przykładem takiej funkcji jest PBKDF2 (ang. \textit{Pssowrd-Based Key Derivation Function 2}), dla której zalecanym parametrem bezpieczeństwa w 2000 roku było 1024 iteracji, a już w 2005 zaczęto zalecać 4096 iteracji, z powodu wzrostu wydajności CPU.
+Niestety takie podejście nie gwarantuje zabezpieczenia przed adwersarzem używającym sepcjalizowany układ scalony (ang. \textit{ASIC - Application-Specyfic Integrated Circut}).
+Układy takie są znacznie bardziej wydajne poz względem szybkości obliczania funkcji skrótu takich jak SHA256 czy MD5 niż tradycyjne architektury.
 
-{\color{dgray}
-Praca swoim zakresem obejmuje wielowarstwowe rozproszone systemy informatyczne typu ,,B2B'' wspierające wymianę danych pomiędzy przedsiębiorstwami. Systemy tego typu, konstruowane dla dużych korporacji, charakteryzują się złożoną strukturą poziomą i pionową, w której dokumenty \ldots
+-- Porównianie Antminer - GPU - CPU --
 
-Celem pracy jest zaprojektowanie i oprogramowanie aplikacji o następujących założeniach funkcjonalnych:
-\begin{itemize}
-    \item wspieranie zarządzania obiegiem dokumentów wewnątrz korporacji z uwzględnieniem \ldots,
-	\item wspieranie zarządzania zasobami ludzkimi z uwzględnieniem modułów kadrowych oraz \ldots,
-	\item gotowość do uzyskania certyfikatu ISO \ldots,
-	\item \ldots.
-\end{itemize}
+Zauważono jednak, że na różnych architekturach koszt dostępu do pamięci jest dużo bardziej zrównoważony niż koszt obliczeń. [Percival [16]]
+Zaproponowano więc memory-hard functions (MHF), które wywołują podaczas obliczania wiele kosztownych czasowo odwołań do pamięci.
 
-Istnieje szereg aplikacji o zbliżonej funkcjonalności: \ldots, przy czym \ldots.
+scrypt - pierwsza taka funkcja
 
-Praca składa się z czterech rozdziałów.
-W rozdziale pierwszym omówiono strukturę przedsiębiorstwa \ldots, scharakteryzowano grupy użytkowników oraz przedstawiono procedury związane z obiegiem dokumentów. Szczegółowo opisano mechanizmy \ldots. Przedstawiono uwarunkowania prawne udostępniania informacji \ldots, w ramach \ldots.
+O MHF można myśleć jako o pewnej kolejności dostępu do komórek pamięci. Odwołania następują do już wcześniej obliczonych wartości w komórkach.
+Zatem kolejność tą można opisać jako acykliczny graf skierowany (DAG).
 
-W rozdziale drugim przedstawiono szczegółowy projekt systemy w notacji UML. Wykorzystano diagramy \ldots.
-Opisano w pseudokodzie i omówiono algorytmy generowania \ldots.
+......
 
-W rozdziale trzecim opisano technologie implementacji projektu: wybrany język programowania, biblioteki, system zarządzania bazą danych, itp.  Przedstawiono dokumentację techniczną kodów źródłowych interfejsów poszczególnych modułów systemu. Przedstawiono sygnatury metod publicznych oraz \ldots.
-
-W rozdziale czwartym przedstawiono sposób instalacji i wdrożenia systemu w środowisku docelowym.
-
-Końcowy rozdział stanowi podsumowanie uzyskanych wyników.
-}
 

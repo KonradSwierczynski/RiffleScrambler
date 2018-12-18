@@ -2,16 +2,27 @@
 \thispagestyle{chapterBeginStyle}
 \label{rozdzial1}
 
-W tym rozdziale należy przedstawić analizę zagadnienia, które podlega informatyzacji. Należy zidentyfikować i opisać obiekty składowe rozważanego wycinka rzeczywistości i ich wzajemne relacje (np.\ użytkowników systemu i ich role). Należy szczegółowo omówić procesy jakie zachodzą w systemie i które będą informatyzowane, takie jak np.\ przepływ dokumentów.
-Należy sprecyzować i wypunktować założenia funkcjonalne i poza funkcjonalne dla projektowanego systemu.
-Jeśli istnieją aplikacje realizujące dowolny podzbiór zadanych funkcjonalności realizowanego systemu należy przeprowadzić ich analizę porównawczą, wskazując na różnice bądź innowacyjne elementy, które projektowany w pracy system informatyczny będzie zawierał.
-Należy odnieść się do uwarunkowań prawnych związanych z procesami przetwarzania danych w projektowanym systemie.
-Jeśli zachodzi konieczność, należy wprowadzić i omówić model matematyczny elementów systemu na odpowiednim poziomie abstrakcji.
+\begin{definition}
+	(\textit{Parallel/Sequential Graph Pebbling}). Niech $G = (V, E)$ będzie grafem skierowanym grafem acyklicznym i niech $T \subset V$ będzie podzbiorem wierzchołków do oetykietowania, nazywanym celem.
+	Stanem etykietowania $G$ jest podzbiór $P_{i} \subset V$.
+	Poprawnym etykietowaniem równoległym jest ciąg $P = (P_{0}, \dots , P_{t})$ stanów etykietowania $G$,
+	gdzie $P_{0} = \emptyset $ oraz gdzie spełnione są warunki 1 oraz 2 poniżej.
+	Etykietowanie sekwencyjne musi dodatkowo spełniać warunek 3.
+	\begin{enumerate}
+		\item Każdy wierzchołek z celu jest w pewnej konfigutracji oetykietowany (nie koniecznie wszytkie jednocześnie).
+		$$ \forall x \in T \exists x \leq t : x \in P_{x} $$
+		
+		\item Oetykietować wierzchołek można tylko wtedy, gdy wyszyscy jego rodzice
+		są oetykietowani w poprzenim kroku.
+		$$ \forall i \in [t] : x \in (P_{i} \setminus P_{i-1}) \Rightarrow parents(x) \subset P_{i-1} $$
+		
+		\item W każdym kroku można oetykietować co najwyżej jeden wierzchołek.
+		$$ \forall i \in [t]: | P_{i} \setminus P_{i-1} | \leq 1 $$
+	\end{enumerate}
+\end{definition}
 
-{\color{dgray}
-W niniejszym rozdziale omówiono koncepcję architektury programowej systemu \ldots. W
-szczególny sposób \ldots. Omówiono założenia funkcjonalne i niefunkcjonalne podsystemów \ldots. Przedstawiono
-mechanizmy \ldots. Sklasyfikowano systemy ze względu na \ldots. Omówiono istniejące rozwiązania informatyczne o podobnej funkcjonalności \ldots (zobacz \cite{JCINodesChord}).
-}
 
+\begin{proof}
+	dowód trywialny
+\end{proof}
 
