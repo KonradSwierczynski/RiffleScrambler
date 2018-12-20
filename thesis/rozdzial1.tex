@@ -3,26 +3,130 @@
 \label{rozdzial1}
 
 \begin{definition}
-	(\textit{Parallel/Sequential Graph Pebbling}). Niech $G = (V, E)$ będzie grafem skierowanym grafem acyklicznym i niech $T \subset V$ będzie podzbiorem wierzchołków do oetykietowania, nazywanym celem.
-	Stanem etykietowania $G$ jest podzbiór $P_{i} \subset V$.
+	(\textit{Parallel/Sequential Graph Pebbling}). Niech $G = (V, E)$ będzie grafem skierowanym grafem acyklicznym i niech $T \subset V$ będzie zbiorem wierzchołków do oetykietowania. $T$ będzie nazywane celem.
+	Stanem etykietowania $G$ jest zbiór $P_{i} \subset V$.
 	Poprawnym etykietowaniem równoległym jest ciąg $P = (P_{0}, \dots , P_{t})$ stanów etykietowania $G$,
 	gdzie $P_{0} = \emptyset $ oraz gdzie spełnione są warunki 1 oraz 2 poniżej.
 	Etykietowanie sekwencyjne musi dodatkowo spełniać warunek 3.
 	\begin{enumerate}
-		\item Każdy wierzchołek z celu jest w pewnej konfigutracji oetykietowany (nie koniecznie wszytkie jednocześnie).
+		\item Każdy wierzchołek z celu jest w pewnej konfiguracji oetykietowany (nie koniecznie wszystkie jednocześnie).
 		$$ \forall x \in T \exists x \leq t : x \in P_{x} $$
 		
-		\item Oetykietować wierzchołek można tylko wtedy, gdy wyszyscy jego rodzice
-		są oetykietowani w poprzenim kroku.
+		\item Oetykietować wierzchołek można tylko wtedy, gdy wszyscy jego rodzice
+		są oetykietowani w poprzednim kroku.
 		$$ \forall i \in [t] : x \in (P_{i} \setminus P_{i-1}) \Rightarrow parents(x) \subset P_{i-1} $$
 		
 		\item W każdym kroku można oetykietować co najwyżej jeden wierzchołek.
 		$$ \forall i \in [t]: | P_{i} \setminus P_{i-1} | \leq 1 $$
 	\end{enumerate}
+	Zbiory poprawnych etykietowań sekwencyjnych i równoległych grafu G z celem T oznaczamy odpowiednio jako 
+	$ \mathcal{P}_{G,T} $ oraz $ \mathcal{P}_{G,T}^{ \parallel } $.
+	Etykietowania najbardziej interesujących przypadków, gdy $T = sinks(G)$, oznaczamy $ \mathcal{P}_{G} $ oraz $ \mathcal{P}_{G}^{ \parallel } $.
 \end{definition}
 
 
+ Można zauważyć, że $ \mathcal{P}_{G,T} \subset  \mathcal{P}_{G,T}^{ \parallel } $.
+
+
+
+\begin{definition}
+	Złożoność czasową, pamięciową, pamięciowo-czasową oraz łączna etykietowania $ P = (P_{0}, \dots , P_{t} ) \in \mathcal{P}_{G}^{ \parallel } $ są zdefiniowane jako
+	$$ \Pi_{t}(P) = t, \Pi_{s}(P) = \max_{y \in [t]} | P_{i} |, \Pi_{st}(P) = \Pi_{t}(P) * \Pi_{s}(P), \Pi_{cc}(P) = \sum_{i \in [t]}| P_{i}|$$
+	Dla $ \alpha \in {s, t, st, cc}$ oraz celu $T \subset V $, złożoności sekwencyjnego oraz równoległego
+	etykietowania grafu $G$ definiujemy jako
+	$$ \Pi_{ \alpha }(G, T) = \min_{P \in \mathcal{P}_{G,T}} \Pi_{ \alpha } (P) $$
+	$$ \Pi_{ \alpha }^{ \parallel }(G, T) = \min_{P \in \mathcal{P}_{G,T}^{ \parallel }} \Pi_{ \alpha } (P) $$
+	Kiedy $T = sinks(G)$, piszemy $ \Pi_{ \alpha }^{ \parallel }(G) $ oraz $ \Pi_{ \alpha }(G) $.
+	
+\end{definition}
+
+
+\begin{definition}
+	(N-Superconcentrator) Skierowany graf acykliczny $G = (V, E)$ o ustalonym stopniu, $N$ wejściach i
+	$N$ wyjściach nazywany jest N-Superkoncentratorem gdy dla każdego $k \in [N]$
+	oraz dla każdej pary podzbiorów $V_{1} \subset V$ $k$ wejść i $V_{2} \subset V$ $k$ wyjść istnieje
+	$k$ wierzchołkowo-rozłącznych ścieżek łączących wierzchołki ze zbioru $V_{1}$ z wierzchołkami w $V_{2}$.
+\end{definition}
+
+\begin{definition}
+	((N, $\lambda$)-Superconcentrator) Niech $G_{i}, i = 0, \dots, \lambda-1$ będą N-Superkoncentratorami.
+	Niech graf $G$ będzie połączeniem wyjść $G_{i}$ do odpowiadających wejść w $G_{i+1}$ dla $i = 0, \dots, \lambda - 2$.
+	Graf $G$ jest nazywany (N, $\lambda$)-Superkoncentratorem.
+\end{definition}
+
+\begin{theorem}
+	(Ograniczenie dolne dla (N, $ \lambda $)-Superkoncentratora))
+	Pebbling a (N, $ \lambda $)-Superconcentrator using $S \leq N/ 20 $	pebbles requires $T$ placements such that
+	$$ T \geq N \left( \frac{ \lambda N}{64 S} \right) ^{ \lambda }.$$
+%	TODO poprawić nawias
+%   TODO przetłumaczyć
+\end{theorem}
+
+\begin{theorem}
+	Niech $ \lambda, n \in \mathbb{N}^{+}$ takie, że $n = \overline{n}(2 \lambda c + 1) $, gdzie $c \in \mathbb{N}$ i $ \overline{n} = 2^{c}$.
+	Wtedy dla $ g = \lfloor \sqrt{ \overline{n}} \rfloor$
+	$ RSG_{\lambda}^{ \overline{n}} \in \mathbb{D}_{1,g}^{\lambda, \overline{n}} $
+	oraz
+	$ \Pi_{cc}^{ \parallel }(RSG_{\lambda}^{\overline{n}}) = \Omega \left( \frac{n^{1.5}}{c \sqrt{c \lambda}} \right) $.
+\end{theorem}
+
 \begin{proof}
-	dowód trywialny
+	Niech $G = RSG_{\lambda}^{ \overline{n}}$, niech $G_{1}, G_{2}, \dots , G_{ \lambda }$ będą
+	podgrafami $G$ opisanymi w DEF[...].
+	Pokażemy, że każdy $G_{i}$ jest (g, $\overline{n}$)-dispresed dla $g = \lfloor \sqrt{ \overline{n}} \rfloor $.
+	
+	Wybierzmy $i \in [ \lambda ]$ niech $L_{1}$ będzie ostatnimi $\overline{n}$ wierzchołkami w porządku topologicznym grafu $G_{i}$.
+	Oznaczamy wierzchołki zbioru $L_{1}$ poprzez ${1} \times [ \overline{n} ]$, gdzie druga pozycja odpowiada kolejności wierzchołka w porządku topologicznym.
+	Niech $ \overline{g} = \lfloor \overline{n} / g \rfloor$, dla każdego $j \in [ \overline{g}]$
+	$L_{1, j} = \{ <1, jg + x> : x \in [0, g-1] \}$.
+	Pokażemy, że wszystkie $L_{1, j}$ mają (g, g)-dependency.
+	
+	Niech $L_{0}$ będzie $\overline{n}$ pierwszymi wierzchołkami $G_{i}$, które oznaczamy ${0} \times [\overline{n}]$ (ponownie druga pozycja odpowiada porządkowi topograficznemu).
+	Zauważmy, że dla $n \textgreater 1$ i $g = \lfloor \sqrt{ \overline{n}} \rfloor$ prawdą jest, że $g(g - 2c + 1) \leq n$.
+	Zatem zbiór $S = \{ <0, i(g - 2c + 1_)>: i \in [g] \}$ jest całkowicie zawarty w $L_{0}$.
+	
+	Z własności $RSG$ [Superconcentrator- ....] wynika, że skoro zbiory $S$ oraz $L_{1,j}$ mają po $g$ wierzchołków, to istnieje $g$ wierzchołkowo-rozłącznych ścieżek o długości $2c$ między wierzchołkami tych zbiorów. Zatem $L_{1,j}$ ma (g, 2c)-dependency.
+	
+	Rozszerzmy to do (g,g)-dependency.
+	Niech ścieżka $p$ zaczynająca się w wierzchołku $<0, v> \in S$ będzie ścieżką w (g, 2c)-dependency $L_{1,j}$. Zauważmy, że istnieje ścieżka przechodząca przez wszystkie wierzchołki $L_{0}$ oraz, że wierzchołki zbiory $S$ są oddzielone między sobą o $g - 2c$ wierzchołków.
+	Możemy dodać na początek ścieżki $p$ ścieżkę $( <0, v - (g - 2c - 1)>, <0, v - (g - 2c -2)>, \dots, <0, v>)$.
+	Otrzymujemy w ten sposób ścieżkę $p_{+}$ o długości $2c + g - 2c = g$.
+	Ponieważ każda para ścieżek $p \neq q$ w (g, 2c)-dependency $L_{1,j}$ jest wierzchołkowo-rozłączna,
+	to w szczególności zaczynać się muszą w różnych wierzchołkach $<0, v_{p}> \neq <0, v_{q}>$.
+	Ponieważ wierzchołki w $S$ są od siebie oddalone o $g - 2c$ wierzchołków, zatem ścieżki $p^{+}$ i $q_{+}$ nadal pozostają rozłączne.
+	Rozszerzając w ten sposób wszystkie ścieżki z (g, 2c)-dependency otrzymujemy ścieżki wierzchołkowo-rozłączne długości $g$. Z tego wynika, że $L_{1,j}$ ma (g, g)-dependency, co dowodzi, że $ RSG_{\lambda}^{ \overline{n}} \in \mathbb{D}_{1,g}^{\lambda, \overline{n}} $.
+	Pozostaje obliczyć górne ograniczenie używając [Theorem 6 ABP2017].
+	
+	$$ \Pi_{cc}^{ \parallel }(RSG_{\lambda}^{\overline{n}}) = \lambda g \left( \frac{ \overline{n}}{2} - g \right) \geq \lambda \lfloor \sqrt{ \overline{n}} \rfloor \left( \frac{ \overline{n}}{2} - \lfloor \sqrt{ \overline{n}} \rfloor \right) = \lambda \sqrt{ \overline{n}} \left( \frac{ \overline{n}}{2} - \sqrt{ \overline{n}} \right) - O(\overline{n}) =  \Omega \left( \lambda \overline{n} \right) = \Omega \left( \frac{n^{1.5}}{c \sqrt{c \lambda}} \right) $$
+	
 \end{proof}
+
+
+
+
+\begin{theorem}
+	Niech $\lambda, g \in \mathbb{N}^{+}$, $N = 2^{g}$, $n = N(2 \lambda g + 1)$, wtedy
+	$$ \Pi_{cc}^{ \parallel }(RSG_{\lambda}^{\overline{n}}) = O \left( n^{1.\overline{6}} \right) $$
+\end{theorem}
+
+\begin{proof}
+	Kożystając, z [...], mamy, że $RSG_{\lambda}^{N}$ jest $\lambda$-Stacked Sandwich Graph.
+	Z [Lemma 4.2 AB16] wynika więc, że $RSG_{\lambda}^{N}$  jest ($n / t$, $\lambda + t - \lambda - 1$)-reducible dla dowolnego $t \geq 1$.
+	Z twierdzenia 10 [ABP17] wynika, że $\Pi_{cc}^{ \parallel }(RSG_{\lambda}^{\overline{n}}) = O \left( n \left( \sqrt{( \lambda t + t - \lambda - 1)n \delta } + \frac{n}{t} \right) \right)$.
+	Aby dostać najdokładniejsze (najmniejsze) ograniczenie górne trzeba zminimalizować
+	$n \left( \sqrt{( \lambda t + t - \lambda - 1)n \delta } + \frac{n}{t} \right)$.
+	Zanim jednak przejdziemy do minimalizowania, uprośćmy nieco to wyrażenie
+	$$ n \left( \sqrt{( \lambda t + t - \lambda - 1)n \delta } + \frac{n}{t} \right) \leq n \left( \sqrt{ 2\lambda t n \delta } + \frac{n}{t} \right) .$$
+	Teraz możemy znaleźć minimum względem naszego parametru $t$.
+	$$ \frac{\partial}{\partial t} n \left( \sqrt{( 2\lambda t)n \delta } + \frac{n}{t} \right) = \frac{ \sqrt{ 2 \delta \lambda n^{3} }}{2t} - \frac{n^{2}}{t^{2}}$$
+	Minimum znajduje się w punkcje, gdzie pochodna ma wartość zero.
+	$$ \frac{ \sqrt{ 2 \delta \lambda n^{3} }}{2t} - \frac{n^{2}}{t^{2}} = 0$$
+	$$ t = \frac{2n^{2}}{ \sqrt{ 2 \delta \lambda n^{3} }} = O \left( n^{\frac{1}{3}} \right) $$
+	Zatem podstawiając $t$ minimalizujące ograniczenie górne do wzoru z twierdzenie 10 [ABP17] otrzymujemy
+	$$ \Pi_{cc}^{ \parallel }(RSG_{\lambda}^{\overline{n}}) = O \left( n \left( \sqrt{( \lambda n^{\frac{1}{3}} + n^{\frac{1}{3}} - \lambda - 1)n \delta } + \frac{n}{n^{\frac{1}{3}}} \right) \right) = O \left( n^{1.\overline{6}} \right) $$
+\end{proof}
+
+
+
+
 
