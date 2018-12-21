@@ -82,6 +82,23 @@
 	W ogólności, jeżeli dla $ \epsilon \in (0, 1] $ każdy przedział $L_{j}$ ma tylko ($\epsilon$g, g)-dependency, graf G nazywany jest ($\epsilon$, g, g)-dispresed.
 \end{definition}
 
+\begin{definition}
+	Acykliczny graf skierowany $G = (V, E)$ nazywany jest ($\lambda$,$\epsilon$,g,k)-dispresed jeżeli istnieje $\lambda \in \mathbb{N}^{+} $ rozłącznych podzbiorów wierzchołków \{$ L_{i} \subseteq V$\},
+	każdy o rozmiarze $k$ oraz spełnione są następujące warunki.
+	\begin{enumerate}
+		\item Dla każdego $L_{i}$ istnieje ścieżka przechodząca przez wszystkie wierzchołki $L_{i}$.
+		
+		\item Dla ustalonego porządku topologicznego G. Dla każdego $i \in [\lambda]$ niech
+		$G_{i}$ będzie podgrafem G, zawierającym wszystkie wierzchołki z G, aż do ostatniego wierzchołka z $L_{i}$. $G_{i}$ jest ($\epsilon$,g,k)-dispresed.
+	\end{enumerate}
+	Zbiór grafów, które są ($\lambda$, $\epsilon$, g, k)-dispresed oznaczamy jako $\mathbb{D}_{\epsilon,g}^{\lambda,k}$.
+\end{definition}
+
+\begin{theorem}
+	Niech $G \in \mathbb{D}_{\epsilon,g}^{\lambda,k}$.
+	$$ \Pi_{cc}^{\parallel}(G) \geq \epsilon \lambda g \left( \frac{k}{2} - g \right) $$
+\end{theorem}
+
 
 
 \begin{theorem}
