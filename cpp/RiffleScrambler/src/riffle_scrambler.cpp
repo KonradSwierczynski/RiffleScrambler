@@ -23,3 +23,18 @@ std::string riffle_scrambler(const std::string password, const std::string salt,
     auto hash = eval_graph(graph, depth, garlic, password, wrapper);
     return hash;
 }
+
+
+/*
+
+std::string riffle_scrambler_encoded(const uint64_t garlic, const uint64_t depth,
+                            const uint8_t *pwd, const size_t pwdlen_bytes,
+                            const uint8_t *salt, const size_t saltlen_bytes) {
+
+}
+
+std::vector<unsigned char> riffle_scrambler_hash_raw(const uint64_t garlic,
+                            const uint64_t depth, const uint8_t *pwd, const size_t pwdlen_bytes,
+                            const uint8_t *salt, const size_t saltlen_bytes) { }
+
+*/
