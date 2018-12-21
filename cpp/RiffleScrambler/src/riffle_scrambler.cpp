@@ -6,6 +6,7 @@
 
 #include <riffle/hash_functions/hashPRBG.h>
 #include <riffle/hash_functions/md_utils.h>
+#include <riffle/hash_functions/HashResult.h>
 #include <riffle/evaluate_graph.h>
 #include <riffle/generate_graph.h>
 #include <riffle/riffle_shuffle.h>
@@ -20,8 +21,8 @@ std::string riffle_scrambler(const std::string password, const std::string salt,
     const auto prbg = std::make_shared<hashPRBG>(salt.c_str(), salt.size());
     const auto perm = riffle_shuffle(size, prbg);
     const auto graph = gen_graph(perm, garlic);
-    auto hash = eval_graph(graph, depth, garlic, password, wrapper);
-    return hash;
+    const auto hash_result = eval_graph(graph, depth, garlic, password, wrapper);
+    return hash_result.toString();
 }
 
 

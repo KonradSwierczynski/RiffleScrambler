@@ -29,7 +29,7 @@ class HashElement {
 
     void update(const void *const message, const size_t message_len);
 
-    HashResult finalize() const;
+    const HashResult finalize() const;
 };
 
 HashElement::HashElement(const MD_Wrapper wrapper)
@@ -55,7 +55,7 @@ void HashElement::update(const void *const message, const size_t message_len) {
     EVP_DigestFinal_ex(ctx.getContext(), this->md.data(), &(this->md_len));
 }
 
-HashResult HashElement::finalize() const {
+const HashResult HashElement::finalize() const {
     return HashResult{this->md, this->md_len};
 }
 

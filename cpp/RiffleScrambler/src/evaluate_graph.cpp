@@ -5,12 +5,11 @@
 #include <riffle/hash_functions/HashElement.h>
 #include <riffle/hash_functions/cleanup.h>
 #include <riffle/hash_functions/md_types.h>
-#include <riffle/hash_functions/HashResult.h>
 #include <riffle/evaluate_graph.h>
 
 #include <string>
 
-std::string eval_graph(const riffle_graph edges, const uint64_t depth,
+const HashResult eval_graph(const riffle_graph edges, const uint64_t depth,
                        const uint64_t g, const std::string value,
                        const MD_Wrapper wrapper) {
     const uint64_t length = uint64_t(1) << g;
@@ -47,5 +46,5 @@ std::string eval_graph(const riffle_graph edges, const uint64_t depth,
 
     cleanup();
 
-    return hash_result.toString();
+    return hash_result;
 }
