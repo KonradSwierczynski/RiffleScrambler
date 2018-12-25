@@ -10,7 +10,7 @@
 #include <string>
 
 const HashResult eval_graph(const riffle_graph edges, const uint64_t depth,
-                       const uint64_t g, const std::string value,
+                       const uint64_t g, const void *const password, const size_t pwdlen_bytes,
                        const MD_Wrapper wrapper) {
     const uint64_t length = uint64_t(1) << g;
     std::vector<HashElement> first_row, second_row;
@@ -20,7 +20,7 @@ const HashResult eval_graph(const riffle_graph edges, const uint64_t depth,
         first_row.emplace_back(wrapper);
         second_row.emplace_back(wrapper);
     }
-    first_row[0].update(value.c_str(), value.length());
+    first_row[0].update(password, pwdlen_bytes);
     for (uint64_t i = 1; i < length; i++) {
         first_row[i].update(first_row[i - 1]);
     }
