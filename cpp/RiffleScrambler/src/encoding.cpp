@@ -16,14 +16,15 @@ const std::string SALT_PREFIX = "$s=";
 const std::string HASH_FUNC_PREFIX = "$f=";
 const std::string HASH_PREFIX = "$h=";
 const size_t PREFIX_LEN = 3;
+const size_t BASE_64_PEFIX_LEN = 2;
 
 
 std::string get_slice(const std::string &str, const size_t start, const size_t end) {
     return str.substr(start, end - start);
 }
 
-std::string get_slice(const std::string &str, const size_t start) {
-    return str.substr(start);
+std::string get_slice(const std::string str, const size_t start) {
+    return str.substr(start, str.length() - start - BASE_64_PEFIX_LEN);
 }
 
 std::string encode_string(const uint64_t garlic, const uint64_t depth,
@@ -43,7 +44,7 @@ std::string encode_string(const uint64_t garlic, const uint64_t depth,
 }
 
 // Encoded string example: $g=123$d=123213$s=j09j293j$h=oijf92j
-const RiffleScramberContext decode_string(const std::string &encoded) {
+const RiffleScramberContext decode_string(const std::string encoded) {
     size_t garlic_index, depth_index, salt_index, hash_func_index, hash_index;
 
     garlic_index = encoded.find(GARLIC_PREFIX);
@@ -56,7 +57,7 @@ const RiffleScramberContext decode_string(const std::string &encoded) {
 
     if(std::any_of(values.begin(), values.end(),
             [](const size_t i){ return i == std::string::npos;})) {
-//        throw XXXX;
+        throw "Invalid input";
     }
 
     std::string garlic_str, depth_str, salt_str_base64, hash_func_str, hash_str_base64;
@@ -65,7 +66,7 @@ const RiffleScramberContext decode_string(const std::string &encoded) {
     depth_str = get_slice(encoded, depth_index + PREFIX_LEN, salt_index);
     salt_str_base64 = get_slice(encoded, salt_index + PREFIX_LEN, hash_func_index);
     hash_func_str = get_slice(encoded, hash_func_index + PREFIX_LEN, hash_index);
-    hash_str_base64 = get_slice(encoded, hash_index);
+    hash_str_base64 = get_slice(encoded, hash_index + PREFIX_LEN);
 
     uint64_t garlic, depth;
     garlic = std::stoull(garlic_str);
@@ -75,6 +76,5 @@ const RiffleScramberContext decode_string(const std::string &encoded) {
     salt = base64_decode(salt_str_base64);
     hash = base64_decode(hash_str_base64);
 
-
-    return {garlic, depth, salt, hash, hash_func_str};
+    return RiffleScramberContext{garlic, depth, salt, hash, hash_func_str};
 }

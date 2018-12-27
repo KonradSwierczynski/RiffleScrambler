@@ -13,8 +13,7 @@
 
 #include <riffle/encoding.h>
 
-
-#include <memory>
+#include <iostream>
 
 
 const HashResult _riffle_scrambler(const uint64_t garlic,
@@ -74,13 +73,17 @@ std::string riffle_scrambler_encoded(const uint64_t garlic, const uint64_t depth
 bool riffle_scrambler_verify(const std::string encoded, const std::string pwd) {
     const RiffleScramberContext rs_ctx = decode_string(encoded);
 
-    const auto result = _riffle_scrambler(rs_ctx.garlic, rs_ctx.depth, pwd.c_str(), pwd.length(),
-            rs_ctx.salt.c_str(), rs_ctx.salt.length(), rs_ctx.md);
-
+    const auto result = _riffle_scrambler(rs_ctx.garlic, rs_ctx.depth, pwd.c_str(), pwd.size(),
+            rs_ctx.salt.c_str(), rs_ctx.salt.size(), rs_ctx.md);
     return result.toString() == rs_ctx.hash;
 }
 
 bool riffle_scrambler_verify(const std::string encoded, const void *pwd, const size_t pwd_len) {
-    return false;
+    const RiffleScramberContext rs_ctx = decode_string(encoded);
+
+    const auto result = _riffle_scrambler(rs_ctx.garlic, rs_ctx.depth, pwd, pwd_len,
+            rs_ctx.salt.c_str(), rs_ctx.salt.size(), rs_ctx.md);
+
+    return result.toString() == rs_ctx.hash;
 }
 
