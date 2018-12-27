@@ -21,4 +21,5 @@ addCatchTest(catch_test
         test_riffle_permutation
         test_riffle_shuffle
         test_riffle_scrambler
+        test_api
         )

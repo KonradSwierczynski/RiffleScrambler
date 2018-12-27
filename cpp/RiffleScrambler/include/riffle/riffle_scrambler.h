@@ -21,10 +21,9 @@ std::string riffle_scrambler(const void *const password, const size_t pwdlen_byt
                             const std::string hash_func="sha256");
 
 
-std::vector<unsigned char> riffle_scrambler_hash_raw(const std::string password, const std::string salt,
-        const uint64_t garlic, const uint64_t depth,
+std::vector<unsigned char> riffle_scrambler_hash_raw(const uint64_t garlic, const uint64_t depth,
+        const std::string password, const std::string salt,
         const std::string hash_func="sha256");
-
 
 
 std::vector<unsigned char> riffle_scrambler_hash_raw(const uint64_t garlic,

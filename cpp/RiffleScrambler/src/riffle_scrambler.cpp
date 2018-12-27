@@ -43,9 +43,9 @@ std::string riffle_scrambler(const void *const password, const size_t pwdlen_byt
     return _riffle_scrambler(garlic, depth, password, pwdlen_bytes, salt, saltlen_bytes, hash_func).toString();
 }
 
-std::vector<unsigned char> riffle_scrambler_hash_raw(const std::string password, const std::string salt,
-                             const uint64_t garlic, const uint64_t depth,
-                             const std::string hash_func) {
+std::vector<unsigned char> riffle_scrambler_hash_raw(const uint64_t garlic, const uint64_t depth,
+                            const std::string password, const std::string salt,
+                            const std::string hash_func) {
     return _riffle_scrambler(garlic, depth, password.c_str(), password.size(), salt.c_str(), salt.size(), hash_func).md;
 }
 
