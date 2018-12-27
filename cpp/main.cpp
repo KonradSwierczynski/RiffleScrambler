@@ -1,47 +1,28 @@
-#include <riffle/evaluate_graph.h>
-#include <riffle/generate_graph.h>
-#include <riffle/riffle_permutation.h>
 #include <riffle/riffle_scrambler.h>
-#include <riffle/riffle_shuffle.h>
+#include <riffle/base64.h>
 
 #include <iostream>
-#include <openssl/sha.h>
-#include <stdlib.h>
 #include <string>
-#include <vector>
 
-#include <iomanip>
-#include <sstream>
-
-#include <memory>
-
-#include <openssl/evp.h>
-
-#include <riffle/hash_functions/hashPRBG.h>
-
-void perm_test(std::string password, std::string salt, uint64_t g, uint64_t d) {
-    auto prbg = std::make_shared<hashPRBG>(salt.c_str(), salt.length());
-    auto res = riffle_shuffle(uint64_t(uint64_t(1) << g), prbg);
-    std::cout << "Perm size: " << res.size() << std::endl;
-    std::cout << res[0] << " " << res[1] << " " << res[res.size() - 1]
-              << std::endl;
-}
-
-void rs_test(std::string password, std::string salt, uint64_t max_g,
-             uint64_t d) {
-    for (uint64_t i = 0; i <= max_g; i++) {
-        std::cout << ">> G = " << i << std::endl;
-        auto hash = riffle_scrambler(password, salt, i, d);
-        std::cout << "Hash = " << hash << std::endl;
-        std::cerr << i << " " << hash << std::endl;
-    }
-}
 
 int main() {
-    std::cout << "Hash: " << riffle_scrambler("test", "salt", 12, 1, "sha256")
-              << std::endl;
+    std::string pwd = "test123!?", salt = "salt";
+    uint64_t g = 12, d = 4;
 
-    //    rs_test("test", "salt", 20, 5);
+    const auto hash = riffle_scrambler(pwd, salt, g, d);
+    const auto hash2 = riffle_scrambler(pwd.c_str(), pwd.length(), salt.c_str(), salt.length(), g, d);
+    std::cout << "1. Hash: " << hash << " " << hash2
+              << "\t" << std::endl << "base64: " << base64_encode((unsigned char *)hash.c_str(), hash.length())
+              << "\t" << std::endl;
+
+    const std::string encoded = riffle_scrambler_encoded(g, d, pwd, salt);
+    std::cout << "2. Encoded: " << encoded << std::endl;
+
+    const auto result = riffle_scrambler_verify(encoded, "test123!?");
+
+    std::cout << "3. Verify res: " << result << std::endl;
+
+
 
     std::cout << std::endl << "End of main" << std::endl;
     return 0;

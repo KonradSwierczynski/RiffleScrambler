@@ -5,15 +5,14 @@
 #ifndef CPP_HASHELEMENT_H
 #define CPP_HASHELEMENT_H
 
-#include <iomanip>
 #include <openssl/evp.h>
-#include <sstream>
-#include <string>
 #include <vector>
 
 #include <riffle/hash_functions/EVP_MD_Context_Adapter.h>
 #include <riffle/hash_functions/md_types.h>
 #include <riffle/hash_functions/message_digests.h>
+#include <riffle/hash_functions/HashResult.h>
+
 
 class HashElement {
     const MD_Wrapper wrapper;
@@ -30,11 +29,7 @@ class HashElement {
 
     void update(const void *const message, const size_t message_len);
 
-    const unsigned char *getDigest() const;
-
-    unsigned int getDigestLength() const;
-
-    std::string toString() const;
+    const HashResult finalize() const;
 };
 
 HashElement::HashElement(const MD_Wrapper wrapper)
@@ -60,16 +55,8 @@ void HashElement::update(const void *const message, const size_t message_len) {
     EVP_DigestFinal_ex(ctx.getContext(), this->md.data(), &(this->md_len));
 }
 
-const unsigned char *HashElement::getDigest() const { return md.data(); }
-
-unsigned int HashElement::getDigestLength() const { return md_len; }
-
-std::string HashElement::toString() const {
-    std::stringstream ss;
-    for (int i = 0; i < this->md_len; i++) {
-        ss << std::hex << std::setw(2) << std::setfill('0') << (int)this->md[i];
-    }
-    return ss.str();
+const HashResult HashElement::finalize() const {
+    return HashResult{this->md, this->md_len};
 }
 
 #endif // CPP_HASHELEMENT_H
