@@ -23,7 +23,7 @@ std::string encode_string(const uint64_t garlic, const uint64_t depth,
         const std::string &hash_func, const HashResult hashResult);
 
 
-const RiffleScramberContext decode_string(const std::string &encoded);
+const RiffleScramberContext decode_string(const std::string encoded);
 
 
 #endif //CPP_ENCODING_H
