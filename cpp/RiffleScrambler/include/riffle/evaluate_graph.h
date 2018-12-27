@@ -10,10 +10,12 @@
 #include <vector>
 
 #include <riffle/hash_functions/message_digests.h>
+#include <riffle/hash_functions/HashResult.h>
 #include <riffle/generate_graph.h>
 
-std::string eval_graph(const riffle_graph edges, const uint64_t depth,
-                       const uint64_t g, const std::string value,
+const HashResult eval_graph(const riffle_graph edges, const uint64_t depth,
+                       const uint64_t g,
+                       const void *const password, const size_t pwdlen_bytes,
                        const MD_Wrapper wrapper);
 
 #endif // CPP_EVALUATE_GRAPH_H

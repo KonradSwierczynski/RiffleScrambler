@@ -16,6 +16,7 @@ int main(int argc, char **argv) {
 
     try {
         cxxopts::Options options("RiffleScrambler", "Password hashing memory-hard function");
+        options.positional_help("[optional args]").show_positional_help();
 
         options.add_options()
                 ("p,password", "Password to hash", cxxopts::value<std::string>())
@@ -23,10 +24,17 @@ int main(int argc, char **argv) {
                 ("w,width", "Width of the graph", cxxopts::value<int>()->default_value("12"))
                 ("d,depth", "Number of stack of the graph", cxxopts::value<int>()->default_value("2"))
                 ("h,hash", "Hash function", cxxopts::value<std::string>()->default_value("sha256"))
+                ("help", "Print help")
         ;
 
         options.parse_positional({"password", "salt"});
         auto result = options.parse(argc, argv);
+
+        if (result.count("help"))
+        {
+            std::cout << options.help({"", "Group"}) << std::endl;
+            exit(0);
+        }
 
         password = result["password"].as<std::string>();
         salt = result["salt"].as<std::string>();
@@ -37,9 +45,13 @@ int main(int argc, char **argv) {
     } catch (const cxxopts::OptionException& e) {
         std::cerr << "Error parsing options: " << e.what() << std::endl;
         exit(1);
+    } catch (const std::domain_error& e) {
+        std::cerr << "Wrong argument type: " << e.what() << std::endl;
+        exit(2);
     }
 
     std::cout << riffle_scrambler(password, salt, width, depth, hash_func) << std::endl;
+
 
     return 0;
 }
