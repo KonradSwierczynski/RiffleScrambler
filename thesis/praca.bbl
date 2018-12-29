@@ -1,3 +1,15 @@
-\begin{thebibliography}{}
+\begin{thebibliography}{1}
+
+\bibitem{depth}
+J.~Alwen, J.~Blocki, K.~Pietrzak.
+\newblock Depth-robust graphs and their cumulative memory complexity.
+\newblock {\em Annual International Conference on the Theory and Applications
+  of Cryptographic Techniques}, strony 3--32. Springer, 2017.
+
+\bibitem{rs}
+K.~Gotfryd, P.~Lorek, F.~Zag{\'o}rski.
+\newblock Rifflescrambler--a memory-hard password storing function.
+\newblock {\em European Symposium on Research in Computer Security}, strony
+  309--328. Springer, 2018.
 
 \end{thebibliography}

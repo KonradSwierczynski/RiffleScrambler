@@ -141,7 +141,23 @@
 \end{proof}
 
 
+\begin{definition}
+	($\lambda$-Stacked Sandwich Graphs) Niech $n, \lambda \in \mathbb{N}_{ \geq 1}$ takie, że $\lambda + 1$ dzieli $n$ oraz niech $k=n/(\lambda + 1)$. Mówimy, że graf $G$ jest $\lambda$-stacked sandwich DAG, jeżeli $G$ zawiera ścieżkę przechodzącą przez $n$ wierzchołków $(v_{1},\dots,v_{n})$ oraz dzieląc go na warstwy $L_{j} = \{v_{jk + 1},\dots,v_{jk + k} \}$, dla $j \in \{0,\dots,\lambda\}$, pozostałe krawędzie łączą wierzchołki z niższej warstwy $L_{j}$ jedynie z wierzchołkami z wyższych warstw $L_{i}$, $i \in \{ j+1,\dots,\lambda \}$.
+\end{definition}
 
+\begin{definition}
+	Jeżeli graf $G$ nie jest (e,d)-depth-roubust to nazywany jest (e,d)-reducible.
+\end{definition}
+
+\begin{lemma}
+	Niech $G$ będzie $\lambda$-stacked sandwich DAG, wtedy dla dowolnego $t \in \mathbb{N}^{+}$, $G$ jest $(n/t, \lambda t)$-reducible.
+\end{lemma}
+
+\begin{theorem}
+	Niech $G \in \mathbb{G}_{n, \delta}$ taki, że $G$ jest (e,d)-depth-robust. Wtedy
+	$$ \Pi_{cc}^{\parallel}(G) = O \left( \min_{g \in [d,n])} \{ n ( \frac{dn}{g} + \delta g + e ) \} \right) $$
+	biorąc $g = \sqrt{ \frac{dn}{g}}$ upraszcza się to do $ \Pi_{cc}^{\parallel}(G) = O \left( n ( \sqrt{dn \delta} + e) \right)$.
+\end{theorem}
 
 \begin{theorem}
 	Niech $\lambda, g \in \mathbb{N}^{+}$, $N = 2^{g}$, $n = N(2 \lambda g + 1)$, wtedy
