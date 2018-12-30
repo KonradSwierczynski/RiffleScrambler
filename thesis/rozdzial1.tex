@@ -1,6 +1,27 @@
-\chapter{Analiza problemu}
+\chapter{Preliminaries}
 \thispagestyle{chapterBeginStyle}
 \label{rozdzial1}
+
+W dalszej części używana będzie następująca notacja.
+Zbiory $\mathbb{N} = \{ 0,1,2,\dots \}$, $ \mathbb{N}^{+} = \{ 1, 2, \dots \}$.
+$[c] := \{1, 2,\dots,c \}$ oraz $[b, c] = \{ b, b+1, \dots, c \}$, gdzie $b, c \in \mathbb{N}$ oraz $b \leq c$.
+
+Skierowany graf acykliczny (ang. \textit{directed acyclic graph}, DAG) $G = (V, E)$ jest rozmiaru $n$ jeżeli $|V| = n$.
+Wierzchołek $v \in V$ ma stopień wchodzący $\delta$ równy największemu stopniu wchodzącemu wśród jego wierzchołków $\delta = indeg(v)$, jeżeli istnieje $\delta$ wchodzących krawędzi $\delta = | \left( V \times {v} \right) \cap E|$.
+Graf $G$ ma stopień wchodzący $ \delta = indeg(G) = \max_{v \in V} indeg(v)$.
+Wierzchołki o stopniu wchodzącym 0 nazywane są źródłami, a wierzchołki bez krawędzi wychodzących nazywane są ujściami.
+
+Zbiór rodziców wierzchołka $v \in V$ oznaczany jest jako $parents_{G}(v) = \{ u \in V: (u, v) \in E \}$.
+Uogólniając, zbiór przodków $v$ oznaczany jest jako $ancestors_{G}(v) = \bigcup_{i \geq 1}parents_{G}^{i}(v)$, przyjmując $parents_{G}^{i+1}(v) = parents_{G}(parents_{G}^{i}(v)))$. Jeżeli wybór grafu $G$ wynika z kontekstu, będziemy oznaczać te zbiory jako $parents$ oraz $ancestors$.
+
+Zbiór wszystkich ujść w grafie $G$ oznaczany jest jako $sinks(G) = \{ v \in V : \nexists (v, u) \in E \}$. DAG G, który jest spójny, a tylko takie będą rozważane w dalszej części pracy, zachowuje równość $ancestors(sinks(G)) = V$.
+
+Dla skierowanej ścieżki $p = (v_{1},v_{2},\dots,v_{z})$ w $G$, jej długość jest równa ilości wierzchołku przez które przechodzi $length(p) := z$.
+Mając DAG G, oznaczamy długość jego najdłuższej ścieżki jako $depth(G)$.
+
+Mając podzbiór wierzchołków grafu $S \subset V$, poprzez $G - S$ oznaczać będziemy DAG otrzymany z $G$ poprzez usunięcie wierzchołków z $S$ oraz krawędzi wychodzących lub wchodzących do wierzchołków z $S$.
+
+\section{Etykietowanie Grafu}
 
 \begin{definition}
 	(\textit{Parallel/Sequential Graph Pebbling}). Niech $G = (V, E)$ będzie grafem skierowanym grafem acyklicznym i niech $T \subset V$ będzie zbiorem wierzchołków do oetykietowania. $T$ będzie nazywane celem.
@@ -27,12 +48,10 @@
 
  Można zauważyć, że $ \mathcal{P}_{G,T} \subset  \mathcal{P}_{G,T}^{ \parallel } $.
 
-
-
 \begin{definition}
-	Złożoność czasową, pamięciową, pamięciowo-czasową oraz łączna etykietowania $ P = (P_{0}, \dots , P_{t} ) \in \mathcal{P}_{G}^{ \parallel } $ są zdefiniowane jako
+	Złożoność czasową (ang. \textit{time}, t), pamięciową (ang. \textit{space}, s), pamięciowo-czasową (ang. \textit{space-time}, st) oraz łączna (ang. \textit{cumulative}, cc) etykietowania $ P = (P_{0}, \dots , P_{t} ) \in \mathcal{P}_{G}^{ \parallel } $ są zdefiniowane jako
 	$$ \Pi_{t}(P) = t, \Pi_{s}(P) = \max_{y \in [t]} | P_{i} |, \Pi_{st}(P) = \Pi_{t}(P) * \Pi_{s}(P), \Pi_{cc}(P) = \sum_{i \in [t]}| P_{i}|$$
-	Dla $ \alpha \in {s, t, st, cc}$ oraz celu $T \subset V $, złożoności sekwencyjnego oraz równoległego
+	Dla $ \alpha \in \{s, t, st, cc \}$ oraz celu $T \subset V $, złożoności sekwencyjnego oraz równoległego
 	etykietowania grafu $G$ definiujemy jako
 	$$ \Pi_{ \alpha }(G, T) = \min_{P \in \mathcal{P}_{G,T}} \Pi_{ \alpha } (P) $$
 	$$ \Pi_{ \alpha }^{ \parallel }(G, T) = \min_{P \in \mathcal{P}_{G,T}^{ \parallel }} \Pi_{ \alpha } (P) $$
@@ -40,34 +59,71 @@
 	
 \end{definition}
 
+Ponieważ $ \mathcal{P}_{G,T} \subset  \mathcal{P}_{G,T}^{ \parallel } $, dla dowolnej złożoności etykietowania $ \alpha \in \{s, t, st, cc \}$ oraz dowolnego grafu $G$ złożoność etykietowania równoległe jest nie większa, niż złożoność etykietowania sekwencyjnego $ \Pi_{ \alpha }(G) \geq \Pi_{ \alpha}^{\parallel}(G)$, a złożoność łączna jest nie większa, niż czasowo-pamięciowa  $ \Pi_{ st }(G) \geq \Pi_{ cc }(G)$ i $ \Pi_{ st }^{ \parallel }(G) \geq \Pi_{ cc }^{ \parallel }(G)$.
 
+W tej pracy głównie rozważane jest badanie złożoności $\Pi_{ st }$, oraz $\Pi_{ cc }^{ \parallel }$, ponieważ ukazują one kolejno koszt przeprowadzania etykietowania na jednordzeniowej maszynie (np. procesor x86) oraz koszt etykietowania na wyspecjalizowanym układzie.
+
+Aby zobaczyć jakie wartości mogą przyjąć przedstawione złożoności, rozważmy graf rozmiaru $n$.
+Każdy graf rozmiaru $n$ może zostać oetykietowany w $n$ krokach, ponieważ ma tylko $n$ wierzchołków. Każdy stan etykietowania nie może również zawierać więcej niż $n$ elementów. Zatem górne ograniczenie możemy przedstawić następująco
+$$ \forall G_{n} \in \mathbb{G}_{n} : \Pi_{ cc }^{ \parallel }(G_{n}) \leq \Pi_{ st }(G_{n}) \leq n^{2} . $$
+
+Zobaczmy jak wyglądają złożoności dla grafu pełnego $K_{n} = (V = [n], E= \{
+(i,j): 1 \leq i < j \leq n \})$ oraz dla $Q_{n} = (V = [n], E = \{ (i, i+1) : 1 \leq n \} )$.
+$$ n(n - 1) / 2 \leq \Pi_{ cc }^{ \parallel }(K_{n}) \leq \Pi_{ st }(K_{n}) \leq n^2$$
+Graf $K_{n}$ maksymalizuje złożoności etykietowania, a  $\Pi_{ cc }^{ \parallel }$ jest rożne tylko o stałą od $\Pi_{ st }$. Co oznacza, że koszt obliczania funkcji opartej na takim grafie byłby zdominowany przez koszt dostępu do pamięci, a wyspecjalizowane układy nie dały by dużej przewagi nad tradycyjnym procesorem. Jest to bardzo pożądane dla funkcji memory-hard, jednak ze względu na bardzo wysoki stopień grafu $K_{n}$, nie jest on przydatny przy konstruowaniu MHF.
+Stopień wchodzący w grafie $Q_{n}$ jest równy 1, jednak złożoność etykietowania jest bardzo niska
+$$ \Pi_{ cc }^{ \parallel }(Q_{n}) = \Pi_{ st }(Q_{n}) \leq n. $$ 
+Oznacza to, że koszt obliczania funkcji opartej na takim grafie (taką funkcją jest PBKDF2) nie jest zależny w dużej mierze od kosztu dostępu do pamięci nawet dla dużego $n$. 
+
+
+
+\section{Superkoncentrator}
+Superkoncentrator jest grafem, w którym moc zbioru przodków dla wierzchołków szybko rośnie wraz z numerem pokolenia. Oznacza to, że zbiór kolejnych wierzchołków, będzie posiadał liczebny zbiór rodziców, co czyni superkoncentrator bardzo przydatnym do konstrukcji MHF.
 \begin{definition}
-	(N-Superconcentrator) Skierowany graf acykliczny $G = (V, E)$ o ustalonym stopniu, $N$ wejściach i
-	$N$ wyjściach nazywany jest N-Superkoncentratorem gdy dla każdego $k \in [N]$
+	(N-Superkoncentrator) Skierowany graf acykliczny $G = (V, E)$ o ustalonym stopniu wchodzącym, $N$ wejściach i
+	$N$ wyjściach nazywany jest N-Superkoncentratorem, gdy dla każdego $k \in [N]$
 	oraz dla każdej pary podzbiorów $V_{1} \subset V$ $k$ wejść i $V_{2} \subset V$ $k$ wyjść istnieje
 	$k$ wierzchołkowo-rozłącznych ścieżek łączących wierzchołki ze zbioru $V_{1}$ z wierzchołkami w $V_{2}$.
 \end{definition}
 
 \begin{definition}
-	((N, $\lambda$)-Superconcentrator) Niech $G_{i}, i = 0, \dots, \lambda-1$ będą N-Superkoncentratorami.
+	((N, $\lambda$)-Superkoncentrator) Niech $G_{i}, i = 0, \dots, \lambda-1$ będą N-Superkoncentratorami.
 	Niech graf $G$ będzie połączeniem wyjść $G_{i}$ do odpowiadających wejść w $G_{i+1}$ dla $i = 0, \dots, \lambda - 2$.
 	Graf $G$ jest nazywany (N, $\lambda$)-Superkoncentratorem.
 \end{definition}
 
 \begin{theorem}
-	(Ograniczenie dolne dla (N, $ \lambda $)-Superkoncentratora))
-	Pebbling a (N, $ \lambda $)-Superconcentrator using $S \leq N/ 20 $	pebbles requires $T$ placements such that
+	(Ograniczenie dolne dla (N, $ \lambda $)-Superkoncentratora)
+	Etykietowanie (N, $\lambda$)-Superkoncentratora używając $S \leq N/20$ etykiet, wymaga $T$ kroków, gdzie
 	$$ T \geq N \left( \frac{ \lambda N}{64 S} \right) ^{ \lambda }.$$
-%	TODO poprawić nawias
-%   TODO przetłumaczyć
+\end{theorem}
+
+\section{Grafy Depth-Robust}
+
+Alwen i Blocki w swojej pracy [] //TODO
+pokazali, że istnieje zależność między złożonością etykietowania, a depth-robustness. Na podstawie tej właściwości potrafimy określić dolne i górne ograniczenie $\Pi_{ cc }^{ \parallel }$.
+
+\begin{definition}
+	(Depth-Robustness) Dla $n \in \mathbb{N}$ oraz $e, d \in [n]$ DAG $G = (V, E)$
+	jest (e, d)-depth-robust, jeżeli
+	$$ \forall S \subset V \ | S | \leq e \Rightarrow depth(G - S) \geq d.$$
+\end{definition}
+
+\begin{theorem}
+	Niech DAG G będzie (e, d)-depth-robust, wtedy $ \Pi_{ cc }^{ \parallel } > ed$.
 \end{theorem}
 
 \begin{definition}
-	(Depth-Robustness) Dla $n \in \mathbb{N}$ oraz $e, d \in [n]$ acykliczny graf skierowany $G = (V, E)$
-	jest (e, d)-depth-robust jeżeli
-	$$ \forall S \subset V | S | \leq e \Rightarrow depth(G - S) \geq d$$
+	Jeżeli graf $G$ nie jest (e,d)-depth-roubust to nazywany jest (e,d)-reducible.
 \end{definition}
 
+\begin{theorem}
+	Niech $G \in \mathbb{G}_{n, \delta}$ taki, że $G$ jest (e,d)-reducible. Wtedy
+	$$ \Pi_{cc}^{\parallel}(G) = O \left( \min_{g \in [d,n]} \Big \lbrace n \left( \frac{dn}{g} + \delta g + e \right) \Big \rbrace \right) $$
+	biorąc $g = \sqrt{ \frac{dn}{g}}$ upraszcza się to do $ \Pi_{cc}^{\parallel}(G) = O \left( n ( \sqrt{dn \delta} + e) \right)$.
+\end{theorem}
+
+\section{Dispresed Graphs}
 
 \begin{definition}
 	(Dependencies) Niech $G = (V, E)$ będzie acyklicznym grafem skierowanym.
@@ -100,6 +156,20 @@
 \end{theorem}
 
 
+\section{Grafy Warstwowe}
+
+\begin{definition}
+	($\lambda$-Stacked Sandwich Graphs) Niech $n, \lambda \in \mathbb{N}^{+}$ takie, że $\lambda + 1$ dzieli $n$ oraz niech $k=n/(\lambda + 1)$. Mówimy, że graf $G$ jest $\lambda$-stacked sandwich DAG, jeżeli $G$ zawiera ścieżkę przechodzącą przez $n$ wierzchołków $(v_{1},\dots,v_{n})$ oraz dzieląc go na warstwy $L_{j} = \{v_{jk + 1},\dots,v_{jk + k} \}$, dla $j \in \{0,\dots,\lambda\}$, pozostałe krawędzie łączą wierzchołki z niższej warstwy $L_{j}$ jedynie z wierzchołkami z wyższych warstw $L_{i}$, $i \in \{ j+1,\dots,\lambda \}$.
+\end{definition}
+
+
+
+\begin{lemma}
+	Niech $G$ będzie $\lambda$-stacked sandwich DAG, wtedy dla dowolnego $t \in \mathbb{N}^{+}$, $G$ jest $(n/t, \lambda t)$-reducible.
+\end{lemma}
+
+
+\section{Ograniczenia Złożoności RSG}
 
 \begin{theorem}
 	Niech $ \lambda, n \in \mathbb{N}^{+}$ takie, że $n = \overline{n}(2 \lambda c + 1) $, gdzie $c \in \mathbb{N}$ i $ \overline{n} = 2^{c}$.
@@ -141,23 +211,6 @@
 \end{proof}
 
 
-\begin{definition}
-	($\lambda$-Stacked Sandwich Graphs) Niech $n, \lambda \in \mathbb{N}_{ \geq 1}$ takie, że $\lambda + 1$ dzieli $n$ oraz niech $k=n/(\lambda + 1)$. Mówimy, że graf $G$ jest $\lambda$-stacked sandwich DAG, jeżeli $G$ zawiera ścieżkę przechodzącą przez $n$ wierzchołków $(v_{1},\dots,v_{n})$ oraz dzieląc go na warstwy $L_{j} = \{v_{jk + 1},\dots,v_{jk + k} \}$, dla $j \in \{0,\dots,\lambda\}$, pozostałe krawędzie łączą wierzchołki z niższej warstwy $L_{j}$ jedynie z wierzchołkami z wyższych warstw $L_{i}$, $i \in \{ j+1,\dots,\lambda \}$.
-\end{definition}
-
-\begin{definition}
-	Jeżeli graf $G$ nie jest (e,d)-depth-roubust to nazywany jest (e,d)-reducible.
-\end{definition}
-
-\begin{lemma}
-	Niech $G$ będzie $\lambda$-stacked sandwich DAG, wtedy dla dowolnego $t \in \mathbb{N}^{+}$, $G$ jest $(n/t, \lambda t)$-reducible.
-\end{lemma}
-
-\begin{theorem}
-	Niech $G \in \mathbb{G}_{n, \delta}$ taki, że $G$ jest (e,d)-depth-robust. Wtedy
-	$$ \Pi_{cc}^{\parallel}(G) = O \left( \min_{g \in [d,n])} \{ n ( \frac{dn}{g} + \delta g + e ) \} \right) $$
-	biorąc $g = \sqrt{ \frac{dn}{g}}$ upraszcza się to do $ \Pi_{cc}^{\parallel}(G) = O \left( n ( \sqrt{dn \delta} + e) \right)$.
-\end{theorem}
 
 \begin{theorem}
 	Niech $\lambda, g \in \mathbb{N}^{+}$, $N = 2^{g}$, $n = N(2 \lambda g + 1)$, wtedy
