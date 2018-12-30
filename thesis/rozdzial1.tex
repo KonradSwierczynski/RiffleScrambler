@@ -80,20 +80,20 @@ Oznacza to, że koszt obliczania funkcji opartej na takim grafie (taką funkcją
 \section{Superkoncentrator}
 Superkoncentrator jest grafem, w którym moc zbioru przodków dla wierzchołków szybko rośnie wraz z numerem pokolenia. Oznacza to, że zbiór kolejnych wierzchołków, będzie posiadał liczebny zbiór rodziców, co czyni superkoncentrator bardzo przydatnym do konstrukcji MHF.
 \begin{definition}
-	(N-Superkoncentrator) Skierowany graf acykliczny $G = (V, E)$ o ustalonym stopniu wchodzącym, $N$ wejściach i
+	(N-Superkoncentrator). Skierowany graf acykliczny $G = (V, E)$ o ustalonym stopniu wchodzącym, $N$ wejściach i
 	$N$ wyjściach nazywany jest N-Superkoncentratorem, gdy dla każdego $k \in [N]$
 	oraz dla każdej pary podzbiorów $V_{1} \subset V$ $k$ wejść i $V_{2} \subset V$ $k$ wyjść istnieje
 	$k$ wierzchołkowo-rozłącznych ścieżek łączących wierzchołki ze zbioru $V_{1}$ z wierzchołkami w $V_{2}$.
 \end{definition}
 
 \begin{definition}
-	((N, $\lambda$)-Superkoncentrator) Niech $G_{i}, i = 0, \dots, \lambda-1$ będą N-Superkoncentratorami.
+	((N, $\lambda$)-Superkoncentrator). Niech $G_{i}, i = 0, \dots, \lambda-1$ będą N-Superkoncentratorami.
 	Niech graf $G$ będzie połączeniem wyjść $G_{i}$ do odpowiadających wejść w $G_{i+1}$ dla $i = 0, \dots, \lambda - 2$.
 	Graf $G$ jest nazywany (N, $\lambda$)-Superkoncentratorem.
 \end{definition}
 
 \begin{theorem}
-	(Ograniczenie dolne dla (N, $ \lambda $)-Superkoncentratora)
+	(Ograniczenie dolne dla (N, $ \lambda $)-Superkoncentratora).
 	Etykietowanie (N, $\lambda$)-Superkoncentratora używając $S \leq N/20$ etykiet, wymaga $T$ kroków, gdzie
 	$$ T \geq N \left( \frac{ \lambda N}{64 S} \right) ^{ \lambda }.$$
 \end{theorem}
@@ -104,7 +104,7 @@ Alwen i Blocki w swojej pracy [] //TODO
 pokazali, że istnieje zależność między złożonością etykietowania, a depth-robustness. Na podstawie tej właściwości potrafimy określić dolne i górne ograniczenie $\Pi_{ cc }^{ \parallel }$.
 
 \begin{definition}
-	(Depth-Robustness) Dla $n \in \mathbb{N}$ oraz $e, d \in [n]$ DAG $G = (V, E)$
+	(Depth-Robustness). Dla $n \in \mathbb{N}$ oraz $e, d \in [n]$ DAG $G = (V, E)$
 	jest (e, d)-depth-robust, jeżeli
 	$$ \forall S \subset V \ | S | \leq e \Rightarrow depth(G - S) \geq d.$$
 \end{definition}
@@ -126,13 +126,13 @@ pokazali, że istnieje zależność między złożonością etykietowania, a dep
 \section{Dispresed Graphs}
 
 \begin{definition}
-	(Dependencies) Niech $G = (V, E)$ będzie acyklicznym grafem skierowanym.
+	(Dependencies). Niech $G = (V, E)$ będzie acyklicznym grafem skierowanym.
 	Niech $L \subseteq V$.
 	Mówimy, że $L$ ma ($z$, $g$)-dependency jeżeli istnieją wierzchołkowo rozłączne ścieżki $p_{1}, \dots , p_{z}$ kończące się w $L$, gdzie każda jest długości co najmniej $g$.
 \end{definition}
 
 \begin{definition}
-	(Dispresed Graph) Niech $g, k \in \mathbb{N}$ i $g \geq k$. DAG G jest nazywany (g, k)-dispresed jeżeli istnieje uporządkowanie jego wierzchołków takie, że następujące warunki są spełnione.
+	(Dispresed Graph). Niech $g, k \in \mathbb{N}$ i $g \geq k$. DAG G jest nazywany (g, k)-dispresed jeżeli istnieje uporządkowanie jego wierzchołków takie, że następujące warunki są spełnione.
 	Niech $[k]$ oznacza ostatnie $k$ wierzchołków o uporządkowaniu G i niech $L_{j} = [jg, (j + 1)g - 1]$ będzie j-tym podprzedziałem.
 	Wtedy $\forall j \in [ \lfloor k / g \rfloor ]$ przedział $L_{j}$ ma (g, g)-dependency.
 	W ogólności, jeżeli dla $ \epsilon \in (0, 1] $ każdy przedział $L_{j}$ ma tylko ($\epsilon$g, g)-dependency, graf G nazywany jest ($\epsilon$, g, g)-dispresed.
@@ -159,7 +159,7 @@ pokazali, że istnieje zależność między złożonością etykietowania, a dep
 \section{Grafy Warstwowe}
 
 \begin{definition}
-	($\lambda$-Stacked Sandwich Graphs) Niech $n, \lambda \in \mathbb{N}^{+}$ takie, że $\lambda + 1$ dzieli $n$ oraz niech $k=n/(\lambda + 1)$. Mówimy, że graf $G$ jest $\lambda$-stacked sandwich DAG, jeżeli $G$ zawiera ścieżkę przechodzącą przez $n$ wierzchołków $(v_{1},\dots,v_{n})$ oraz dzieląc go na warstwy $L_{j} = \{v_{jk + 1},\dots,v_{jk + k} \}$, dla $j \in \{0,\dots,\lambda\}$, pozostałe krawędzie łączą wierzchołki z niższej warstwy $L_{j}$ jedynie z wierzchołkami z wyższych warstw $L_{i}$, $i \in \{ j+1,\dots,\lambda \}$.
+	($\lambda$-Stacked Sandwich Graphs). Niech $n, \lambda \in \mathbb{N}^{+}$ takie, że $\lambda + 1$ dzieli $n$ oraz niech $k=n/(\lambda + 1)$. Mówimy, że graf $G$ jest $\lambda$-stacked sandwich DAG, jeżeli $G$ zawiera ścieżkę przechodzącą przez $n$ wierzchołków $(v_{1},\dots,v_{n})$ oraz dzieląc go na warstwy $L_{j} = \{v_{jk + 1},\dots,v_{jk + k} \}$, dla $j \in \{0,\dots,\lambda\}$, pozostałe krawędzie łączą wierzchołki z niższej warstwy $L_{j}$ jedynie z wierzchołkami z wyższych warstw $L_{i}$, $i \in \{ j+1,\dots,\lambda \}$.
 \end{definition}
 
 
