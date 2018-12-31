@@ -231,13 +231,91 @@ Procedurę $\mathbf{RiffleScrambler}(pwd, s, g,\lambda)$ można z grubsza przeds
 \end{figure}
 
 
-\begin{algorithm}[H]
+\begin{algorithm}
+	\caption{$\mathbf{RiffleShuffle}$}
+	\SetAlgoLined
+	\KwIn{N, bitGenerator}
+	\KwOut{$\sigma$}
+	
+	\tcc{$perm$ zawiera krotki będące początkowym indeksem oraz wyrazem binarnym.
+	$perm[i] = (id, bin)$ dla $i\in \{0,\dots,N-1\}$}
+
+	$perm = ((0, ````),(1,````),\dots,(N-1,````))$ \;
+	
+	\While{$\exists_{i \in \{0,\dots,N-2\}} perm[i][1] == perm[i+1][1]$}{
+		$numberOfOnes = 0$ \;
+		\For{$i = 0$ \KwTo $N - 1$}{
+			$newBit = bitGenerator()$ \;
+			$perm[i][1] = perm[i][1] + newBit$ \; 
+			\If{$newBit == ``1``$}{
+				$numberOfOnes = numberOfOnes + 1$ \;
+			}
+		}
+		$lastIndexOfOnes = 0$ \;
+		$lastIndexOfZeros = numOfOnes$ \;
+		
+		\For{$i = 0$ \KwTo $N - 1$}{
+			\eIf{$lastBit(permutation[i][1]) == ``1``$}{
+				$tmp[lastIndexOfOnes] = permutation[i]$ \;
+				$lastIndexOfOnes = lastIndexOfOnes + 1$ \;	
+			} {
+				$tmp[lastIndexOfZeros] = permutation[i]$ \;
+				$lastIndexOfZeros = lastIndexOfZeros + 1$ \;	
+			}
+		}
+	
+		$perm = tmp$ \;
+
+
+	}
+	$\sigma = (perm[0].id,perm[1].id,\dots,perm[N-1].id)$ \;
+	
+	\Return $\sigma$ \;
+\end{algorithm}
+
+
+\begin{algorithm}
+	\caption{$\mathbf{GenGraph}$}
+	\SetAlgoLined
+	\KwIn{g, $\sigma$}
+	\KwOut{G}
+	
+	$N = 2^g$ \;
+	$V = \{ v_i^j: i \in \{0,\dots,N-1\}; j \in \{0,\dots, 2g \} \}$ \;
+	$E = \{ v_i^j \rightarrow v_{i + 1}^{j} : i \in \{ 0, \dots, N - 2 \}; j \in  \{ 0, \dots, 2g \} \} $ \;
+	$E = E \cup \{ v_{N-1}^{j} \rightarrow v_{0}^{j+1} : j \in \{ 0, \dots, 2g - 1 \} \}$ \;
+	
+	$\mathfrak{B} = (\mathfrak{B}_0,\dots,\mathfrak{B}_{g-1}) = \mathbf{TraceTrajectories}(\sigma)$ \;
+	
+	\For{$m = 0$ \KwTo $g - 2$}{
+		$\mathfrak{B}_{2g + 1 - m} = \mathfrak{B}_{m}$ \; 
+	}
+
+	\tcc{Bity w słowach binarnych oznaczamy dodając indeks dolny. \
+	$\mathfrak{B}_j = \mathfrak{B}_{j,0}\mathfrak{B}_{j,1}\dots \mathfrak{B}_{j,2^g-1}$
+	}
+
+	\For{$j = 0$ \KwTo $2g - 1$}{
+		\For{$i = 0$ \KwTo $2^g - 1$}{
+			
+			$
+			E = E \cup 
+			\{ v_i^j \rightarrow v_{\pi_{\mathfrak{B}_{j,i}}}^{i+1} \}
+			\cup \{ v_i^j \rightarrow v_{\pi_{\overline{\mathfrak{B}}_{j,i}}}^{i+1} \}$ \;
+		}
+	}
+	\Return $G = (V,E)$ \;
+	
+\end{algorithm}
+
+
+
+\begin{algorithm}
 	\caption{$\mathbf{RiffleScrambler}$}
 	\SetAlgoLined
 	\KwIn{s, g, pwd, $\lambda$, H - funckja sktóru}
 	\KwOut{pwd hash}
-	
-	$\sigma = \mathbf{RiffleShuffle}(2^g, s)$ \;
+	$\sigma = \mathbf{RiffleShuffle}(2^g, pseudoRandomBitGenerator(s,H))$ \;
 	$G = (V,E) = \mathbf{GenGraph}(g, \sigma$) \;
 	$v_0^0 = H(X)$ \;
 	\For{$i = 1$ \KwTo $2^g-1$}{
@@ -256,12 +334,10 @@ Procedurę $\mathbf{RiffleScrambler}(pwd, s, g,\lambda)$ można z grubsza przeds
 			$v_i^0 = v_i^{2g+1}$ \;
 		}
 	}
-
+	
 	$hash = v_{2^g - 1}{2g}$ \;
 	\Return $hash$ \;
 \end{algorithm}
-
-
 
 
 
