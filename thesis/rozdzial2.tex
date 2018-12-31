@@ -23,7 +23,7 @@ Parametr $g$ określa ilość pamięci, jaką trzeba będzie wykorzystać podcza
 Parametr $\lambda$ definiuje ile warstw będzie miał końcowy graf, co bezpośrednio wpływa na czas obliczania funkcji.
 
 
-\subsection{Tworzenie Krawędzi Na Podstawie Permutacji}
+\subsection{Tworzenie Grafu Na Podstawie Permutacji}
 
 Niech $HW(x)$ (ang. \textit{Hamming weight}) oznacza ilość jedynek w wyrazie binarnym $x$. Niech $\overline{x}$ oznacza negację wyrazu $x$, zatem $HW(\overline{x})$ oznacza liczbę zer w wyrazie $x$.
 
@@ -70,7 +70,7 @@ Niech $HW(x)$ (ang. \textit{Hamming weight}) oznacza ilość jedynek w wyrazie b
 	\begin{itemize}
 		\item jedna krawędź: $v_{N-1}^{0} \rightarrow v_{0}^{1}$,
 		
-		\item $2(N - 1)$ krawędzi: $v_{i}^{j} \rightarrow v_{i+1}^{j}$, dla $i \in \{0, \dots, N - 2\}$ oraz $j \in \{0, 1\}$,
+		\item $2(N - 1)$ krawędzi: $v_{i-1}^{j} \rightarrow v_{i}^{j}$, dla $i \in [N-1]$ oraz $j \in \{0, 1\}$,
 		
 		\item $N$ krawędzi: $v_{i}^{0} \rightarrow v_{\pi_{B}(i)}^{1}$, dla $i \in \{0,\dots,N -1\}$,
 		
@@ -100,12 +100,72 @@ Od teraz zakładamy, że $N = 2^{g}$.
 	N-Double-riffle-Graph jest otrzymywany poprzez ułożenie w stos $2g$ grafów, które spełniają warunki N-Single-Layer-Riffle-Graph. Otrzymany tak graf ma $(2g+1)2^{g}$ wierzchołków $ \{ v_{0}^{0}, \dots , v_{2^{g} - 1}^{0} \} \cup \dots \cup \{ v_{0}^{2g},\dots,v_{2^{g - 1}}^{2g} \} $,
 	oraz następujące krawędzie:
 	\begin{itemize}
-		\item $(2g + 1)2^{g}$ krawędzi: $v_{i-1}^{j} \rightarrow v_{i}^{j}$ dla $i \in  $
+		\item $(2g + 1)2^{g}$ krawędzi: $v_{i-1}^{j} \rightarrow v_{i}^{j}$ dla $i \in [2^{g}-1]$ i $j \in \{0,1,\dots,2^{g} \}$,
+		
+		\item $2g$ krawędzi: $v_{2^{g} - 1}^{j} \rightarrow v_{0}^{j+1}$ dla $j \in \{0,\dots,2g-1 \} $,
+		
+		\item $g2^{g}$ krawędzi: $v_{i}^{j-1} \rightarrow v_{\pi_{B_{j}}(i)}^{j}$, dla $i \in \{0,\dots,2^{g} -1\}$ i $j \in [g]$,
+		
+		\item $g2^{g}$ krawędzi: $v_{i}^{j-1} \rightarrow v_{\pi_{\overline{B}_{j}}(i)}^{j}$, dla $i \in \{0,\dots,2^{g} -1\}$ i $j \in [g]$,
 	\end{itemize}
+	oraz dla dolnych $g$ warstw, które są symetryczne względem warstwy $g$:
+	\begin{itemize}
+		\item $g2^{g}$ krawędzi: $v_{i}^{2g - j} \rightarrow v_{\pi_{B_{j}}^{-1}(i)}^{2g -j + 1}$, dla $i \in \{0,\dots,2^{g} -1\}$ i $j \in [g]$,
+
+		\item $g2^{g}$ krawędzi: $v_{i}^{2g - j} \rightarrow v_{\pi_{\overline{B}_{j}}^{-1}(i)}^{2g - j + 1}$, dla $i \in \{0,\dots,2^{g} -1\}$ i $j \in [g]$,
+	\end{itemize}
+
 \end{definition}
 
 
+\begin{definition}
+	((N,$\lambda$)-Double-Riffle-Graph). Niech $G_{i}$, $i \in \{ 0,1,\dots,\lambda - 1\}$ będą N-Double-Riffle-Graph. Graf (N,$\lambda$)-Double-Riffle-Graph jest skonstruowany poprzez złączenie wyjść grafu $G_{i}$ do dopowiadających wejść grafu $G_{i+1}$, $i \in \{ 0, 1, \dots, \lambda - 2\}$.
+\end{definition}
 
+\subsection{Śledzienie Trajektorii}
+Graf jest generowany za pomocą permutacji pseudolosowej $\sigma$.
+Ponieważ do generowania grafu potrzebne jest $g$ słów binarnych o długości $2^{g}$, a permutacje zawierają $2^{g}$ elementów, gdzie każdy ma maksymalnie $g$ bitów znaczących, trzeba przekształcić permutację tak, aby otrzymać pożądane dane.
+Ta procedura nazwana jest śledzeniem trajektorii (ang. \textit{trace trajectories}).
+Niech $B$ będzie macierzą binarną o rozmiarze $2^{g} \times g$, gdzie $j$-ta kolumna jest binarną postacią $\sigma(j) \in [2^{g}-1]$. Macierz $\mathfrak{B} = (\mathfrak{B}_{0},\dots,\mathfrak{B}_{g-1})$ oznaczać będzie transpozycję macierzy $B$, a więc macierz o potrzebnym do generacji grafu rozmiarze $g \times 2^{g}$.
+
+\section{Algorytm}
+
+Procedurę $\mathbf{RiffleScrambler}(pwd, s, g,\lambda)$ można z grubsza przedstawić następująco.
+
+\begin{itemize}
+	\item Dla podanej soli $s$ obliczana jest pseudolosowa permutacja $\sigma$ (używając algorytmu inverse Riffle Shuffle).
+	
+	\item Dla permutacji $\sigma$ tworzona jest macierz $\mathfrak{B} = \mathbf{TraceTrajectories}(B)$.
+	
+	\item Dla wyrazów binarnych $\mathfrak{B}_{0},\dots,\mathfrak{B}_{g-1}$ generowany jest graf $G$, który jest N-Double-Riffle-Graph. Przypomnijmy, $N = 2 ^ {g}$.
+	
+	\item Na grafie $G$ zainicjalizowanym wartością $pwd$, oblicze są wartości w ostatnim rzędzie ($v_{0}^{2g+1},\dots,v_{2^{g} - 1}^{2g + 1}$).
+	
+	\item Wartości z ostatniego rzędu przepisywane są do pierwszego, $v_{i}^{0} = v_{1}^{2g+1}$ dla $i \in \{ 0,\dots,2^{g}-1 \}$, a następnie znów oblicza się wartość ostatnich rzędów. Powtarzane jest $\lambda$ razy.
+	
+	\item Wartością końcową jest wartość w ostatnim wierzchołku, czyli w $v_{2^{g} - 1}^{2g}$.
+\end{itemize}
+
+\begin{example}
+	(Generacja (8,1)-Double-Riffle-Graph).
+	Skoro $N = 8$, to $g = 3$, ponieważ $N = 2^g$. $\lambda = 1$.
+	Niech otrzymaną permutacją $\sigma$ będzie $\bigl( \begin{smallmatrix}
+	0 && 1 && 2 && 3 && 4 && 5 && 6 && 7 \\
+	5 && 4 && 6 && 3 && 2 && 7 && 0 && 1
+	\end{smallmatrix} \bigr) $.
+	Zatem binarna postać permutacji $B = \bigl( \begin{smallmatrix}
+		1 && 1 && 1 && 0 && 0 && 1 && 0 && 0 \\
+		0 && 0 && 1 && 1 && 1 && 1 && 0 && 0 \\
+		1 && 0 && 0 && 1 && 0 && 1 && 0 && 1
+	\end{smallmatrix} \bigr) $.
+	Przeprowadzając śledzenie trajektorii, czyli transponując $B$ otrzymujemy
+	$\mathfrak{B} = (\mathfrak{B_0}, \mathfrak{B_1}, \mathfrak{B_1})$, $\mathfrak{B} =\bigl( \begin{smallmatrix}
+	1 && 1 && 1 && 0 && 0 && 1 && 0 && 0 \\
+	0 && 0 && 1 && 1 && 1 && 1 && 0 && 0 \\
+	1 && 0 && 0 && 1 && 0 && 1 && 0 && 1
+	\end{smallmatrix} \bigr)^{T} $.
+	
+\end{example}
 
 
 
