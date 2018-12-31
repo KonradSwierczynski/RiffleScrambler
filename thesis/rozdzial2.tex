@@ -159,14 +159,46 @@ Procedurę $\mathbf{RiffleScrambler}(pwd, s, g,\lambda)$ można z grubsza przeds
 		1 && 0 && 0 && 1 && 0 && 1 && 0 && 1
 	\end{smallmatrix} \bigr) $.
 	Przeprowadzając śledzenie trajektorii, czyli transponując $B$ otrzymujemy
-	$\mathfrak{B} = (\mathfrak{B_0}, \mathfrak{B_1}, \mathfrak{B_1})$, $\mathfrak{B} =\bigl( \begin{smallmatrix}
+	$\mathfrak{B} = (\mathfrak{B_0}, \mathfrak{B_1}, \mathfrak{B_2})$, $\mathfrak{B} =\bigl( \begin{smallmatrix}
 	1 && 1 && 1 && 0 && 0 && 1 && 0 && 0 \\
 	0 && 0 && 1 && 1 && 1 && 1 && 0 && 0 \\
 	1 && 0 && 0 && 1 && 0 && 1 && 0 && 1
 	\end{smallmatrix} \bigr)^{T} $.
 	
+	Teraz należy obliczyć permutacje $\pi_{\mathfrak{B_0}},\pi_{\mathfrak{B_1}},\pi_{\mathfrak{B_2}}$:
+	
+	$$ \pi_{\mathfrak{B_0}}=\bigl( \begin{smallmatrix}
+	0 && 1 && 2 && 3 && 4 && 5 && 6 && 7 \\
+	4 && 5 && 6 && 0 && 1 && 7 && 2 && 3
+	\end{smallmatrix} \bigr), $$
+		$$ \pi_{\mathfrak{B_1}}=\bigl( \begin{smallmatrix}
+	0 && 1 && 2 && 3 && 4 && 5 && 6 && 7 \\
+	0 && 1 && 4 && 5 && 6 && 7 && 2 && 3
+	\end{smallmatrix} \bigr), $$
+		$$ \pi_{\mathfrak{B_2}}=\bigl( \begin{smallmatrix}
+	0 && 1 && 2 && 3 && 4 && 5 && 6 && 7 \\
+	4 && 0 && 1 && 5 && 2 && 6 && 3 && 7
+	\end{smallmatrix} \bigr). $$
+	
+	Wygenerowany graf z krawędziami zależnymi od permutacji ukazany jest na ...
+	Dodając do nie go krawędzie nie zależne od permutacji, otrzymujemy pełny graf (8,1)-Double-Riffle-Graph.
+	
 \end{example}
 
+
+\begin{figure}
+		\centering
+		\includegraphics[width=0.7\textwidth]{all_rs1.png}
+
+		\caption{(8,1)-Double-Riffle-Graph (krawiędzie niezależne od permutacji, czyli przekątne oraz krawędzie poziome, zostały pominięte). Krawędzie dla permutacji oznaczone są linią ciągłą, a krawędzie dla permutacji negacji oznaczone są linią przerywaną.}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{total_rs.png}
+	
+	\caption{(8,1)-Double-Riffle-Graph ze wszystkimi krawędziami oraz oznaczeniem wejścia i wyjścia. Krawędzie dla permutacji oznaczone są linią ciągłą, krawędzie dla permutacji negacji oznaczone są linią przerywaną, a krawędzie nie zależne od permutacji oznaczone są liniami kropkowanymi}
+\end{figure}
 
 
 
