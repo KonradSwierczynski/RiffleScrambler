@@ -128,6 +128,36 @@ Ponieważ do generowania grafu potrzebne jest $g$ słów binarnych o długości 
 Ta procedura nazwana jest śledzeniem trajektorii (ang. \textit{trace trajectories}).
 Niech $B$ będzie macierzą binarną o rozmiarze $2^{g} \times g$, gdzie $j$-ta kolumna jest binarną postacią $\sigma(j) \in [2^{g}-1]$. Macierz $\mathfrak{B} = (\mathfrak{B}_{0},\dots,\mathfrak{B}_{g-1})$ oznaczać będzie transpozycję macierzy $B$, a więc macierz o potrzebnym do generacji grafu rozmiarze $g \times 2^{g}$.
 
+
+\section{Tworzenie Permutacji}
+
+\subsection{Talia Kart Jako Permutacja}
+Początkową częścią funkcji $\mathbf{RiffleScrambler}$ jest generowanie permutacji na podstawie soli. Do utworzenia takiej permutacji używany jest algorytm $\mathbf{InverseRiffleShuffle}$, który imituje odwrócenie tasowania kart do gry.
+Podczas tasowania talia kart dzielona jest na dwie części.
+Podział odbywa się poprzez wybranie karty w środku talii, karty które są przed wybraną kartą tworzą pierwszą część, a pozostałe tworzą drugą część.
+Następnie te dwie części są ze sobą łączone w jeden stos poprzez losowe umieszczanie karty z góry pierwszej lub drugiej części na stosie.
+Można zauważyć, że kolejność kart wśród stosu z którego pochodzą nie zmienia się, lecz między kolejne karty z jednego stosu mogą wejść karty z drugiego.
+
+W celu wygenerowania permutacji $N$ elementów, myślimy o tych elementach jako o kartach, a o permutacji, jako o pewnej ich kolejności.
+Krok odwrotnego sortowania wygląda następująco.
+
+Dla każdej karty w talii losowany jest jeden bit, 0 lub 1. Wszystkie karty, dla których wylosowano 1 wyciągamy, zachowując ich kolejność i układamy na stos. Następnie umieszczamy ten stos na stosie kart, dla których wylosowano zera.
+
+Dla każdego takiego kroku, dla każdej karty zapisywana jest informacja jaki bit został dla niej wylosowany. Zatem po $n$ krokach, każda karta ma przypisany ciąg binarny długości $n$.
+Kończymy, kiedy talia kart jet dobrze posortowana, czyli kiedy każdej karcie przypisano unikalny ciąg binarny. Nowa kolejność elementów oznacza wygenerowaną permutację.
+
+Można zauważyć, że liczba kroków tasowania $N$ kart na pewno nie będzie mniejsza od $\log{N}$, bo potrzebujemy $\lceil \log{N} \rceil$ bitów, aby każdej karcie przyporządkować inny ciąg binarny.
+
+Algorytm $InverseRiffleShuffle$ będzie mógł się zakończyć, kiedy każdy element będzie posiadał różny ciąg binarny. Średnio oznacza to $2 \log{N}$ kroków \cite{rs}.
+
+\subsection{Algorytm}
+Razem z prezentacją funkcji $\mathbf{RiffleScrambler}$ zaproponowany został algorytm generowania permutacji \cite[algorym 1]{rs}, który sprawdzał warunek końca w czasie $O(n^2)$ oraz potrzebował $O(n^2)$ komórek pamięci, gdzie $n$ oznacza wielkość permutacji.
+
+Pseudokod [IRS...] przedstawia algorytm sprawdzający warunek końca w czasie $O(n)$ korzystając z $O(n log{n})$ komórek pamięci.
+
+Algorytm opiera się na sortowaniu pozycyjnym \textit{radix sort}, gdzie jako pozycje sortowanych elementów podawane są losowane bity.
+Permutowane elementy, trzymane są w tablicy, która jest sortowana po każdej iteracji dokładania kolejnego bitu. Dzięki temu sprawdzenie warunku końca odbywa się na posortowanej tablicy, którą wystarczy przejść sprawdzając czy każde dwa sąsiednie elementy są różne, co wykonywane jest w czasie liniowym.
+
 \section{Algorytm}
 
 Procedurę $\mathbf{RiffleScrambler}(pwd, s, g,\lambda)$ można z grubsza przedstawić następująco.
@@ -190,7 +220,7 @@ Procedurę $\mathbf{RiffleScrambler}(pwd, s, g,\lambda)$ można z grubsza przeds
 		\centering
 		\includegraphics[width=0.7\textwidth]{all_rs1.png}
 
-		\caption{(8,1)-Double-Riffle-Graph (krawiędzie niezależne od permutacji, czyli przekątne oraz krawędzie poziome, zostały pominięte). Krawędzie dla permutacji oznaczone są linią ciągłą, a krawędzie dla permutacji negacji oznaczone są linią przerywaną.}
+		\caption{(8,1)-Double-Riffle-Graph (krawędzie niezależne od permutacji, czyli przekątne oraz krawędzie poziome, zostały pominięte). Krawędzie dla permutacji oznaczone są linią ciągłą, a krawędzie dla permutacji negacji oznaczone są linią przerywaną.}
 \end{figure}
 
 \begin{figure}
@@ -199,6 +229,42 @@ Procedurę $\mathbf{RiffleScrambler}(pwd, s, g,\lambda)$ można z grubsza przeds
 	
 	\caption{(8,1)-Double-Riffle-Graph ze wszystkimi krawędziami oraz oznaczeniem wejścia i wyjścia. Krawędzie dla permutacji oznaczone są linią ciągłą, krawędzie dla permutacji negacji oznaczone są linią przerywaną, a krawędzie nie zależne od permutacji oznaczone są liniami kropkowanymi}
 \end{figure}
+
+
+\begin{algorithm}[H]
+	\caption{$\mathbf{RiffleScrambler}$}
+	\SetAlgoLined
+	\KwIn{s, g, pwd, $\lambda$, H - funckja sktóru}
+	\KwOut{pwd hash}
+	
+	$\sigma = \mathbf{RiffleShuffle}(2^g, s)$ \;
+	$G = (V,E) = \mathbf{GenGraph}(g, \sigma$) \;
+	$v_0^0 = H(X)$ \;
+	\For{$i = 1$ \KwTo $2^g-1$}{
+		$v_i^0 = H(v_{i-1}^{0})$ \;
+	}
+	\For{$r = 1$ \KwTo $\lambda$}{
+		\For{$j = 0$ \KwTo $2g$}{
+			\For{$i = 0$ \KwTo $2^g-1$}{
+				$v_i^{j+1} = 0$ \;
+				\ForAll{$v \rightarrow v_i^{j+1} \in E$}{
+					$v_i^{j+1} = H(v_i^{j+1}, v)$ \;
+				}
+			}	
+		}
+		\For{$i = 0$ \KwTo $2^g - 1$}{
+			$v_i^0 = v_i^{2g+1}$ \;
+		}
+	}
+
+	$hash = v_{2^g - 1}{2g}$ \;
+	\Return $hash$ \;
+\end{algorithm}
+
+
+
+
+
 
 
 
