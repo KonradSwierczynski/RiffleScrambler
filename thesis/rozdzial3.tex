@@ -27,14 +27,19 @@ Wymagania konkursy PHC odnoszące się do implementacji:
 
 
 \section{Opis technologii}
-Początkowa implementacja napisana została w języku Python 3.7, jednak ze względu na niską wydajność  napisana została ostatecznie w języku C++17, standard ISO/IEC 14882:2017.
+Początkowa implementacja napisana została w języku Python 3.7, jednak ze względu na niską wydajność oraz nie spełnianie wymagań PHC napisana została ostatecznie w języku C++17, standard ISO/IEC 14882:2017.
 Dzięki temu wydajność wzrosła ponad dziesięciokrotnie.
+
 W implementacji używana jest biblioteka OpenSSL w wersji ...,
 Z podanej biblioteki użyto interfejsu EVP który dostarcza podstawowe kryptograficzne funkcje skrótu takie jak SHA2, SHA3, blake2s czy ripemd160.
 
 
 \section{Omówienie kodów źródłowych}
-Omówiony zostanie interfejs funkcji $\mathbf{RiffleScrambler}$, który 
+Omówiony zostanie interfejs funkcji $\mathbf{RiffleScrambler}$, który spełnia wymogi PHC oraz posiada dodatkowy wysokopoziomowy interfejs pozwalający na wygodne tworzenie aplikacji uwierzytelniającej.
+
+Kompletne kody źródłowe znajdują się do płycie CD dołączonej do niniejszej pracy. (patrz Dodatek A).
+
+
 
 \section{Parametry}
 
