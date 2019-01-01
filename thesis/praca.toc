@@ -18,6 +18,12 @@
 \contentsline {subsection}{\numberline {3.2.2}Algorytm}{12}{subsection.3.2.2}
 \contentsline {section}{\numberline {3.3}Algorytm}{12}{section.3.3}
 \contentsline {chapter}{\numberline {4}Implementacja}{17}{chapter.4}
+\contentsline {section}{\numberline {4.1}Wymagania PHC}{17}{section.4.1}
+\contentsline {section}{\numberline {4.2}Opis technologii}{17}{section.4.2}
+\contentsline {section}{\numberline {4.3}Om\IeC {\'o}wienie kod\IeC {\'o}w \IeC {\'z}r\IeC {\'o}d\IeC {\l }owych}{17}{section.4.3}
+\contentsline {section}{\numberline {4.4}Parametry}{17}{section.4.4}
+\contentsline {section}{\numberline {4.5}Wydajno\IeC {\'s}\IeC {\'c}}{17}{section.4.5}
+\contentsline {section}{\numberline {4.6}Przyk\IeC {\l }ad u\IeC {\.z}ycia}{17}{section.4.6}
 \contentsline {chapter}{\numberline {5}Instalacja i wdro\IeC {\.z}enie}{19}{chapter.5}
 \contentsline {chapter}{\numberline {6}Podsumowanie}{21}{chapter.6}
 \contentsline {chapter}{Bibliografia}{23}{chapter*.8}

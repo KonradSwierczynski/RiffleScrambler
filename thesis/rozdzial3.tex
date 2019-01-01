@@ -1,13 +1,40 @@
 \chapter{Implementacja}
 \thispagestyle{chapterBeginStyle}
 
+Implementacja $\mathbf{RiffleScrambler}$ została napisana tak, aby spełniała następujące założenia:
+\begin{itemize}
+	\item spełnianie wymagań konkursu na funkcję do przechowywania haseł \cite[PHC, ang \textit{Password Hashing Competition}]{PHC2013}, który rozgrywał się w latach 2013 - 2015,
+	
+	\item zapewnienie najwyższej wydajności obliczania, aby można było stosować parametry zapewniające wysokie bezpieczeństwo w akceptowalnym czasie obliczeń.
+\end{itemize}
+
+\section{Wymagania PHC}
+Wymagania konkursy PHC odnoszące się do implementacji:
+\begin{itemize}
+	\item implementacja powinna być napisana w języku C(++) w taki sposób, aby była przenośna,
+	\item do implementacji powinny być dołączone instrukcje kompilacji (np. Makefile),
+	\item interfejs powinien być dostępny do użycia w języku C, oraz powinien zapewniać funkcję z podaną sygnaturą,
+	\item implementacja może używać biblioteki OpenSSL,
+	\item do implementacji powinny zostać dołączone testy.
+\end{itemize}
+
+% Udostępnia środowisko do pisania kodu
+% \usepackage{minted}
+
+% \begin{minted}{C}
+% int PHS(void *out, size_t outlen, const void *in, size_t inlen, const void *salt, size_t saltlen, % unsigned int t_cost, unsigned int m_cost); 
+% \end{minted}
+
 
 \section{Opis technologii}
-Do implementacji funcji użyto języka C++17, standard ISO/IEC 14882:2017 \cite{cpp17pp17}
+Początkowa implementacja napisana została w języku Python 3.7, jednak ze względu na niską wydajność  napisana została ostatecznie w języku C++17, standard ISO/IEC 14882:2017.
+Dzięki temu wydajność wzrosła ponad dziesięciokrotnie.
+W implementacji używana jest biblioteka OpenSSL w wersji ...,
+Z podanej biblioteki użyto interfejsu EVP który dostarcza podstawowe kryptograficzne funkcje skrótu takie jak SHA2, SHA3, blake2s czy ripemd160.
 
 
 \section{Omówienie kodów źródłowych}
-
+Omówiony zostanie interfejs funkcji $\mathbf{RiffleScrambler}$, który 
 
 \section{Parametry}
 
