@@ -51,8 +51,9 @@ def evaluate_graph(edges, g, x, depth, hash_func):
 
 
 if __name__ == '__main__':
-    import cProfile
-    cProfile.run("print(riffle_scrambler(b'salt', 14, b'test', 10))")
+    riffle_scrambler(b'salt', 16, b'test', 10)
+    # import cProfile
+    # cProfile.run("print(riffle_scrambler(b'salt', 12, b'test', 1))")
     # print(gen_graph(2, [3, 1, 0, 2]))
     # salt 14 test 10 fae26723f07b3e53ef88b9dda3a6706bc733d948
 

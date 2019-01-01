@@ -1,34 +1,28 @@
 \chapter{Implementacja}
 \thispagestyle{chapterBeginStyle}
 
-Implementacja $\mathbf{RiffleScrambler}$ została napisana tak, aby spełniała następujące założenia:
-\begin{itemize}
-	\item spełnianie wymagań konkursu na funkcję do przechowywania haseł \cite[PHC, ang \textit{Password Hashing Competition}]{PHC2013}, który rozgrywał się w latach 2013 - 2015,
-	
-	\item zapewnienie najwyższej wydajności obliczania, aby można było stosować parametry zapewniające wysokie bezpieczeństwo w akceptowalnym czasie obliczeń.
-\end{itemize}
+Implementacja $\mathbf{RiffleScrambler}$ została napisana tak, aby spełniała wymagania konkursu na funkcję do przechowywania haseł \cite[PHC, ang \textit{Password Hashing Competition}]{PHC2013}, który rozgrywał się w latach 2013 - 2015.
 
-\section{Wymagania PHC}
-Wymagania konkursy PHC odnoszące się do implementacji:
+\section{Wymagania konkursu}
+Wymagania konkursu PHC odnoszące się do implementacji:
 \begin{itemize}
 	\item implementacja powinna być napisana w języku C(++) w taki sposób, aby była przenośna,
 	\item do implementacji powinny być dołączone instrukcje kompilacji (np. Makefile),
-	\item interfejs powinien być dostępny do użycia w języku C, oraz powinien zapewniać funkcję z podaną sygnaturą,
+	\item interfejs powinien być dostępny do użycia w języku C, oraz powinien zapewniać funkcję z podaną poniżej sygnaturą \ref{impl::phc},
 	\item implementacja może używać biblioteki OpenSSL,
 	\item do implementacji powinny zostać dołączone testy.
 \end{itemize}
 
-% Udostępnia środowisko do pisania kodu
-% \usepackage{minted}
+\begin{minted}[mathescape]{C}
+// Interfejs zaproponowany w ogłoszeniu konkursu na funkcję do przechowywania haseł $\cite{PHC2013}$ $\label{impl::phc}$
+int PHS(void *out, size_t outlen, const void *in, size_t inlen,
+	const void *salt, size_t saltlen, % unsigned int t_cost, unsigned int m_cost); 
+\end{minted}
 
-% \begin{minted}{C}
-% int PHS(void *out, size_t outlen, const void *in, size_t inlen, const void *salt, size_t saltlen, % unsigned int t_cost, unsigned int m_cost); 
-% \end{minted}
-
+Na zwycięzce konkursu wybrano Argon2, a Catena, Lyra2, yescryot oraz Makwa otrzymały specjalne wyróżnienie.
 
 \section{Opis technologii}
 Początkowa implementacja napisana została w języku Python 3.7, jednak ze względu na niską wydajność oraz nie spełnianie wymagań PHC napisana została ostatecznie w języku C++17, standard ISO/IEC 14882:2017.
-Dzięki temu wydajność wzrosła ponad dziesięciokrotnie.
 
 W implementacji używana jest biblioteka OpenSSL w wersji ...,
 Z podanej biblioteki użyto interfejsu EVP który dostarcza podstawowe kryptograficzne funkcje skrótu takie jak SHA2, SHA3, blake2s czy ripemd160.
@@ -39,13 +33,124 @@ Omówiony zostanie interfejs funkcji $\mathbf{RiffleScrambler}$, który spełnia
 
 Kompletne kody źródłowe znajdują się do płycie CD dołączonej do niniejszej pracy. (patrz Dodatek A).
 
+\subsection{Wysokopoziomowy interfejs}
+Wysokopoziomowy interfejs upraszcza użycie funkcji $\mathbf{RiffleScrambler}$ podczas pisania
+programów na wyższym abstrakcji takich jak na przykład aplikacje uwierzytelniające.
+Podobnie jak w implementacji zwycięzcy konkursu PHC (argon2 \cite{Argon2}) w udostępnionych funkcjach znajdują się:
+\begin{itemize}
+	\item funkcja zwracająca wynik jako tekst ze znakami w systemie heksadecymalnym - linia \ref{impl::rs_str},
+	\item funkcja zwracająca wynik jako wektor znaków w systemie heksadecymalnym - linia \ref{impl::rs_vec},
+	\item funkcja zwracająca zakodowany wynik wraz z użytą solą oraz parametrami w celu łatwego przechowywania i łatwej weryfikacji, sól oraz hasło zakodowane są za pomocą base64 \cite{base64} - linia \ref{impl::rs_enc},
+	\item funkcja weryfikująca poprawność podanego hasła dla zakodowanego wyniku - linia \ref{impl::rs_ver}.
+\end{itemize}
+
+Każda z podanych funkcji ma również sygnaturę, gdzie hasło i sól podawane są za pomocą typu \texttt{std::string}.
+
+\begin{minted}[linenos=true, mathescape]{C++}
+
+/**$\label{impl::rs_str}$
+* Hashowanie hasła za pomocą RiffleScrambler 
+* @param pwd Wskaźnik na hasło
+* @param pwdlen_bytes Długość hasła w bajtach
+* @param salt Wskaźnik na sól
+* @param saltlen_bytes Długość soli w bajtach
+* @param garlic Paremetr "g" oznaczający koszt pamięci
+* @param depth Parametr "lambda" oznaczający koszt czasowy
+* @param hash_func Nazwa kryptograficznej funkcji skrótu do użycia wewnątrz
+* @return Hash hasła jako ciąg znaków w systemie szesnastkowym
+*/
+std::string riffle_scrambler(const void *const pwd, const size_t pwdlen_bytes,
+const void *const salt, const size_t saltlen_bytes,
+const uint64_t garlic, const uint64_t depth,
+const std::string hash_func="sha256");
+
+
+/** $\label{impl::rs_vec}$
+* Hashowanie hasła za pomocą RiffleScrambler
+* @param garlic Paremetr "g" oznaczający koszt pamięci
+* @param depth Parametr "lambda" oznaczający koszt czasowy
+* @param pwd Wskaźnik na hasło
+* @param pwdlen_bytes Długość hasła w bajtach
+* @param salt Wskaźnik na sól
+* @param saltlen_bytes Długość soli w bajtach
+* @param hash_func Nazwa kryptograficznej funkcji skrótu do użycia wewnątrz
+* @return Hash hasła jako wektor znaków w systemie szesnastkowym
+*/
+std::vector<unsigned char> riffle_scrambler_hash_raw(const uint64_t garlic,
+const uint64_t depth, const void *pwd, const size_t pwdlen_bytes,
+const void *salt, const size_t saltlen_bytes, const std::string hash_func="sha256");
+
+
+/**$\label{impl::rs_enc}$
+* Hashowanie hasła za pomocą RiffleScrambler  
+* kodowanie wyniku wraz z parametrami w jeden ciąg znaków
+* @param garlic Paremetr "g" oznaczający koszt pamięci
+* @param depth Parametr "lambda" oznaczający koszt czasowy
+* @param pwd Wskaźnik na hasło
+* @param pwdlen_bytes Długość hasła w bajtach
+* @param salt Wskaźnik na sól
+* @param saltlen_bytes Długość soli w bajtach
+* @param hash_func Nazwa kryptograficznej funkcji skrótu do użycia wewnątrz
+* @return Zakodowane parametry funkcji wraz z hashem hasła i solą
+*/
+std::string riffle_scrambler_encoded(const uint64_t garlic, const uint64_t depth,
+const void *pwd, const size_t pwdlen_bytes,
+const void *salt, const size_t saltlen_bytes, const std::string hash_func="sha256");
+
+
+/** $\label{impl::rs_ver}$
+* Weryfikacja hasha hasła z hashem zakodowanym hashem dla zakodowanych parametrów i soli
+* @param encoded Zakodowane parametry wraz z hashem i solą
+* @param pwd Wskaźnik na hasło
+* @param pwd_len Długość hasła w bajtach
+* @return true jeśli hashe są równe, false w przeciwny przypadku
+*/
+bool riffle_scrambler_verify(const std::string encoded, const void *pwd, const size_t pwd_len);
+
+
+\end{minted}
+
+\subsection{Niskopoziomowy interfejs}
+Implementacja jest zgodna z interfejsem zaproponowanym przez PHC.
+\begin{minted}[linenos=true, mathescape]{C++}
+/**
+* Hashowanie hasła za pomocą RiffleScrambler, wynik zwracany jest do zmiennej @hash
+* @param pwd Wskaźnik na hasło
+* @param pwdlen_bytes Rozmiar hasła w bajtach
+* @param salt Wskaźnika na sól
+* @param saltlen_bytes Rozmiar soli w bajtach
+* @param t_cost Parametr "lambda" oznaczający ilość iteracji
+* @param m_cost Parametr "g" oznaczający koszt rozmiar używanej pamięci
+* @param hash Bufor do którego będzie zapisany hash hasła
+* @param hashlen Rozmiar bufora, oznacza ile bajtów z hasha hasła ma zostać zapisane
+* @return RIFFLE_SCRAMBLER_OK jeśli obliczenia zakończyły się pomyślnie, kod błędu w przeciwnym przypadku
+*/
+int riffle_scrambler(void *hash, const size_t hashlen, const void *pwd, const size_t pwdlen_bytes,
+const void *salt, const size_t saltlen_bytes, const uint64_t t_cost, const uint64_t m_cost);
+\end{minted}
 
 
 \section{Parametry}
+Funkcja przyjmuje parametry opisane w poprzednim rozdziale [\nameref{rs::g}].
+\begin{itemize}
+	\item Parametr \texttt{garlic} oznacza $g$ z poprzedniego rozdziału, czyli długość rzędu, która wynosi $N = 2^{g}$.
+	Definiuje to rozmiar pamięci, która jest potrzebny do wykonania obliczeń.
+	Ponieważ w pamięci trzymane są wartości z dwóch rzędów grafu w jednej chwili, czyli dwóch rzędów po $2^g$ elementów, gdzie każda trzyma wynik wewnętrznej funkcji haszującej. Zatem zapotrzebowanie na pamięć wynosi $2^{g + 1} \times m$, gdzie $m$ oznacza rozmiar wyniku funkcji haszującej (np. dla SHA256 jest to 256 bitów, tak jak wskazuje nazwa).
+	Na ogólne zużycie pamięci przez program w obecnej wersji wpływa też graf, który jest generowany na początku i trzymany przez czas działania programu. Przyjmuje wartość od $0$ do $2^{24} - 1$.
+	
+	\item Parametr \texttt{depth} oznacza ilość warstw grafu i w poprzednim rozdziale oznaczony był jako $\lambda$, przyjmuje wartość całkowitą od $1$ do $2^{64} - 1$.
+	
+	\item \texttt{pwd} oznacza hasło. Może być to wskaźnik na dane o długości od $0$ do $2^{32} -1$ bitów. Nie jest sprawdzana jakość hasła.
+	Zapewnienie, że podane hasło jest wystarczające długie lub spełnia pewne warunki leży po stronie programu używającego funkcję $\mathbf{RiffleScrambler}$.
+	\item Parametr \texttt{salt} dostarcza do programu sól kryptograficzną o długości od $0$ do $2^{32} - 1$ bitów. Powinna być ona losowa oraz inna dla każdego z przechowywanych haseł, zalecaną długością soli jest co najmniej 16 bajtów \cite{PHC2013}.
+	
+	\item Parametr \texttt{hash\_func} określa funkcję hashującą, która ma być użyta wewnątrz $\mathbf{RiffleScrambler}$. Dostępne są następujące funkcje: sha224, sha256, sha384, sha512, ripemd160, blake2s256, blake2s512 oraz do celów testowych sha1, md5, mdc2.
+\end{itemize}
 
+Ważny jest dobór parametrów \texttt{garlic} ($g$) oraz \texttt{depth} ($\lambda$), ponieważ to od nich zależy bezpieczeństwo przechowywanych haseł. Zalecanymi parametrami, podobnie jak dla Argon2, jest $\texttt{garlic}=12$ oraz $\texttt{depth}=4$ zapewniające dostateczne bezpieczeństwo oraz racjonalny czas obliczeń. Oznacza to użycie pamięci wynoszące $16$ MiB, co jest wyższą wartością niż rozmiar pamięci podręcznej na poziomie L-1 oraz L-2 dla większości procesorów, a zazwyczaj nawet większa od całkowitej pamięci podręcznej, co wymusza kosztowne sięganie do pamięci RAM. 
 
 \section{Wydajność}
-
+Implementacja została zbadana pod kontem wydajności w zależności od parametru.
 
 \section{Przykład użycia}
 

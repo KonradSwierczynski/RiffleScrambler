@@ -6,7 +6,7 @@
 #include <riffle/riffle_permutation.h>
 
 
-riffle_graph gen_graph(const std::vector<uint64_t> seeds, const uint64_t g) {
+riffle_graph gen_graph(const std::vector<uint64_t> &seeds, const uint64_t g) {
     BinMatrix bin_matrix(seeds);
     const uint64_t length = uint64_t(1) << g;
     riffle_graph edges(2 * g, std::vector<std::vector<uint64_t>>(

@@ -15,15 +15,31 @@
 
 #include <iostream>
 
-
+/**
+ * Hashowanie hasła za pomocą RiffleScrambler
+ * @param garlic Paremetr "g" oznaczający koszt pamięci
+ * @param depth Parametr "lambda" oznaczający ilość iteracji
+ * @param pwd Wskaźnik na hasło
+ * @param pwdlen_bytes Długość hasła w bajtach
+ * @param salt Wskaźnik na sól
+ * @param saltlen_bytes Długość soli w bajtach
+ * @param hash_func Nazwa kryptograficznej funkcji skrótu do użycia
+ * @return Obiekt zawerający hash hasła
+ */
 const HashResult _riffle_scrambler(const uint64_t garlic,
                             const uint64_t depth, const void *pwd, const size_t pwdlen_bytes,
                             const void *salt, const size_t saltlen_bytes, const std::string hash_func) {
+    // Tworzenie instancji kryptograficznej funkcji skrótu
     const MD_Wrapper wrapper = get_md_by_name(hash_func);
+    // Obliczenie szerokości grafu N = 2^g
     const uint64_t size = uint64_t(1) << garlic;
+    // Tworzenie generatora bitów pseudolosowych na podstawie soli
     const auto prbg = std::make_shared<hashPRBG>(salt, saltlen_bytes);
+    // Obliczanie permutacji dla podanego rozmiaru i generatora
     const auto perm = riffle_shuffle(size, prbg);
+    // Tworzenie grafu RSG
     const auto graph = gen_graph(perm, garlic);
+    // Obliczenie na wygenerowanym grafie hasha hasła
     return eval_graph(graph, depth, garlic, pwd, pwdlen_bytes, wrapper);
 }
 

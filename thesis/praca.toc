@@ -18,13 +18,15 @@
 \contentsline {subsection}{\numberline {3.2.2}Algorytm}{12}{subsection.3.2.2}
 \contentsline {section}{\numberline {3.3}Algorytm}{12}{section.3.3}
 \contentsline {chapter}{\numberline {4}Implementacja}{17}{chapter.4}
-\contentsline {section}{\numberline {4.1}Wymagania PHC}{17}{section.4.1}
+\contentsline {section}{\numberline {4.1}Wymagania konkursu}{17}{section.4.1}
 \contentsline {section}{\numberline {4.2}Opis technologii}{17}{section.4.2}
 \contentsline {section}{\numberline {4.3}Om\IeC {\'o}wienie kod\IeC {\'o}w \IeC {\'z}r\IeC {\'o}d\IeC {\l }owych}{17}{section.4.3}
-\contentsline {section}{\numberline {4.4}Parametry}{18}{section.4.4}
-\contentsline {section}{\numberline {4.5}Wydajno\IeC {\'s}\IeC {\'c}}{18}{section.4.5}
-\contentsline {section}{\numberline {4.6}Przyk\IeC {\l }ad u\IeC {\.z}ycia}{18}{section.4.6}
-\contentsline {chapter}{\numberline {5}Instalacja i wdro\IeC {\.z}enie}{19}{chapter.5}
-\contentsline {chapter}{\numberline {6}Podsumowanie}{21}{chapter.6}
-\contentsline {chapter}{Bibliografia}{23}{chapter*.8}
-\contentsline {chapter}{\numberline {A}Zawarto\IeC {\'s}\IeC {\'c} p\IeC {\l }yty CD}{25}{appendix.A}
+\contentsline {subsection}{\numberline {4.3.1}Wysokopoziomowy interfejs}{18}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Niskopoziomowy interfejs}{19}{subsection.4.3.2}
+\contentsline {section}{\numberline {4.4}Parametry}{19}{section.4.4}
+\contentsline {section}{\numberline {4.5}Wydajno\IeC {\'s}\IeC {\'c}}{20}{section.4.5}
+\contentsline {section}{\numberline {4.6}Przyk\IeC {\l }ad u\IeC {\.z}ycia}{20}{section.4.6}
+\contentsline {chapter}{\numberline {5}Instalacja i wdro\IeC {\.z}enie}{21}{chapter.5}
+\contentsline {chapter}{\numberline {6}Podsumowanie}{23}{chapter.6}
+\contentsline {chapter}{Bibliografia}{25}{chapter*.8}
+\contentsline {chapter}{\numberline {A}Zawarto\IeC {\'s}\IeC {\'c} p\IeC {\l }yty CD}{27}{appendix.A}

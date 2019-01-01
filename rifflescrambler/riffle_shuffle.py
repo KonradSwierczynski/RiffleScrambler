@@ -120,10 +120,11 @@ def faster_riffle_shuffle(length: int, salt: bytes) -> List[int]:
     print(iterations)
     return [perm_elem.get_id() for perm_elem in permutation]
 
+
 if __name__ == '__main__':
     import cProfile
 
-    cProfile.run("print(faster_riffle_shuffle(2 ** 18, b'test'))")
+    cProfile.run("print(faster_riffle_shuffle(2 ** 12, b'test'))")
 
 
 
