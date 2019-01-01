@@ -70,7 +70,7 @@ $$ \forall G_{n} \in \mathbb{G}_{n} : \Pi_{ cc }^{ \parallel }(G_{n}) \leq \Pi_{
 Zobaczmy jak wyglądają złożoności dla grafu pełnego $K_{n} = (V = [n], E= \{
 (i,j): 1 \leq i < j \leq n \})$ oraz dla $Q_{n} = (V = [n], E = \{ (i, i+1) : 1 \leq n \} )$.
 $$ n(n - 1) / 2 \leq \Pi_{ cc }^{ \parallel }(K_{n}) \leq \Pi_{ st }(K_{n}) \leq n^2$$
-Graf $K_{n}$ maksymalizuje złożoności etykietowania, a  $\Pi_{ cc }^{ \parallel }$ jest rożne tylko o stałą od $\Pi_{ st }$. Co oznacza, że koszt obliczania funkcji opartej na takim grafie byłby zdominowany przez koszt dostępu do pamięci, a wyspecjalizowane układy nie dały by dużej przewagi nad tradycyjnym procesorem. Jest to bardzo pożądane dla funkcji memory-hard, jednak ze względu na bardzo wysoki stopień grafu $K_{n}$, nie jest on przydatny przy konstruowaniu MHF.
+Graf $K_{n}$ maksymalizuje złożoności etykietowania, a  $\Pi_{ cc }^{ \parallel }$ jest rożne tylko o stałą od $\Pi_{ st }$. Co oznacza, że koszt obliczania funkcji opartej na takim grafie byłby zdominowany przez koszt dostępu do pamięci, a wyspecjalizowane układy nie dały by dużej przewagi nad tradycyjnym procesorem. Jest to bardzo pożądane dla MHF, jednak ze względu na bardzo wysoki stopień grafu $K_{n}$, nie jest on przydatny przy konstruowaniu takich funkcji.
 Stopień wchodzący w grafie $Q_{n}$ jest równy 1, jednak złożoność etykietowania jest bardzo niska
 $$ \Pi_{ cc }^{ \parallel }(Q_{n}) = \Pi_{ st }(Q_{n}) \leq n. $$ 
 Oznacza to, że koszt obliczania funkcji opartej na takim grafie (taką funkcją jest PBKDF2) nie jest zależny w dużej mierze od kosztu dostępu do pamięci nawet dla dużego $n$. 

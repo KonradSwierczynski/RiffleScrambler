@@ -1,10 +1,11 @@
 \chapter{Riffle Scrambler}
 \thispagestyle{chapterBeginStyle}
 
-RiffleScrambler \cite{rs} jest nową rodziną acyklicznych grafów skierowanych, której odpowiada funkcja \textit{memory-hard} z dostępem do pamięci niezależnym od hasła, jest więc to iMHF.
+RiffleScrambler \cite{rs} jest nową rodziną acyklicznych grafów skierowanych (nazywaną RSG), której odpowiada funkcja \textit{memory-hard} z dostępem do pamięci niezależnym od hasła (iMHF).
 W funkcji tej, podobnie jak w Catenie, kolejność obliczeń zdefiniowana jest za pomocą grafu. 
-Przewagą funkcji RiffleScrambler, jest to, że dla Cateny są dwa predefiniowane grayf \textit{bit-reversal} i \textit{double-butterfly}, natomiast dla funkcji RiffleScrambler, graf jest generowany na podstawie soli, tak jak w funkcji Ballon Hashing. Oznacza, to, że dla każda sól odpowiada (z dużym prawdopodobieństwem) innemu grafowi, co zwiększa odporność na ataki równoległe.
-Jednocześnie RiffleScrambler zapewnia lepszą wydajność przy obliczaniu niż Ballon Hashing, ponieważ ma dużo mniejszy stopień wchodzący grafu, który jest równy 3, a ponieważ jest superkoncentratorem, osiąga kompromis między pamięcią, a czasem oraz ograniczenie dolne złożoności etykietowania równoległego takie same jak Catena.
+Przewagą funkcji RiffleScrambler, jest to, że graf generowany jest na podstawie soli, tak jak w funkcji Ballon Hashing. Oznacza, to, że dla każda sól odpowiada (z dużym prawdopodobieństwem) innemu grafowi, co zwiększa odporność na ataki równoległe. Dla Cateny są dwa predefiniowane grayf \textit{bit-reversal} i \textit{double-butterfly}.
+Jednocześnie RiffleScrambler zapewnia lepszą wydajność przy obliczaniu niż Ballon Hashing, ponieważ ma dużo mniejszy stopień wchodzący grafu, który jest równy 3.
+Ponieważ jest superkoncentratorem, osiąga kompromis pamięć-czas oraz dolne ograniczenie złożoności etykietowania równoległego takie same jak Catena.
 
 \section{Budowa Grafu}
 
@@ -19,8 +20,9 @@ Funkcja RiffleScrambler używa następujących parametrów:
 \end{itemize}
 
 Sól używana jest do generowania liczb pseudolosowych, potrzebnych do zbudowania grafu.
-Parametr $g$ określa ilość pamięci, jaką trzeba będzie wykorzystać podczas obliczania funkcji. Podczas obliczeń potrzebne jest $2^{g+1}$ komórek, gdzie każda przechowuje wynik kryptograficznej dunkcji skrótu.
+Parametr $g$ określa ilość pamięci, jaką trzeba będzie wykorzystać podczas obliczania funkcji. Podczas obliczeń potrzebne jest $2^{g}$ komórek, gdzie każda przechowuje wynik kryptograficznej funkcji skrótu. Wartość $2^g$ będziemy oznaczać jako $N$.
 Parametr $\lambda$ definiuje ile warstw będzie miał końcowy graf, co bezpośrednio wpływa na czas obliczania funkcji.
+Graf dla zadanych parametrów wpływających na jego rozmiar oznaczany jest $RSG_{N}^{\lambda}$. Sól nie ma wpływu na rozmiar grafu, ani jego właściwości, używana jest do generowania części krawędzi w grafie.
 
 
 \subsection{Tworzenie Grafu Na Podstawie Permutacji}
@@ -65,7 +67,7 @@ Niech $HW(x)$ (ang. \textit{Hamming weight}) oznacza ilość jedynek w wyrazie b
 \end{figure}
 
 \begin{definition}
-	(N-Single-Layer-Riffle-Graph). Niech $V = V^{0} \cup V^{1}$, gdzie $V^{i} = \{ v_{0}^{i},\dots,v_{N-1}^{i} \}$ i niech $B$ będzie słowem binarnym długości $N$. Niech $\pi_{B}$ będzie Riffle-Permutaion indukowaną przez $B$.
+	(N-Single-Layer-Riffle-Graph). Niech $V = V^{0} \cup V^{1}$, gdzie $V^{i} = \{ v_{0}^{i},\dots,v_{N-1}^{i} \}$, niech $B$ będzie słowem binarnym długości $N$. Niech $\pi_{B}$ będzie Riffle-Permutaion indukowaną przez $B$.
 	Graf N-Single-Layer-Riffle-Graph (dla parzystego N) zdefiniowany jest jako graf na wierzchołkach $V$ z następującymi krawędziami w zbiorze $E$:
 	\begin{itemize}
 		\item jedna krawędź: $v_{N-1}^{0} \rightarrow v_{0}^{1}$,
@@ -93,10 +95,8 @@ Niech $HW(x)$ (ang. \textit{Hamming weight}) oznacza ilość jedynek w wyrazie b
 	\caption{8-Single-Layer-Riffle-Graph dla $B=11100100$ (krawędź $(v_{7}^{0}, v_{0}^{1})$ oraz krawędzie poziome zostały pominięte). Krawędzie dla permutacji $\pi_{B}$ oznaczone są linią ciągłą, a krawędzie dla permutacji $\pi_{\overline{B}}$ oznaczone są linią przerywaną.}
 \end{figure}
 
-Od teraz zakładamy, że $N = 2^{g}$.
-
 \begin{definition}
-	(N-Double-Riffle-Graph). Niech $V$ oznacza zbiór wierzchołków, a $E$ zbiór krawędzi grafu $G =(V, E)$. Niech $B_{0},\dots,B_{g-1}$ będą wyrazami binarnymi o długości $2^{g}$ każdy.
+	(N-Double-Riffle-Graph). Niech $V$ oznacza zbiór wierzchołków, a $E$ zbiór krawędzi grafu $G =(V, E)$. Niech $B_{0},\dots,B_{g-1}$ będą wyrazami binarnymi o długości $N = 2^{g}$ każdy.
 	N-Double-riffle-Graph jest otrzymywany poprzez ułożenie w stos $2g$ grafów, które spełniają warunki N-Single-Layer-Riffle-Graph. Otrzymany tak graf ma $(2g+1)2^{g}$ wierzchołków $ \{ v_{0}^{0}, \dots , v_{2^{g} - 1}^{0} \} \cup \dots \cup \{ v_{0}^{2g},\dots,v_{2^{g - 1}}^{2g} \} $,
 	oraz następujące krawędzie:
 	\begin{itemize}
@@ -132,21 +132,22 @@ Niech $B$ będzie macierzą binarną o rozmiarze $2^{g} \times g$, gdzie $j$-ta 
 \section{Tworzenie Permutacji}
 
 \subsection{Talia Kart Jako Permutacja}
-Początkową częścią funkcji $\mathbf{RiffleScrambler}$ jest generowanie permutacji na podstawie soli. Do utworzenia takiej permutacji używany jest algorytm $\mathbf{InverseRiffleShuffle}$, który imituje odwrócenie tasowania kart do gry.
+Początkową częścią funkcji $\mathbf{RiffleScrambler}$ jest generowanie permutacji na podstawie soli. Do utworzenia takiej permutacji używany jest algorytm $\mathbf{InverseRiffleShuffle}$, który imituje tasowanie kart do gry w odwrotnej kolejności.
+
 Podczas tasowania talia kart dzielona jest na dwie części.
 Podział odbywa się poprzez wybranie karty w środku talii, karty które są przed wybraną kartą tworzą pierwszą część, a pozostałe tworzą drugą część.
 Następnie te dwie części są ze sobą łączone w jeden stos poprzez losowe umieszczanie karty z góry pierwszej lub drugiej części na stosie.
 Można zauważyć, że kolejność kart wśród stosu z którego pochodzą nie zmienia się, lecz między kolejne karty z jednego stosu mogą wejść karty z drugiego.
 
 W celu wygenerowania permutacji $N$ elementów, myślimy o tych elementach jako o kartach, a o permutacji, jako o pewnej ich kolejności.
-Krok odwrotnego sortowania wygląda następująco.
+Krok odwróconego sortowania wygląda następująco.
 
 Dla każdej karty w talii losowany jest jeden bit, 0 lub 1. Wszystkie karty, dla których wylosowano 1 wyciągamy, zachowując ich kolejność i układamy na stos. Następnie umieszczamy ten stos na stosie kart, dla których wylosowano zera.
 
 Dla każdego takiego kroku, dla każdej karty zapisywana jest informacja jaki bit został dla niej wylosowany. Zatem po $n$ krokach, każda karta ma przypisany ciąg binarny długości $n$.
 Kończymy, kiedy talia kart jet dobrze posortowana, czyli kiedy każdej karcie przypisano unikalny ciąg binarny. Nowa kolejność elementów oznacza wygenerowaną permutację.
 
-Można zauważyć, że liczba kroków tasowania $N$ kart na pewno nie będzie mniejsza od $\log{N}$, bo potrzebujemy $\lceil \log{N} \rceil$ bitów, aby każdej karcie przyporządkować inny ciąg binarny.
+Można zauważyć, że liczba kroków tasowania $N$ kart na pewno nie będzie mniejsza od $\log{N}$, bo potrzebujemy $\log{N}$ bitów, aby każdej karcie przyporządkować inny ciąg binarny.
 
 Algorytm $InverseRiffleShuffle$ będzie mógł się zakończyć, kiedy każdy element będzie posiadał różny ciąg binarny. Średnio oznacza to $2 \log{N}$ kroków \cite{rs}.
 
