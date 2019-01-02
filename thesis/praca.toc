@@ -35,7 +35,8 @@
 \contentsline {section}{\numberline {4.9}U\IeC {\.z}ycie implementacji}{24}{section.4.9}
 \contentsline {subsection}{\numberline {4.9.1}Wymagania}{24}{subsection.4.9.1}
 \contentsline {subsection}{\numberline {4.9.2}Biblioteka}{24}{subsection.4.9.2}
-\contentsline {subsection}{\numberline {4.9.3}Testy}{24}{subsection.4.9.3}
+\contentsline {subsection}{\numberline {4.9.3}Importowanie biblioteki}{24}{subsection.4.9.3}
+\contentsline {subsection}{\numberline {4.9.4}Testy}{24}{subsection.4.9.4}
 \contentsline {chapter}{\numberline {5}Podsumowanie}{25}{chapter.5}
 \contentsline {chapter}{Bibliografia}{27}{chapter*.11}
 \contentsline {chapter}{\numberline {A}Zawarto\IeC {\'s}\IeC {\'c} p\IeC {\l }yty CD}{29}{appendix.A}

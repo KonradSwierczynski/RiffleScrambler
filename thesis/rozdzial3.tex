@@ -327,11 +327,28 @@ Wymagania - cmake - make -openssl - kompilator
 
 \section{Użycie implementacji}
 \subsection{Wymagania}
-Do kompilacji potrzebny jest kompilator języka C++ wspierający wersję C++17
+Do kompilacji potrzebny jest kompilator języka C++ wspierający wersję C++17, taki jak gcc w wersji 8 lub wyższej, czy clang w wersji 7 lub wyższej.
+Potrzebna jesta biblioteka OpenSSL.
+Potrzebny jest również program cmake w wersji co najmniej 3.12 oraz program Make.
 \subsection{Biblioteka}
 Kody biblioteki \texttt{riffle} znajdują się w katalogi \texttt{RiffleScrambler} zawierającym 
 plik \texttt{CMakeLists.txt}.
-W celu skompilowania biblioteki należy uruchomić polecenie \texttt{\$ cmake CMakeLists.txt} w katalogu \texttt{RiffleScrambler}, które wygeneruje plik \texttt{Makefile}. Następnie należy wykonać polecenie \texttt{\$ make}, które skompiluje kod biblioteki.
+W celu skompilowania biblioteki należy uruchomić polecenie \texttt{\$ cmake -S \$src\_path -B \$build\_path}, gdzie \texttt{src\_path} jest ścieżką do katalogu \texttt{RiffleScrambler}, a \texttt{build\_path} jest ścieżką w której chcemy wygenerować pliki potrzebne do kompilacji, w tym plik \texttt{Makefile}.
+
+Następnie należy uruchomić \texttt{\$ make -C \$build\_path}, które skompiluje kod biblioteki do pliku \texttt{libRiffleScrambler.a}.
+
+
+\subsection{Importowanie biblioteki}
+Podczas używania biblioteki \texttt{riffle} należy ją zalinkować podczas kompilacji programu.
+Przykładowa kompilacji programu, który używa biblioteki \texttt{riffle} z pomocą kompilatora clang przedstawiona została poniżej.
+
+\begin{lstlisting}
+$ clang++ --std=c++17 program.cpp -I/home/user/RiffleScrambler/include/ \
+-L /home/user/RiffleScrambler/build
+-lRiffleScrambler
+\end{lstlisting}
+
+Gdzie parametr \texttt{I} zawiera ścieżkę do plików nagłówkowych, a parametr \texttt{L} ścieżkę do katalogu, w którym został skompilowany kod biblioteki i znajduje się plik \texttt{libRiffleScrambler.a}.
 
 
 \subsection{Testy}
