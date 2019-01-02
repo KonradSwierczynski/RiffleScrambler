@@ -1,5 +1,9 @@
 \begin{thebibliography}{10}
 
+\bibitem{arogn2impl}
+Argon2 - implementation.
+\newblock \url{https://github.com/P-H-C/phc-winner-argon2}.
+
 \bibitem{catch}
 Catch2 - a modern, c++-native, header-only, test framework for unit-tests.
 \newblock \url{https://github.com/catchorg/Catch2}.
@@ -13,7 +17,7 @@ Openssl evp - a high level interface to openssl cryptographic functions.
 \newblock \url{https://wiki.openssl.org/index.php/EVP}.
 
 \bibitem{phc}
-The password hashing competition (phc).
+The password hashing competition.
 \newblock \url{https://password-hashing.net/cfh.html}.
 
 \bibitem{radixsort}

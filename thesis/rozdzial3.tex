@@ -8,7 +8,7 @@ Wymagania konkursu PHC odnoszące się do implementacji:
 \begin{itemize}
 	\item implementacja powinna być napisana w języku C(++) w taki sposób, aby była przenośna,
 	\item do implementacji powinny być dołączone instrukcje kompilacji (np. Makefile),
-	\item interfejs powinien być dostępny do użycia w języku C, oraz powinien zapewniać funkcję z podaną poniżej sygnaturą \ref{impl::phc},
+	\item interfejs powinien być dostępny do użycia w języku C, oraz powinien zapewniać funkcję z podaną poniżej sygnaturą,
 	\item implementacja może używać biblioteki OpenSSL,
 	\item do implementacji powinny zostać dołączone testy.
 \end{itemize}
@@ -31,12 +31,12 @@ Z podanej biblioteki użyto interfejsu EVP \cite{opensslevp} który dostarcza po
 \section{Omówienie kodów źródłowych}
 Omówiony zostanie interfejs funkcji $\mathbf{RiffleScrambler}$, który spełnia wymogi PHC oraz posiada dodatkowy wysokopoziomowy interfejs pozwalający na wygodne tworzenie aplikacji uwierzytelniającej.
 
-Kompletne kody źródłowe znajdują się do płycie CD dołączonej do niniejszej pracy. (patrz Dodatek A).
+Kompletne kody źródłowe znajdują się do płycie CD dołączonej do niniejszej pracy (patrz Dodatek \ref{plytaCD}).
 
 \subsection{Wysokopoziomowy interfejs}
 Wysokopoziomowy interfejs upraszcza użycie funkcji $\mathbf{RiffleScrambler}$ podczas pisania
 programów na wyższym abstrakcji takich jak na przykład aplikacje uwierzytelniające.
-Podobnie jak w implementacji zwycięzcy konkursu PHC (argon2) w udostępnionych funkcjach znajdują się:
+Podobnie jak w implementacji zwycięzcy konkursu PHC (argon2)\cite{arogn2impl} w udostępnionych funkcjach znajdują się:
 \begin{itemize}
 	\item funkcja zwracająca wynik jako tekst ze znakami w systemie heksadecymalnym - linia \ref{impl::rs_str},
 	\item funkcja zwracająca wynik jako wektor znaków w systemie heksadecymalnym - linia \ref{impl::rs_vec},
@@ -131,7 +131,7 @@ const void *salt, const size_t saltlen_bytes, const uint64_t t_cost, const uint6
 
 
 \section{Parametry}
-Funkcja przyjmuje parametry opisane w poprzednim rozdziale [\nameref{rs::g}].
+Funkcja przyjmuje parametry opisane w poprzednim rozdziale \ref{rs::g}.
 \begin{itemize}
 	\item Parametr \texttt{garlic} oznacza $g$ z poprzedniego rozdziału, czyli długość rzędu, która wynosi $N = 2^{g}$.
 	Definiuje to rozmiar pamięci, która jest potrzebny do wykonania obliczeń.

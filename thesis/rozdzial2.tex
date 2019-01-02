@@ -9,7 +9,7 @@ Ponieważ jest superkoncentratorem, osiąga kompromis pamięć-czas oraz dolne o
 
 \section{Budowa grafu}
 
-\subsection{Parametry}
+\subsection{Parametry} \label{2::params}
 Funkcja $\mathbf{RiffleScrambler}$ używa następujących parametrów:
 \begin{itemize}
 	\item $s$ - sól, używana do wygenerowania grafu $G$,
@@ -34,8 +34,7 @@ Niech $HW(x)$ (ang. \textit{Hamming weight}) oznacza ilość jedynek w wyrazie b
 	$$ r_{B}(i) = | \{ j < i : b_{j} = b_{i} \} | .$$
 \end{definition}
 
-\begin{definition}
-	(Riffle-Permutation). Niech $B - (b_{0} \dots b_{n - 1})$ będzie wyrazem binarnym o długości $n$. Permutacja $\pi$ indukowana przez $B$ zdefiniowana jest następująco
+\begin{definition}[Riffle-Permutation] Niech $B - (b_{0} \dots b_{n - 1})$ będzie wyrazem binarnym o długości $n$. Permutacja $\pi$ indukowana przez $B$ zdefiniowana jest następująco
 
 	$$
 	\pi_{B}(i) =
@@ -49,7 +48,7 @@ Niech $HW(x)$ (ang. \textit{Hamming weight}) oznacza ilość jedynek w wyrazie b
 	
 \end{definition}
 
-\begin{example}
+\begin{example} \label{2::p1}
 	Niech $B = 11100100$, wtedy $r_{B}(0) = 0$, $r_{B}(1) = 1$, $r_{B}(2) = 2$,
 	$r_{B}(3) = 0$, $r_{B}(4) = 1$, $r_{B}(5) = 3$, $r_{B}(6) = 2$, $r_{B}(7) = 3$.
 	Mając rangi dla wszystkich pozycji, można utworzyć Riffle-Premutation indukowaną przez $B$ 
@@ -57,17 +56,17 @@ Niech $HW(x)$ (ang. \textit{Hamming weight}) oznacza ilość jedynek w wyrazie b
 	0 && 1 && 2 && 3 && 4 && 5 && 6 && 7 \\
 	4 && 5 && 6 && 0 && 1 && 7 && 2 && 3
 	\end{smallmatrix} \bigr) $ .
-	Ilustracja tego przykładu widoczna poniżej. TODO link	
+	Ilustracja tego przykładu widoczna jest na rysunku \ref{2::im1}.
 \end{example}
 
 \begin{figure}[h]
 	\includegraphics[width=\textwidth]{rp1.png}
-	\centering
+	\centering	
 	\caption{Graf utowrzony z Riffle-Permutation indukowanej przez $B=11100100$.}
+	\label{2::im1}
 \end{figure}
 
-\begin{definition}
-	(N-Single-Layer-Riffle-Graph). Niech $V = V^{0} \cup V^{1}$, gdzie $V^{i} = \{ v_{0}^{i},\dots,v_{N-1}^{i} \}$, niech $B$ będzie słowem binarnym długości $N$. Niech $\pi_{B}$ będzie Riffle-Permutaion indukowaną przez $B$.
+\begin{definition}[N-Single-Layer-Riffle-Graph] Niech $V = V^{0} \cup V^{1}$, gdzie $V^{i} = \{ v_{0}^{i},\dots,v_{N-1}^{i} \}$, niech $B$ będzie słowem binarnym długości $N$. Niech $\pi_{B}$ będzie Riffle-Permutaion indukowaną przez $B$.
 	Graf N-Single-Layer-Riffle-Graph (dla parzystego N) zdefiniowany jest jako graf na wierzchołkach $V$ z następującymi krawędziami w zbiorze $E$:
 	\begin{itemize}
 		\item jedna krawędź: $v_{N-1}^{0} \rightarrow v_{0}^{1}$,
@@ -81,22 +80,22 @@ Niech $HW(x)$ (ang. \textit{Hamming weight}) oznacza ilość jedynek w wyrazie b
 \end{definition}
 
 \begin{example}
-	Kontynuując z danymi z poprzedniego przykładu TODO dodać link,
+	Kontynuując z danymi z przykładu \ref{2::p1},
 		$\pi_{\overline{B}} = \bigl( \begin{smallmatrix}
 	0 && 1 && 2 && 3 && 4 && 5 && 6 && 7 \\
 	0 && 1 && 2 && 4 && 5 && 3 && 6 && 7
 	\end{smallmatrix} \bigr) $.
-	 8-Single-Layer-Riffle-Graph ukazany jest na Rysynku TODO.
+	 8-Single-Layer-Riffle-Graph ukazany jest na rysunku \ref{2::im2}.
 \end{example}
 
 \begin{figure}[h]
 	\includegraphics[width=\textwidth]{rp2.png}
 	\centering
 	\caption{8-Single-Layer-Riffle-Graph dla $B=11100100$ (krawędź $(v_{7}^{0}, v_{0}^{1})$ oraz krawędzie poziome zostały pominięte). Krawędzie dla permutacji $\pi_{B}$ oznaczone są linią ciągłą, a krawędzie dla permutacji $\pi_{\overline{B}}$ oznaczone są linią przerywaną.}
+	\label{2::im2}
 \end{figure}
 
-\begin{definition}
-	(N-Double-Riffle-Graph). Niech $V$ oznacza zbiór wierzchołków, a $E$ zbiór krawędzi grafu $G =(V, E)$. Niech $B_{0},\dots,B_{g-1}$ będą wyrazami binarnymi o długości $N = 2^{g}$ każdy.
+\begin{definition}[N-Double-Riffle-Graph] Niech $V$ oznacza zbiór wierzchołków, a $E$ zbiór krawędzi grafu $G =(V, E)$. Niech $B_{0},\dots,B_{g-1}$ będą wyrazami binarnymi o długości $N = 2^{g}$ każdy.
 	N-Double-riffle-Graph jest otrzymywany poprzez ułożenie w stos $2g$ grafów, które spełniają warunki N-Single-Layer-Riffle-Graph. Otrzymany tak graf ma $(2g+1)2^{g}$ wierzchołków $ \{ v_{0}^{0}, \dots , v_{2^{g} - 1}^{0} \} \cup \dots \cup \{ v_{0}^{2g},\dots,v_{2^{g - 1}}^{2g} \} $,
 	oraz następujące krawędzie:
 	\begin{itemize}
@@ -118,8 +117,7 @@ Niech $HW(x)$ (ang. \textit{Hamming weight}) oznacza ilość jedynek w wyrazie b
 \end{definition}
 
 
-\begin{definition}
-	((N,$\lambda$)-Double-Riffle-Graph). Niech $G_{i}$, $i \in \{ 0,1,\dots,\lambda - 1\}$ będą N-Double-Riffle-Graph. Graf (N,$\lambda$)-Double-Riffle-Graph jest skonstruowany poprzez złączenie wyjść grafu $G_{i}$ do dopowiadających wejść grafu $G_{i+1}$, $i \in \{ 0, 1, \dots, \lambda - 2\}$.
+\begin{definition}[(N,$\lambda$)-Double-Riffle-Graph] Niech $G_{i}$, $i \in \{ 0,1,\dots,\lambda - 1\}$ będą N-Double-Riffle-Graph. Graf (N,$\lambda$)-Double-Riffle-Graph jest skonstruowany poprzez złączenie wyjść grafu $G_{i}$ do dopowiadających wejść grafu $G_{i+1}$, $i \in \{ 0, 1, \dots, \lambda - 2\}$.
 \end{definition}
 
 \subsection{Śledzienie trajektorii}
@@ -177,8 +175,7 @@ Procedurę $\mathbf{RiffleScrambler}(pwd, s, g,\lambda)$ można z grubsza przeds
 	\item Wartością końcową jest wartość w ostatnim wierzchołku, czyli w $v_{2^{g} - 1}^{2g}$.
 \end{itemize}
 
-\begin{example}
-	(Generacja (8,1)-Double-Riffle-Graph).
+\begin{example}[Generowanie (8,1)-Double-Riffle-Graph]
 	Skoro $N = 8$, to $g = 3$, ponieważ $N = 2^g$. $\lambda = 1$.
 	Niech otrzymaną permutacją $\sigma$ będzie $\bigl( \begin{smallmatrix}
 	0 && 1 && 2 && 3 && 4 && 5 && 6 && 7 \\
@@ -211,8 +208,8 @@ Procedurę $\mathbf{RiffleScrambler}(pwd, s, g,\lambda)$ można z grubsza przeds
 	4 && 0 && 1 && 5 && 2 && 6 && 3 && 7
 	\end{smallmatrix} \bigr). $$
 	
-	Wygenerowany graf z krawędziami zależnymi od permutacji ukazany jest na ...
-	Dodając do nie go krawędzie nie zależne od permutacji, otrzymujemy pełny graf (8,1)-Double-Riffle-Graph.
+	Wygenerowany graf z krawędziami zależnymi od permutacji ukazany jest na rysunku \ref{2::im3}.
+	Dodając do niego krawędzie nie zależne od permutacji, otrzymujemy pełny graf (8,1)-Double-Riffle-Graph pokazany na rysunku \ref{2::im4}.
 	
 \end{example}
 
@@ -222,6 +219,7 @@ Procedurę $\mathbf{RiffleScrambler}(pwd, s, g,\lambda)$ można z grubsza przeds
 		\includegraphics[width=0.7\textwidth]{all_rs1.png}
 
 		\caption{(8,1)-Double-Riffle-Graph (krawędzie niezależne od permutacji, czyli przekątne oraz krawędzie poziome, zostały pominięte). Krawędzie dla permutacji oznaczone są linią ciągłą, a krawędzie dla permutacji negacji oznaczone są linią przerywaną.}
+		\label{2::im3}
 \end{figure}
 
 \begin{figure}
@@ -229,14 +227,15 @@ Procedurę $\mathbf{RiffleScrambler}(pwd, s, g,\lambda)$ można z grubsza przeds
 	\includegraphics[width=\textwidth]{total_rs.png}
 	
 	\caption{(8,1)-Double-Riffle-Graph ze wszystkimi krawędziami oraz oznaczeniem wejścia i wyjścia. Krawędzie dla permutacji oznaczone są linią ciągłą, krawędzie dla permutacji negacji oznaczone są linią przerywaną, a krawędzie nie zależne od permutacji oznaczone są liniami kropkowanymi}
+	\label{2::im4}
 \end{figure}
 
 
 \begin{algorithm}
 	\caption{$\mathbf{RiffleShuffle}$}
 	\SetAlgoLined
-	\KwIn{N, bitGenerator}
-	\KwOut{$\sigma$}
+	\KwIn{N - wielkość premutacji do wygenerowania, getNextBit - generator bitów losowych}
+	\KwOut{$\sigma$ - permtacja wielkości N}
 	
 	\tcc{$perm$ zawiera krotki będące początkowym indeksem oraz wyrazem binarnym.
 	$perm[i] = (id, bin)$ dla $i\in \{0,\dots,N-1\}$}
@@ -270,16 +269,14 @@ Procedurę $\mathbf{RiffleScrambler}(pwd, s, g,\lambda)$ można z grubsza przeds
 
 	}
 	$\sigma = (perm[0].id,perm[1].id,\dots,perm[N-1].id)$ \;
-	
-	\Return $\sigma$ \;
 \end{algorithm}
 
 
 \begin{algorithm}
 	\caption{$\mathbf{GenGraph}$}
 	\SetAlgoLined
-	\KwIn{g, $\sigma$}
-	\KwOut{G}
+	\KwIn{g - parametr wielkości grafu, $\sigma$ - permutacja wielkości $2^g$}
+	\KwOut{G - graf na $2^g$ wierzchołkach z krawędziami wygenerowanymi na podstawie permutacji}
 	
 	$N = 2^g$ \;
 	$V = \{ v_i^j: i \in \{0,\dots,N-1\}; j \in \{0,\dots, 2g \} \}$ \;
@@ -305,7 +302,7 @@ Procedurę $\mathbf{RiffleScrambler}(pwd, s, g,\lambda)$ można z grubsza przeds
 			\cup \{ v_i^j \rightarrow v_{\pi_{\overline{\mathfrak{B}}_{j,i}}}^{i+1} \}$ \;
 		}
 	}
-	\Return $G = (V,E)$ \;
+	$G = (V,E)$ \;
 	
 \end{algorithm}
 
@@ -314,8 +311,8 @@ Procedurę $\mathbf{RiffleScrambler}(pwd, s, g,\lambda)$ można z grubsza przeds
 \begin{algorithm}
 	\caption{$\mathbf{RiffleScrambler}$}
 	\SetAlgoLined
-	\KwIn{s, g, pwd, $\lambda$, H - funckja sktóru}
-	\KwOut{pwd hash}
+	\KwIn{s - sól, g - parametr wielkości grafu, pwd - hasło, $\lambda$ - ilość warstw w grafie, H - kryptograficzna funckja sktóru}
+	\KwOut{pwd - hash podanego hasła}
 	$\sigma = \mathbf{RiffleShuffle}(2^g, pseudoRandomBitGenerator(s,H))$ \;
 	$G = (V,E) = \mathbf{GenGraph}(g, \sigma$) \;
 	$v_0^0 = H(X)$ \;
@@ -337,7 +334,6 @@ Procedurę $\mathbf{RiffleScrambler}(pwd, s, g,\lambda)$ można z grubsza przeds
 	}
 	
 	$hash = v_{2^g - 1}{2g}$ \;
-	\Return $hash$ \;
 \end{algorithm}
 
 
