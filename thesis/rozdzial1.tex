@@ -7,24 +7,24 @@ Zbiory $\mathbb{N} = \{ 0,1,2,\dots \}$, $ \mathbb{N}^{+} = \{ 1, 2, \dots \}$.
 $[c] := \{1, 2,\dots,c \}$ oraz $[b, c] = \{ b, b+1, \dots, c \}$, gdzie $b, c \in \mathbb{N}$ oraz $b \leq c$.
 
 Skierowany graf acykliczny (ang. \textit{directed acyclic graph}, DAG) $G = (V, E)$ jest rozmiaru $n$ jeżeli $|V| = n$.
-Wierzchołek $v \in V$ ma stopień wchodzący $\delta$ równy największemu stopniu wchodzącemu wśród jego wierzchołków $\delta = indeg(v)$, jeżeli istnieje $\delta$ wchodzących krawędzi $\delta = | \left( V \times {v} \right) \cap E|$.
-Graf $G$ ma stopień wchodzący $ \delta = indeg(G) = \max_{v \in V} indeg(v)$.
+Wierzchołek $v \in V$ ma stopień wchodzący $\delta$ równy największemu stopniu wchodzącemu wśród jego wierzchołków $\delta = \mathbf{indeg}(v)$, jeżeli istnieje $\delta$ wchodzących krawędzi $\delta = | \left( V \times {v} \right) \cap E|$.
+Graf $G$ ma stopień wchodzący $ \delta = \mathbf{indeg}(G) = \max_{v \in V} \mathbf{indeg}(v)$.
 Wierzchołki o stopniu wchodzącym 0 nazywane są źródłami, a wierzchołki bez krawędzi wychodzących nazywane są ujściami.
 
-Zbiór rodziców wierzchołka $v \in V$ oznaczany jest jako $parents_{G}(v) = \{ u \in V: (u, v) \in E \}$.
-Uogólniając, zbiór przodków $v$ oznaczany jest jako $ancestors_{G}(v) = \bigcup_{i \geq 1}parents_{G}^{i}(v)$, przyjmując $parents_{G}^{i+1}(v) = parents_{G}(parents_{G}^{i}(v)))$. Jeżeli wybór grafu $G$ wynika z kontekstu, będziemy oznaczać te zbiory jako $parents$ oraz $ancestors$.
+Zbiór rodziców wierzchołka $v \in V$ oznaczany jest jako $\mathbf{parents}_{G}(v) = \{ u \in V: (u, v) \in E \}$.
+Uogólniając, zbiór przodków $v$ oznaczany jest jako $\mathbf{ancestors}_{G}(v) = \bigcup_{i \geq 1}\mathbf{parents}_{G}^{i}(v)$, przyjmując $\mathbf{parents}_{G}^{i+1}(v) = \mathbf{parents}_{G}(\mathbf{parents}_{G}^{i}(v)))$. Jeżeli wybór grafu $G$ wynika z kontekstu, będziemy oznaczać te zbiory jako $\mathbf{parents}$ oraz $\mathbf{ancestors}$.
 
-Zbiór wszystkich ujść w grafie $G$ oznaczany jest jako $sinks(G) = \{ v \in V : \nexists (v, u) \in E \}$. DAG G, który jest spójny, a tylko takie będą rozważane w dalszej części pracy, zachowuje równość $ancestors(sinks(G)) = V$.
+Zbiór wszystkich ujść w grafie $G$ oznaczany jest jako $\mathbf{sinks}(G) = \{ v \in V : \nexists (v, u) \in E \}$. DAG G, który jest spójny, a tylko takie będą rozważane w dalszej części pracy, zachowuje równość $\mathbf{ancestors}(\mathbf{sinks}(G)) = V$.
 
-Dla skierowanej ścieżki $p = (v_{1},v_{2},\dots,v_{z})$ w $G$, jej długość jest równa ilości wierzchołku przez które przechodzi $length(p) := z$.
-Mając DAG G, oznaczamy długość jego najdłuższej ścieżki jako $depth(G)$.
+Dla skierowanej ścieżki $p = (v_{1},v_{2},\dots,v_{z})$ w $G$, jej długość jest równa ilości wierzchołku przez które przechodzi $\mathbf{length}(p) := z$.
+Mając DAG G, oznaczamy długość jego najdłuższej ścieżki jako $\mathbf{depth}(G)$.
 
 Mając podzbiór wierzchołków grafu $S \subset V$, poprzez $G - S$ oznaczać będziemy DAG otrzymany z $G$ poprzez usunięcie wierzchołków z $S$ oraz krawędzi wychodzących lub wchodzących do wierzchołków z $S$.
 
 \section{Etykietowanie Grafu}
 
 \begin{definition}
-	(\textit{Parallel/Sequential Graph Pebbling}). Niech $G = (V, E)$ będzie grafem skierowanym grafem acyklicznym i niech $T \subset V$ będzie zbiorem wierzchołków do oetykietowania. $T$ będzie nazywane celem.
+	(\textit{Równoległe/Sekwencyjne Etykietowanie Grafu}). Niech $G = (V, E)$ będzie grafem skierowanym grafem acyklicznym i niech $T \subset V$ będzie zbiorem wierzchołków do oetykietowania. $T$ będzie nazywane celem.
 	Stanem etykietowania $G$ jest zbiór $P_{i} \subset V$.
 	Poprawnym etykietowaniem równoległym jest ciąg $P = (P_{0}, \dots , P_{t})$ stanów etykietowania $G$,
 	gdzie $P_{0} = \emptyset $ oraz gdzie spełnione są warunki 1 oraz 2 poniżej.
@@ -35,14 +35,14 @@ Mając podzbiór wierzchołków grafu $S \subset V$, poprzez $G - S$ oznaczać b
 		
 		\item Oetykietować wierzchołek można tylko wtedy, gdy wszyscy jego rodzice
 		są oetykietowani w poprzednim kroku.
-		$$ \forall i \in [t] : x \in (P_{i} \setminus P_{i-1}) \Rightarrow parents(x) \subset P_{i-1} $$
+		$$ \forall i \in [t] : x \in (P_{i} \setminus P_{i-1}) \Rightarrow \mathbf{parents}(x) \subset P_{i-1} $$
 		
 		\item W każdym kroku można oetykietować co najwyżej jeden wierzchołek.
 		$$ \forall i \in [t]: | P_{i} \setminus P_{i-1} | \leq 1 $$
 	\end{enumerate}
 	Zbiory poprawnych etykietowań sekwencyjnych i równoległych grafu G z celem T oznaczamy odpowiednio jako 
 	$ \mathcal{P}_{G,T} $ oraz $ \mathcal{P}_{G,T}^{ \parallel } $.
-	Etykietowania najbardziej interesujących przypadków, gdy $T = sinks(G)$, oznaczamy $ \mathcal{P}_{G} $ oraz $ \mathcal{P}_{G}^{ \parallel } $.
+	Etykietowania najbardziej interesujących przypadków, gdy $T = \mathbf{sinks}(G)$, oznaczamy $ \mathcal{P}_{G} $ oraz $ \mathcal{P}_{G}^{ \parallel } $.
 \end{definition}
 
 
@@ -55,7 +55,7 @@ Mając podzbiór wierzchołków grafu $S \subset V$, poprzez $G - S$ oznaczać b
 	etykietowania grafu $G$ definiujemy jako
 	$$ \Pi_{ \alpha }(G, T) = \min_{P \in \mathcal{P}_{G,T}} \Pi_{ \alpha } (P) $$
 	$$ \Pi_{ \alpha }^{ \parallel }(G, T) = \min_{P \in \mathcal{P}_{G,T}^{ \parallel }} \Pi_{ \alpha } (P) $$
-	Kiedy $T = sinks(G)$, piszemy $ \Pi_{ \alpha }^{ \parallel }(G) $ oraz $ \Pi_{ \alpha }(G) $.
+	Kiedy $T = \mathbf{sinks}(G)$, piszemy $ \Pi_{ \alpha }^{ \parallel }(G) $ oraz $ \Pi_{ \alpha }(G) $.
 	
 \end{definition}
 
@@ -92,24 +92,24 @@ Superkoncentrator jest grafem, w którym moc zbioru przodków dla wierzchołków
 	Graf $G$ jest nazywany (N, $\lambda$)-Superkoncentratorem.
 \end{definition}
 
-\begin{theorem}
-	(Ograniczenie dolne dla (N, $ \lambda $)-Superkoncentratora).
+\begin{lemma}
+	\cite[Lemat 1]{rs}(Ograniczenie dolne dla (N, $ \lambda $)-Superkoncentratora).
 	Etykietowanie (N, $\lambda$)-Superkoncentratora używając $S \leq N/20$ etykiet, wymaga $T$ kroków, gdzie
 	$$ T \geq N \left( \frac{ \lambda N}{64 S} \right) ^{ \lambda }.$$
-\end{theorem}
+\end{lemma}
 
 \section{Grafy Depth-Robust}
 
-Alwen i Blocki w swojej pracy [] //TODO
+Alwen i Blocki w swojej pracy \cite{depth}
 pokazali, że istnieje zależność między złożonością etykietowania, a depth-robustness. Na podstawie tej właściwości potrafimy określić dolne i górne ograniczenie $\Pi_{ cc }^{ \parallel }$.
 
 \begin{definition}
 	(Depth-Robustness). Dla $n \in \mathbb{N}$ oraz $e, d \in [n]$ DAG $G = (V, E)$
 	jest (e, d)-depth-robust, jeżeli
-	$$ \forall S \subset V \ | S | \leq e \Rightarrow depth(G - S) \geq d.$$
+	$$ \forall S \subset V \ | S | \leq e \Rightarrow \mathbf{depth}(G - S) \geq d.$$
 \end{definition}
 
-\begin{theorem}
+\begin{theorem} \cite[Twierdzenie 4]{depth}
 	Niech DAG G będzie (e, d)-depth-robust, wtedy $ \Pi_{ cc }^{ \parallel } > ed$.
 \end{theorem}
 
@@ -117,22 +117,22 @@ pokazali, że istnieje zależność między złożonością etykietowania, a dep
 	Jeżeli graf $G$ nie jest (e,d)-depth-roubust to nazywany jest (e,d)-reducible.
 \end{definition}
 
-\begin{theorem}
+\begin{theorem} \cite[Twierdzenie 10]{depth}
 	Niech $G \in \mathbb{G}_{n, \delta}$ taki, że $G$ jest (e,d)-reducible. Wtedy
 	$$ \Pi_{cc}^{\parallel}(G) = O \left( \min_{g \in [d,n]} \Big \lbrace n \left( \frac{dn}{g} + \delta g + e \right) \Big \rbrace \right) $$
 	biorąc $g = \sqrt{ \frac{dn}{g}}$ upraszcza się to do $ \Pi_{cc}^{\parallel}(G) = O \left( n ( \sqrt{dn \delta} + e) \right)$.
 \end{theorem}
 
-\section{Dispresed Graphs}
+\section{Grafy rozproszone}
 
 \begin{definition}
-	(Dependencies). Niech $G = (V, E)$ będzie acyklicznym grafem skierowanym.
+	(Zależność, ang. \textit{dependency}). Niech $G = (V, E)$ będzie acyklicznym grafem skierowanym.
 	Niech $L \subseteq V$.
 	Mówimy, że $L$ ma ($z$, $g$)-dependency jeżeli istnieją wierzchołkowo rozłączne ścieżki $p_{1}, \dots , p_{z}$ kończące się w $L$, gdzie każda jest długości co najmniej $g$.
 \end{definition}
 
 \begin{definition}
-	(Dispresed Graph). Niech $g, k \in \mathbb{N}$ i $g \geq k$. DAG G jest nazywany (g, k)-dispresed jeżeli istnieje uporządkowanie jego wierzchołków takie, że następujące warunki są spełnione.
+	(Graf rozproszony, ang. \textit{dispresed}). Niech $g, k \in \mathbb{N}$ i $g \geq k$. DAG G jest nazywany (g, k)-dispresed jeżeli istnieje uporządkowanie jego wierzchołków takie, że następujące warunki są spełnione.
 	Niech $[k]$ oznacza ostatnie $k$ wierzchołków o uporządkowaniu G i niech $L_{j} = [jg, (j + 1)g - 1]$ będzie j-tym podprzedziałem.
 	Wtedy $\forall j \in [ \lfloor k / g \rfloor ]$ przedział $L_{j}$ ma (g, g)-dependency.
 	W ogólności, jeżeli dla $ \epsilon \in (0, 1] $ każdy przedział $L_{j}$ ma tylko ($\epsilon$g, g)-dependency, graf G nazywany jest ($\epsilon$, g, g)-dispresed.
@@ -156,16 +156,16 @@ pokazali, że istnieje zależność między złożonością etykietowania, a dep
 \end{theorem}
 
 
-\section{Grafy Warstwowe}
+\section{Grafy rzędowe}
 
 \begin{definition}
-	($\lambda$-Stacked Sandwich Graphs). Niech $n, \lambda \in \mathbb{N}^{+}$ takie, że $\lambda + 1$ dzieli $n$ oraz niech $k=n/(\lambda + 1)$. Mówimy, że graf $G$ jest $\lambda$-stacked sandwich DAG, jeżeli $G$ zawiera ścieżkę przechodzącą przez $n$ wierzchołków $(v_{1},\dots,v_{n})$ oraz dzieląc go na warstwy $L_{j} = \{v_{jk + 1},\dots,v_{jk + k} \}$, dla $j \in \{0,\dots,\lambda\}$, pozostałe krawędzie łączą wierzchołki z niższej warstwy $L_{j}$ jedynie z wierzchołkami z wyższych warstw $L_{i}$, $i \in \{ j+1,\dots,\lambda \}$.
+	(Graf N rzędowy). Niech $n, N \in \mathbb{N}^{+}$ takie, że $N + 1$ dzieli $n$ oraz niech $k=n/(N + 1)$. Mówimy, że graf $G$ jest $N$ rzędowy, jeżeli $G$ zawiera ścieżkę przechodzącą przez $n$ wierzchołków $(v_{1},\dots,v_{n})$ oraz dzieląc go na warstwy $L_{j} = \{v_{jk + 1},\dots,v_{jk + k} \}$, dla $j \in \{0,\dots,N\}$, pozostałe krawędzie łączą wierzchołki z niższej warstwy $L_{j}$ jedynie z wierzchołkami z wyższych warstw $L_{i}$, $i \in \{ j+1,\dots,N \}$.
 \end{definition}
 
 
 
-\begin{lemma}
-	Niech $G$ będzie $\lambda$-stacked sandwich DAG, wtedy dla dowolnego $t \in \mathbb{N}^{+}$, $G$ jest $(n/t, \lambda t)$-reducible.
+\begin{lemma} \cite[Lemat 4.2]{alwen2016efficiently}
+	Niech $G$ będzie $N$ rzędowym grafem, wtedy dla dowolnego $t \in \mathbb{N}^{+}$, $G$ jest $(n/t, N t)$-reducible.
 \end{lemma}
 
 
@@ -204,7 +204,7 @@ pokazali, że istnieje zależność między złożonością etykietowania, a dep
 	to w szczególności zaczynać się muszą w różnych wierzchołkach $<0, v_{p}> \neq <0, v_{q}>$.
 	Ponieważ wierzchołki w $S$ są od siebie oddalone o $g - 2c$ wierzchołków, zatem ścieżki $p^{+}$ i $q_{+}$ nadal pozostają rozłączne.
 	Rozszerzając w ten sposób wszystkie ścieżki z (g, 2c)-dependency otrzymujemy ścieżki wierzchołkowo-rozłączne długości $g$. Z tego wynika, że $L_{1,j}$ ma (g, g)-dependency, co dowodzi, że $ RSG_{\lambda}^{ \overline{n}} \in \mathbb{D}_{1,g}^{\lambda, \overline{n}} $.
-	Pozostaje obliczyć górne ograniczenie używając [Theorem 6 ABP2017].
+	Pozostaje obliczyć górne ograniczenie używając \cite[Twierdzenie 6]{rs}.
 	
 	$$ \Pi_{cc}^{ \parallel }(RSG_{\lambda}^{\overline{n}}) = \lambda g \left( \frac{ \overline{n}}{2} - g \right) \geq \lambda \lfloor \sqrt{ \overline{n}} \rfloor \left( \frac{ \overline{n}}{2} - \lfloor \sqrt{ \overline{n}} \rfloor \right) = \lambda \sqrt{ \overline{n}} \left( \frac{ \overline{n}}{2} - \sqrt{ \overline{n}} \right) - O(\overline{n}) =  \Omega \left( \lambda \overline{n} \right) = \Omega \left( \frac{n^{1.5}}{c \sqrt{c \lambda}} \right) $$
 	
@@ -218,9 +218,9 @@ pokazali, że istnieje zależność między złożonością etykietowania, a dep
 \end{theorem}
 
 \begin{proof}
-	Kożystając, z [...], $RSG_{\lambda}^{N}$ jest $\lambda$-Stacked Sandwich Graph.
-	Z [Lemma 4.2 AB16] wynika więc, że $RSG_{\lambda}^{N}$  jest ($n / t$, $\lambda + t - \lambda - 1$)-reducible dla dowolnego $t \geq 1$.
-	Z twierdzenia 10 [ABP17] wynika, że $\Pi_{cc}^{ \parallel }(RSG_{\lambda}^{\overline{n}}) = O \left( n \left( \sqrt{( \lambda t + t - \lambda - 1)n \delta } + \frac{n}{t} \right) \right)$.
+	Kożystając, z [...], $RSG_{\lambda}^{N}$ jest $N$ rzędowym grafem.
+	Z \cite[Lemat 4.2]{alwen2016efficiently} wynika więc, że $RSG_{\lambda}^{N}$  jest ($n / t$, $\lambda + t - \lambda - 1$)-reducible dla dowolnego $t \geq 1$.
+	Z twierdzenia \cite[Twierdzenie 10]{depth} wynika, że $\Pi_{cc}^{ \parallel }(RSG_{\lambda}^{\overline{n}}) = O \left( n \left( \sqrt{( \lambda t + t - \lambda - 1)n \delta } + \frac{n}{t} \right) \right)$.
 	Aby dostać najdokładniejsze (najmniejsze) ograniczenie górne trzeba zminimalizować
 	$n \left( \sqrt{( \lambda t + t - \lambda - 1)n \delta } + \frac{n}{t} \right)$.
 	Zanim jednak przejdziemy do minimalizowania, uprośćmy nieco to wyrażenie
@@ -230,7 +230,7 @@ pokazali, że istnieje zależność między złożonością etykietowania, a dep
 	Minimum znajduje się w punkcje, gdzie pochodna ma wartość zero.
 	$$ \frac{ \sqrt{ 2 \delta \lambda n^{3} }}{2t} - \frac{n^{2}}{t^{2}} = 0$$
 	$$ t = \frac{2n^{2}}{ \sqrt{ 2 \delta \lambda n^{3} }} = O \left( n^{\frac{1}{3}} \right) $$
-	Zatem podstawiając $t$ minimalizujące ograniczenie górne do wzoru z twierdzenie 10 [ABP17] otrzymujemy
+	Zatem podstawiając $t$ minimalizujące ograniczenie górne do wzoru z \cite[Twierdzenie 10]{depth} otrzymujemy
 	$$ \Pi_{cc}^{ \parallel }(RSG_{\lambda}^{\overline{n}}) = O \left( n \left( \sqrt{( \lambda n^{\frac{1}{3}} + n^{\frac{1}{3}} - \lambda - 1)n \delta } + \frac{n}{n^{\frac{1}{3}}} \right) \right) = O \left( n^{1.\overline{6}} \right) $$
 \end{proof}
 

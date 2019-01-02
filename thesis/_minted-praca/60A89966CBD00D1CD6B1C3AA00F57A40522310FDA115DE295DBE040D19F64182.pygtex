@@ -1,5 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
-\PYG{c+c1}{// Interfejs zaproponowany w ogłoszeniu konkursu na funkcję do przechowywania haseł $\cite{PHC2013}$ $\label{impl::phc}$}
-\PYG{k+kt}{int} \PYG{n+nf}{PHS}\PYG{p}{(}\PYG{k+kt}{void} \PYG{o}{*}\PYG{n}{out}\PYG{p}{,} \PYG{k+kt}{size\PYGZus{}t} \PYG{n}{outlen}\PYG{p}{,} \PYG{k}{const} \PYG{k+kt}{void} \PYG{o}{*}\PYG{n}{in}\PYG{p}{,} \PYG{k+kt}{size\PYGZus{}t} \PYG{n}{inlen}\PYG{p}{,}
-	\PYG{k}{const} \PYG{k+kt}{void} \PYG{o}{*}\PYG{n}{salt}\PYG{p}{,} \PYG{k+kt}{size\PYGZus{}t} \PYG{n}{saltlen}\PYG{p}{,} \PYG{o}{\PYGZpc{}} \PYG{k+kt}{unsigned} \PYG{k+kt}{int} \PYG{n}{t\PYGZus{}cost}\PYG{p}{,} \PYG{k+kt}{unsigned} \PYG{k+kt}{int} \PYG{n}{m\PYGZus{}cost}\PYG{p}{);}
-\end{Verbatim}

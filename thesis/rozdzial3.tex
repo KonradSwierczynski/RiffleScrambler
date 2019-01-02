@@ -1,7 +1,7 @@
 \chapter{Implementacja}
 \thispagestyle{chapterBeginStyle}
 
-Implementacja $\mathbf{RiffleScrambler}$ została napisana tak, aby spełniała wymagania konkursu na funkcję do przechowywania haseł \cite[PHC, ang \textit{Password Hashing Competition}]{PHC2013}, który rozgrywał się w latach 2013 - 2015.
+Implementacja $\mathbf{RiffleScrambler}$ została napisana tak, aby spełniała wymagania konkursu na funkcję do przechowywania haseł \cite[PHC, ang \textit{Password Hashing Competition}]{phc}, który rozgrywał się w latach 2013 - 2015.
 
 \section{Wymagania konkursu}
 Wymagania konkursu PHC odnoszące się do implementacji:
@@ -14,18 +14,18 @@ Wymagania konkursu PHC odnoszące się do implementacji:
 \end{itemize}
 
 \begin{minted}[mathescape]{C}
-// Interfejs zaproponowany w ogłoszeniu konkursu na funkcję do przechowywania haseł $\cite{PHC2013}$ $\label{impl::phc}$
+// Interfejs zaproponowany w ogłoszeniu konkursu na funkcję do przechowywania haseł $\label{impl::phc}$
 int PHS(void *out, size_t outlen, const void *in, size_t inlen,
 	const void *salt, size_t saltlen, % unsigned int t_cost, unsigned int m_cost); 
 \end{minted}
 
-Na zwycięzce konkursu wybrano Argon2, a Catena, Lyra2, yescryot oraz Makwa otrzymały specjalne wyróżnienie.
+Na zwycięzce konkursu wybrano Argon2, a Catena, Lyra2 \cite{simplicio2015lyra2}, yescryt \cite{peslyak2014yescrypt} oraz Makwa \cite{pornin2015makwa} otrzymały specjalne wyróżnienie.
 
 \section{Opis technologii}
-Początkowa implementacja napisana została w języku Python 3.7, jednak ze względu na niską wydajność oraz nie spełnianie wymagań PHC napisana została ostatecznie w języku C++17, standard ISO/IEC 14882:2017.
+Początkowa implementacja napisana została w języku Python 3.7, jednak ze względu na niską wydajność oraz nie spełnianie wymagań PHC napisana została ostatecznie w języku C++17, standard ISO/IEC 14882:2017 \cite{cpp17}.
 
-W implementacji używana jest biblioteka OpenSSL w wersji ...,
-Z podanej biblioteki użyto interfejsu EVP który dostarcza podstawowe kryptograficzne funkcje skrótu takie jak SHA2, SHA3, blake2s czy ripemd160.
+W implementacji używana jest biblioteka OpenSSL \cite{openssl}.
+Z podanej biblioteki użyto interfejsu EVP \cite{opensslevp} który dostarcza podstawowe kryptograficzne funkcje skrótu takie jak SHA2, SHA3, blake2s czy ripemd160.
 
 
 \section{Omówienie kodów źródłowych}
@@ -36,11 +36,11 @@ Kompletne kody źródłowe znajdują się do płycie CD dołączonej do niniejsz
 \subsection{Wysokopoziomowy interfejs}
 Wysokopoziomowy interfejs upraszcza użycie funkcji $\mathbf{RiffleScrambler}$ podczas pisania
 programów na wyższym abstrakcji takich jak na przykład aplikacje uwierzytelniające.
-Podobnie jak w implementacji zwycięzcy konkursu PHC (argon2 \cite{Argon2}) w udostępnionych funkcjach znajdują się:
+Podobnie jak w implementacji zwycięzcy konkursu PHC (argon2) w udostępnionych funkcjach znajdują się:
 \begin{itemize}
 	\item funkcja zwracająca wynik jako tekst ze znakami w systemie heksadecymalnym - linia \ref{impl::rs_str},
 	\item funkcja zwracająca wynik jako wektor znaków w systemie heksadecymalnym - linia \ref{impl::rs_vec},
-	\item funkcja zwracająca zakodowany wynik wraz z użytą solą oraz parametrami w celu łatwego przechowywania i łatwej weryfikacji, sól oraz hasło zakodowane są za pomocą base64 \cite{base64} - linia \ref{impl::rs_enc},
+	\item funkcja zwracająca zakodowany wynik wraz z użytą solą oraz parametrami w celu łatwego przechowywania i łatwej weryfikacji, sól oraz hasło zakodowane są za pomocą base64 \cite{josefsson2006base16} - linia \ref{impl::rs_enc},
 	\item funkcja weryfikująca poprawność podanego hasła dla zakodowanego wyniku - linia \ref{impl::rs_ver}.
 \end{itemize}
 
