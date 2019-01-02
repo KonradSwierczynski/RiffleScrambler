@@ -26,7 +26,7 @@ Na zwycięzce konkursu wybrano Argon2, a Catena, Lyra2 \cite{simplicio2015lyra2}
 Początkowa implementacja napisana została w języku Python 3.7, jednak ze względu na niską wydajność oraz nie spełnianie wymagań PHC napisana została ostatecznie w języku C++17, standard ISO/IEC 14882:2017 \cite{cpp17}.
 
 W implementacji używana jest biblioteka OpenSSL \cite{openssl}.
-Z podanej biblioteki użyto interfejsu EVP \cite{opensslevp} który dostarcza podstawowe kryptograficzne funkcje skrótu takie jak SHA2, SHA3, blake2s czy ripemd160.
+Z podanej biblioteki użyto interfejsu EVP \cite{opensslevp}, który dostarcza podstawowe kryptograficzne funkcje skrótu takie jak SHA2, SHA3, blake2s czy ripemd160.
 
 
 \section{Omówienie kodów źródłowych}
@@ -210,6 +210,7 @@ Wykres \ref{impl::b3} przedstawia wpływ na czas obliczeń $\mathbf{RiffleScramb
 
 \end{figure}
 
+\newpage
 \section{$\mathbf{RiffleScrambler}$ z wiersza poleceń}
 Do implementacji dołączony został też program \texttt{rs} uruchamiany z wiersza poleceń umożliwiający testowanie działania funkcji $\mathbf{RiffleScrambler}$ w łatwy sposób.
 Aby wyświetlić instrukcje, jak używać tego programu należy wykonać polecenie \texttt{./rs -h} lub \texttt{./rs --help}.
@@ -308,6 +309,7 @@ bool is_password_valid(const std::string &login, const std::string &password) {
 
 To, co zasługuje na docenienie podczas używania biblioteki \texttt{riffle}, to konieczność poświęcenia tylko jednej kolumny w tabeli, aby uzyskać możliwość uwierzytelniania użytkownika za pomocą hasła. Nie trzeba przechowywać soli, ani parametrów funkcji, ponieważ zawarte są one w zakodowanej wartości. Oznacza to, że można zmienić dowolne parametry funkcji używane podczas tworzenia nowych kont oraz uwierzytelniać użytkowników z hasłami zapisanymi wcześniej bez konieczności rozróżniania z jakimi parametrami jaki użytkownik zakładał konto.
 
+\newpage
 
 \section{Testy}
 Do implementacji zostały dołączone testy jednostkowe pisane przy wykorzystaniu biblioteki Catch2 \cite{catch}.

@@ -13,7 +13,7 @@
 \contentsline {section}{\numberline {3.1}Budowa grafu}{7}{section.3.1}
 \contentsline {subsection}{\numberline {3.1.1}Parametry}{7}{subsection.3.1.1}
 \contentsline {subsection}{\numberline {3.1.2}Tworzenie grafu na podstawie permutacji}{7}{subsection.3.1.2}
-\contentsline {subsection}{\numberline {3.1.3}\IeC {\'S}ledzienie trajektorii}{9}{subsection.3.1.3}
+\contentsline {subsection}{\numberline {3.1.3}\IeC {\'S}ledzenie trajektorii}{9}{subsection.3.1.3}
 \contentsline {section}{\numberline {3.2}Tworzenie permutacji}{9}{section.3.2}
 \contentsline {subsection}{\numberline {3.2.1}Talia kart jako permutacja}{9}{subsection.3.2.1}
 \contentsline {subsection}{\numberline {3.2.2}Algorytm generowania permutacji}{10}{subsection.3.2.2}
@@ -29,9 +29,9 @@
 \contentsline {subsection}{\numberline {4.3.2}Niskopoziomowy interfejs}{19}{subsection.4.3.2}
 \contentsline {section}{\numberline {4.4}Parametry}{19}{section.4.4}
 \contentsline {section}{\numberline {4.5}Uwidacznianie si\IeC {\k e} w\IeC {\l }asno\IeC {\'s}ci \textit {memory-hard}}{20}{section.4.5}
-\contentsline {section}{\numberline {4.6}$\mathbf {RiffleScrambler}$ z wiersza polece\IeC {\'n}}{20}{section.4.6}
+\contentsline {section}{\numberline {4.6}$\mathbf {RiffleScrambler}$ z wiersza polece\IeC {\'n}}{22}{section.4.6}
 \contentsline {section}{\numberline {4.7}Przyk\IeC {\l }ad u\IeC {\.z}ycia}{22}{section.4.7}
-\contentsline {section}{\numberline {4.8}Testy}{23}{section.4.8}
+\contentsline {section}{\numberline {4.8}Testy}{24}{section.4.8}
 \contentsline {section}{\numberline {4.9}Kompilowanie i u\IeC {\.z}ycie}{24}{section.4.9}
 \contentsline {subsection}{\numberline {4.9.1}Biblioteka}{24}{subsection.4.9.1}
 \contentsline {subsection}{\numberline {4.9.2}Testy}{24}{subsection.4.9.2}

@@ -4,7 +4,7 @@
 
 RiffleScrambler \cite{rs} jest nową rodziną acyklicznych grafów skierowanych (nazywaną RSG), której odpowiada funkcja \textit{memory-hard} z dostępem do pamięci niezależnym od hasła (iMHF).
 W funkcji tej, podobnie jak w Catenie, kolejność obliczeń zdefiniowana jest za pomocą grafu. 
-Przewagą funkcji RiffleScrambler, jest to, że graf generowany jest na podstawie soli, tak jak w funkcji Balloon Hashing. Oznacza, to, że dla każda sól odpowiada (z dużym prawdopodobieństwem) innemu grafowi, co zwiększa odporność na ataki równoległe. Dla Cateny są dwa predefiniowane grayf \textit{bit-reversal} i \textit{double-butterfly}.
+Przewagą funkcji RiffleScrambler, jest to, że graf generowany jest na podstawie soli, tak jak w funkcji Balloon Hashing. Oznacza, to, że dla każda sól odpowiada (z dużym prawdopodobieństwem) innemu grafowi, co zwiększa odporność na ataki równoległe. Dla Cateny są tylko dwa predefiniowane grayf \textit{bit-reversal} i \textit{double-butterfly}.
 Jednocześnie RiffleScrambler zapewnia lepszą wydajność przy obliczaniu niż Balloon Hashing, ponieważ ma dużo mniejszy stopień wchodzący grafu, który jest równy 3.
 Ponieważ jest superkoncentratorem, osiąga kompromis pamięć-czas oraz dolne ograniczenie złożoności etykietowania równoległego takie same jak Catena.
 
@@ -21,7 +21,7 @@ Funkcja $\mathbf{RiffleScrambler}$ używa następujących parametrów:
 \end{itemize}
 
 Sól używana jest do generowania liczb pseudolosowych, potrzebnych do zbudowania grafu.
-Parametr $g$ określa ilość pamięci, jaką trzeba będzie wykorzystać podczas obliczania funkcji. Podczas obliczeń potrzebne jest $2^{g}$ komórek, gdzie każda przechowuje wynik kryptograficznej funkcji skrótu. Wartość $2^g$ będziemy oznaczać jako $N$.
+Parametr $g$ określa ilość pamięci, jaką trzeba będzie wykorzystać podczas obliczania funkcji. Podczas obliczeń potrzebne jest pamiętanie $2^{g}$ komórek, gdzie każda przechowuje wynik kryptograficznej funkcji skrótu. Wartość $2^g$ będziemy oznaczać jako $N$.
 Parametr $\lambda$ definiuje ile warstw będzie miał końcowy graf, co bezpośrednio wpływa na czas obliczania funkcji.
 Graf dla zadanych parametrów wpływających na jego rozmiar oznaczany jest $RSG_{N}^{\lambda}$. Sól nie ma wpływu na rozmiar grafu, ani jego właściwości, używana jest do generowania części krawędzi w grafie.
 
@@ -35,7 +35,7 @@ Niech $HW(x)$ (ang. \textit{Hamming weight}) oznacza ilość jedynek w wyrazie b
 	$$ r_{B}(i) = | \{ j < i : b_{j} = b_{i} \} | .$$
 \end{definition}
 
-\begin{definition}[Riffle-Permutation] Niech $B - (b_{0} \dots b_{n - 1})$ będzie wyrazem binarnym o długości $n$. Permutacja $\pi$ indukowana przez $B$ zdefiniowana jest następująco
+\begin{definition}[Riffle-Permutation] Niech $B = (b_{0} \dots b_{n - 1})$ będzie wyrazem binarnym o długości $n$. Permutacja $\pi$ indukowana przez $B$ zdefiniowana jest następująco
 
 	$$
 	\pi_{B}(i) =
@@ -63,7 +63,7 @@ Niech $HW(x)$ (ang. \textit{Hamming weight}) oznacza ilość jedynek w wyrazie b
 \begin{figure}[h]
 	\includegraphics[width=\textwidth]{rp1.png}
 	\centering	
-	\caption{Graf utowrzony z Riffle-Permutation indukowanej przez $B=11100100$.}
+	\caption{Graf utworzony z Riffle-Permutation indukowanej przez $B=11100100$.}
 	\label{2::im1}
 \end{figure}
 
@@ -102,17 +102,17 @@ Niech $HW(x)$ (ang. \textit{Hamming weight}) oznacza ilość jedynek w wyrazie b
 	\begin{itemize}
 		\item $(2g + 1)2^{g}$ krawędzi: $v_{i-1}^{j} \rightarrow v_{i}^{j}$ dla $i \in [2^{g}-1]$ i $j \in \{0,1,\dots,2^{g} \}$,
 		
-		\item $2g$ krawędzi: $v_{2^{g} - 1}^{j} \rightarrow v_{0}^{j+1}$ dla $j \in \{0,\dots,2g-1 \} $,
+		\item $2g$ krawędzi: $v_{2^{g} - 1}^{j-1} \rightarrow v_{0}^{j}$ dla $j \in [2g] $,
 		
 		\item $g2^{g}$ krawędzi: $v_{i}^{j-1} \rightarrow v_{\pi_{B_{j}}(i)}^{j}$, dla $i \in \{0,\dots,2^{g} -1\}$ i $j \in [g]$,
 		
-		\item $g2^{g}$ krawędzi: $v_{i}^{j-1} \rightarrow v_{\pi_{\overline{B}_{j}}(i)}^{j}$, dla $i \in \{0,\dots,2^{g} -1\}$ i $j \in [g]$,
+		\item $g2^{g}$ krawędzi: $v_{i}^{j-1} \rightarrow v_{\pi_{\overline{B}_{j}}(i)}^{j}$, dla $i \in \{0,\dots,2^{g} -1\}$ i $j \in [g]$
 	\end{itemize}
 	oraz dla dolnych $g$ warstw, które są symetryczne względem warstwy $g$:
 	\begin{itemize}
 		\item $g2^{g}$ krawędzi: $v_{i}^{2g - j} \rightarrow v_{\pi_{B_{j}}^{-1}(i)}^{2g -j + 1}$, dla $i \in \{0,\dots,2^{g} -1\}$ i $j \in [g]$,
 
-		\item $g2^{g}$ krawędzi: $v_{i}^{2g - j} \rightarrow v_{\pi_{\overline{B}_{j}}^{-1}(i)}^{2g - j + 1}$, dla $i \in \{0,\dots,2^{g} -1\}$ i $j \in [g]$,
+		\item $g2^{g}$ krawędzi: $v_{i}^{2g - j} \rightarrow v_{\pi_{\overline{B}_{j}}^{-1}(i)}^{2g - j + 1}$, dla $i \in \{0,\dots,2^{g} -1\}$ i $j \in [g]$.
 	\end{itemize}
 
 \end{definition}
@@ -121,7 +121,7 @@ Niech $HW(x)$ (ang. \textit{Hamming weight}) oznacza ilość jedynek w wyrazie b
 \begin{definition}[(N,$\lambda$)-Double-Riffle-Graph] \label{rs::nldouble} Niech $G_{i}$, $i \in \{ 0,1,\dots,\lambda - 1\}$ będą N-Double-Riffle-Graph. Graf (N,$\lambda$)-Double-Riffle-Graph jest skonstruowany poprzez złączenie wyjść grafu $G_{i}$ do dopowiadających wejść grafu $G_{i+1}$, $i \in \{ 0, 1, \dots, \lambda - 2\}$.
 \end{definition}
 
-\subsection{Śledzienie trajektorii}
+\subsection{Śledzenie trajektorii}
 Graf jest generowany za pomocą permutacji pseudolosowej $\sigma$.
 Ponieważ do generowania grafu potrzebne jest $g$ słów binarnych o długości $2^{g}$, a permutacje zawierają $2^{g}$ elementów, gdzie każdy ma maksymalnie $g$ bitów znaczących, trzeba przekształcić permutację tak, aby otrzymać pożądane dane.
 Ta procedura nazwana jest śledzeniem trajektorii (ang. \textit{trace trajectories}).
@@ -136,7 +136,7 @@ Początkową częścią funkcji $\mathbf{RiffleScrambler}$ jest generowanie perm
 Podczas tasowania talia kart dzielona jest na dwie części.
 Podział odbywa się poprzez wybranie karty w środku talii, karty które są przed wybraną kartą tworzą pierwszą część, a pozostałe tworzą drugą część.
 Następnie te dwie części są ze sobą łączone w jeden stos poprzez losowe umieszczanie karty z góry pierwszej lub drugiej części na stosie.
-Można zauważyć, że kolejność kart wśród stosu z którego pochodzą nie zmienia się, lecz między kolejne karty z jednego stosu mogą wejść karty z drugiego.
+Można zauważyć, że kolejność kart wśród stosu z którego pochodzą nie zmienia się, ale między kolejne karty z jednego stosu mogą wejść karty z drugiego.
 
 W celu wygenerowania permutacji $N$ elementów, myślimy o tych elementach jako o kartach, a o permutacji, jako o pewnej ich kolejności.
 Krok odwróconego sortowania wygląda następująco.
@@ -153,7 +153,7 @@ Algorytm $\mathbf{InverseRiffleShuffle}$ będzie mógł się zakończyć, kiedy 
 \subsection{Algorytm generowania permutacji}
 Razem z prezentacją RiffleScrambler zaproponowany został algorytm generowania permutacji \cite[Algorym 1]{rs}, który sprawdzał warunek końca w czasie $O(n^2)$ oraz potrzebował $O(n^2)$ komórek pamięci, gdzie $n$ oznacza wielkość permutacji.
 
-Pseudokod [TODO...] przedstawia algorytm sprawdzający warunek końca w czasie $O(n)$ korzystając z $O(n log{n})$ komórek pamięci.
+Pseudokod \ref{rs::riffleshuffle} przedstawia algorytm sprawdzający warunek końca w czasie $O(n)$ korzystając z $O(n log{n})$ komórek pamięci.
 
 Algorytm opiera się na sortowaniu pozycyjnym radix sort \cite{radixsort}, gdzie jako pozycje sortowanych elementów podawane są losowane bity.
 Permutowane elementy, trzymane są w tablicy, która jest sortowana po każdej iteracji dokładania kolejnego bitu. Dzięki temu sprawdzenie warunku końca odbywa się na posortowanej tablicy, którą wystarczy przejść sprawdzając czy każde dwa sąsiednie elementy są różne, co wykonywane jest w czasie liniowym.
@@ -167,22 +167,23 @@ Procedurę $\mathbf{RiffleScrambler}(pwd, s, g,\lambda)$ można z grubsza przeds
 	
 	\item Dla permutacji $\sigma$ tworzona jest macierz $\mathfrak{B} = \mathbf{TraceTrajectories}(B)$.
 	
-	\item Dla wyrazów binarnych $\mathfrak{B}_{0},\dots,\mathfrak{B}_{g-1}$ generowany jest graf $G$, który jest N-Double-Riffle-Graph. Przypomnijmy, $N = 2 ^ {g}$.
+	\item Dla wyrazów binarnych $\mathfrak{B}_{0},\dots,\mathfrak{B}_{g-1}$ generowany jest graf $G = \mathbf{GenGraph}(g, \sigma)$ (pseudokod \ref{rs::gengraph}), który jest N-Double-Riffle-Graph. Przypomnijmy, $N = 2 ^ {g}$.
 	
 	\item Na grafie $G$ zainicjalizowanym wartością $pwd$, oblicze są wartości w ostatnim rzędzie ($v_{0}^{2g+1},\dots,v_{2^{g} - 1}^{2g + 1}$).
 	
-	\item Wartości z ostatniego rzędu przepisywane są do pierwszego, $v_{i}^{0} = v_{1}^{2g+1}$ dla $i \in \{ 0,\dots,2^{g}-1 \}$, a następnie znów oblicza się wartość ostatnich rzędów. Powtarzane jest $\lambda$ razy.
+	\item Wartości z ostatniego rzędu przepisywane są do pierwszego, $v_{i}^{0} = v_{i}^{2g+1}$ dla $i \in \{ 0,\dots,2^{g}-1 \}$, a następnie znów oblicza się wartość ostatnich rzędów. Powtarzane jest $\lambda$ razy.
 	
 	\item Wartością końcową jest wartość w ostatnim wierzchołku, czyli w $v_{2^{g} - 1}^{2g}$.
 \end{itemize}
+Procedura $\mathbf{RiffleShuffle}$ przedstawiona jest w pseudokodzie \ref{rs::rs}.
 
 \begin{example}[Generowanie (8,1)-Double-Riffle-Graph]
-	Skoro $N = 8$, to $g = 3$, ponieważ $N = 2^g$. $\lambda = 1$.
+	Niech $g = 3$, $N = 2^g = 8$ i $\lambda = 1$.
 	Niech otrzymaną permutacją $\sigma$ będzie $\bigl( \begin{smallmatrix}
 	0 && 1 && 2 && 3 && 4 && 5 && 6 && 7 \\
 	5 && 4 && 6 && 3 && 2 && 7 && 0 && 1
 	\end{smallmatrix} \bigr) $.
-	Zatem binarna postać permutacji $B = \bigl( \begin{smallmatrix}
+	Binarną postać permutacji $B = \bigl( \begin{smallmatrix}
 		1 && 1 && 1 && 0 && 0 && 1 && 0 && 0 \\
 		0 && 0 && 1 && 1 && 1 && 1 && 0 && 0 \\
 		1 && 0 && 0 && 1 && 0 && 1 && 0 && 1
@@ -210,7 +211,7 @@ Procedurę $\mathbf{RiffleScrambler}(pwd, s, g,\lambda)$ można z grubsza przeds
 	\end{smallmatrix} \bigr). $$
 	
 	Wygenerowany graf z krawędziami zależnymi od permutacji ukazany jest na rysunku \ref{2::im3}.
-	Dodając do niego krawędzie nie zależne od permutacji, otrzymujemy pełny graf (8,1)-Double-Riffle-Graph pokazany na rysunku \ref{2::im4}.
+	Dodając do niego krawędzie niezależne od permutacji, otrzymujemy pełny graf (8,1)-Double-Riffle-Graph pokazany na rysunku \ref{2::im4}.
 	
 \end{example}
 
@@ -234,6 +235,7 @@ Procedurę $\mathbf{RiffleScrambler}(pwd, s, g,\lambda)$ można z grubsza przeds
 
 \begin{algorithm}
 	\caption{$\mathbf{RiffleShuffle}$}
+	\label{rs::riffleshuffle}
 	\SetAlgoLined
 	\KwIn{N - wielkość premutacji do wygenerowania, getNextBit - generator bitów losowych}
 	\KwOut{$\sigma$ - permtacja wielkości N}
@@ -275,6 +277,7 @@ Procedurę $\mathbf{RiffleScrambler}(pwd, s, g,\lambda)$ można z grubsza przeds
 
 \begin{algorithm}
 	\caption{$\mathbf{GenGraph}$}
+	\label{rs::gengraph}
 	\SetAlgoLined
 	\KwIn{g - parametr wielkości grafu, $\sigma$ - permutacja wielkości $2^g$}
 	\KwOut{G - graf na $2^g$ wierzchołkach z krawędziami wygenerowanymi na podstawie permutacji}
@@ -311,6 +314,7 @@ Procedurę $\mathbf{RiffleScrambler}(pwd, s, g,\lambda)$ można z grubsza przeds
 
 \begin{algorithm}
 	\caption{$\mathbf{RiffleScrambler}$}
+	\label{rs::rs}
 	\SetAlgoLined
 	\KwIn{s - sól, g - parametr wielkości grafu, pwd - hasło, $\lambda$ - ilość warstw w grafie, H - kryptograficzna funckja sktóru}
 	\KwOut{pwd - hash podanego hasła}
@@ -334,7 +338,7 @@ Procedurę $\mathbf{RiffleScrambler}(pwd, s, g,\lambda)$ można z grubsza przeds
 		}
 	}
 	
-	$hash = v_{2^g - 1}{2g}$ \;
+	$hash = v_{2^g - 1}^{2g}$ \;
 \end{algorithm}
 
 \section{Właściwości}
@@ -374,12 +378,12 @@ Procedurę $\mathbf{RiffleScrambler}(pwd, s, g,\lambda)$ można z grubsza przeds
 	Wybierzmy $i \in [ \lambda ]$ niech $L_{1}$ będzie ostatnimi $\overline{n}$ wierzchołkami w porządku topologicznym grafu $G_{i}$.
 	Oznaczamy wierzchołki zbioru $L_{1}$ poprzez ${1} \times [ \overline{n} ]$, gdzie druga pozycja odpowiada kolejności wierzchołka w porządku topologicznym.
 	Niech $ \overline{g} = \lfloor \overline{n} / g \rfloor$, dla każdego $j \in [ \overline{g}]$
-	$L_{1, j} = \{ <1, jg + x> : x \in [0, g-1] \}$.
+	$L_{1, j} = \{ <1, jg + x> \ : \ x \in [0, g-1] \}$.
 	Pokażemy, że wszystkie $L_{1, j}$ mają (g, g)-dependency.
 	
 	Niech $L_{0}$ będzie $\overline{n}$ pierwszymi wierzchołkami $G_{i}$, które oznaczamy ${0} \times [\overline{n}]$ (ponownie druga pozycja odpowiada porządkowi topograficznemu).
 	Zauważmy, że dla $n \textgreater 1$ i $g = \lfloor \sqrt{ \overline{n}} \rfloor$ prawdą jest, że $g(g - 2c + 1) \leq n$.
-	Zatem zbiór $S = \{ <0, i(g - 2c + 1_)>: i \in [g] \}$ jest całkowicie zawarty w $L_{0}$.
+	Zatem zbiór $S = \{ <0, i(g - 2c + 1)> \ : \ i \in [g] \}$ jest całkowicie zawarty w $L_{0}$.
 	
 	Z twierdzenia \ref{rs::superk} mówiącym, że $RSG$ jest N-Superkoncentratorem wynika, że skoro zbiory $S$ oraz $L_{1,j}$ mają po $g$ wierzchołków, to istnieje $g$ wierzchołkowo-rozłącznych ścieżek o długości $2c$ między wierzchołkami tych zbiorów. Zatem $L_{1,j}$ ma (g, 2c)-dependency.
 	
@@ -416,9 +420,9 @@ Procedurę $\mathbf{RiffleScrambler}(pwd, s, g,\lambda)$ można z grubsza przeds
 	$$ \frac{\partial}{\partial t} n \left( \sqrt{( 2N t)n \delta } + \frac{n}{t} \right) = \frac{ \sqrt{ 2 \delta N n^{3} }}{2t} - \frac{n^{2}}{t^{2}}$$
 	Minimum znajduje się w punkcje, gdzie pochodna ma wartość zero.
 	$$ \frac{ \sqrt{ 2 \delta N n^{3} }}{2t} - \frac{n^{2}}{t^{2}} = 0$$
-	$$ t = \frac{2n^{2}}{ \sqrt{ 2 \delta N n^{3} }} = O \left( n^{\frac{1}{3}} \right) $$
+	$$ t = \frac{2n^{2}}{ \sqrt{ 2 \delta N n^{3} }} = \tilde{O} \left( n^{\frac{1}{3}} \right) $$
 	Zatem podstawiając $t$ minimalizujące ograniczenie górne do wzoru z twierdzenia \ref{1::redu} otrzymujemy
-	$$ \Pi_{cc}^{ \parallel }(RSG_{\lambda}^{\overline{n}}) = O \left( n \left( \sqrt{( N n^{\frac{1}{3}} + n^{\frac{1}{3}} - N - 1)n \delta } + \frac{n}{n^{\frac{1}{3}}} \right) \right) = O \left( n^{1.667} \right). $$
+	$$ \Pi_{cc}^{ \parallel }(RSG_{\lambda}^{\overline{n}}) = \tilde{O} \left( n \left( \sqrt{( N n^{\frac{1}{3}} + n^{\frac{1}{3}} - N - 1)n \delta } + \frac{n}{n^{\frac{1}{3}}} \right) \right) = \tilde{O} \left( n^{1.667} \right). $$
 \end{proof}
 
 \section{Porówanie}
@@ -432,11 +436,11 @@ Im ta złożoność jest wyższa, tym bardziej czas obliczeń jest zdominowany p
 		\hline
 		Algorytm & Ograniczenie dolne & Ograniczenie górne\\
 		\hline
-		Argon2i-B & $\Omega(n^{1.667})$ & $O(n^{1.8})$ \\
+		Argon2i-B & $\tilde{\Omega}(n^{1.667})$ & $\tilde{O}(n^{1.8})$ \\
 		\hline
-		Catena Butterfly & $\Omega(n^{1.5})$ & $O(n^{1.625})$ \\
+		Catena Butterfly & $\tilde{\Omega}(n^{1.5})$ & $\tilde{O}(n^{1.625})$ \\
 		\hline
-		RiffleScrambler & $\Omega(n^{1.5})$ & $O(n^{1.667})$ \\
+		RiffleScrambler & $\tilde{\Omega}(n^{1.5})$ & $\tilde{O}(n^{1.667})$ \\
 		\hline
 	\end{tabular}
 	\caption{\cite[Tablica 1]{depth} Porównianie złożoności całkowitej dla Argon2i, Catena (dla grafu Butterfly) oraz RiddleScrambler (Twierdzenia  \ref{rs::lower}, \ref{rs::upper}).}
