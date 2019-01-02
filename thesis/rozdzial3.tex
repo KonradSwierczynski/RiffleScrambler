@@ -149,9 +149,162 @@ Funkcja przyjmuje parametry opisane w poprzednim rozdziale [\nameref{rs::g}].
 
 Ważny jest dobór parametrów \texttt{garlic} ($g$) oraz \texttt{depth} ($\lambda$), ponieważ to od nich zależy bezpieczeństwo przechowywanych haseł. Zalecanymi parametrami, podobnie jak dla Argon2, jest $\texttt{garlic}=12$ oraz $\texttt{depth}=4$ zapewniające dostateczne bezpieczeństwo oraz racjonalny czas obliczeń. Oznacza to użycie pamięci wynoszące $16$ MiB, co jest wyższą wartością niż rozmiar pamięci podręcznej na poziomie L-1 oraz L-2 dla większości procesorów, a zazwyczaj nawet większa od całkowitej pamięci podręcznej, co wymusza kosztowne sięganie do pamięci RAM. 
 
-\section{Wydajność}
-Implementacja została zbadana pod kontem wydajności w zależności od parametru.
+\section{Uwidacznianie się własności \textit{memory-hard}}
+Implementacja została zbadana pod kontem wydajności w zależności od podawanych parametrów.
+Na podstawie wyników można zaobserwować, jak uwidacznia się własność \textit{memory-hard}.
+
+Na wykresie \ref{impl::b2} widać, że zużycie pamięci rośnie wykładniczo od wartości parametru $g$.
+Ponieważ zapotrzebowanie na pamięć rośnie, procentowo mniej elementów mieści się w pamięci podręcznej.
+
+Dobrze odwzorowuje to wykres \ref{impl::b1}. Oprócz sytuacji dla $g < 7$, którą ciężko wyjaśnić, a więc biorąc pod uwagę wartości dla $g \geq 7$, liczba odwołań do danych, które nie znajdowały się w pamięci podręcznej (ang. \textit{chache misses}) zaczyna rosnąć od pewnego momentu.
+Pierwszy wzrost ma miejsce dla $g = 10$, co odpowiada zapotrzebowaniu na pamięć ok. $1$ MiB. Biorąc pod uwagę, że pamięć podręczna obsługuje również inne procesy, w tym program monitorujący, można wnioskować, że liczba odczytów z pamięci RAM zaczyna być procentowo coraz większa od momentu, gdy zapotrzebowanie na pamięć dorównuje ilości pamięci podręcznej (procesor na maszynie testowej wyposażony był w $3$ MiB pamięci podręcznej).
+
+Kontynuując to rozważanie, skoro liczba wolnych odczytów zaczyna przeważać dla dużych $g$, to czas obliczenia pojedynczego wierzchołka w grafie powinien się zwiększać. Tak właśnie się dzieje, co obrazuje wykres \ref{impl::b5}, który ilustruje czas obliczania pojedynczego wierzchołka w zależności od parametru $g$.
+
+Co za tym idzie, obliczając graf z taką samą liczbą wierzchołków, ale dla różnych parametrów $g$ (wyrównując ilość wierzchołków za pomocą parametru $\lambda$), czas obliczeń takich funkcji powinien być wyższy dla większych wartości $g$. Tą zależność wydaje się potwierdzać wykres \ref{impl::b6}.
+
+Oznacza to, że koszt odwoływania się do pamięci ma wpływ na czas obliczeń, co ilustruje własność \textit{memory-hard}.
+
+
+Wykres \ref{impl::b3} przedstawia wpływ na czas obliczeń $\mathbf{RiffleScrambler}$ parametru $g$, który jest wykładniczy, oraz parametry $\lambda$, który jest liniowy.
+
+
+\begin{figure}
+	\begin{subfigure}{0.5\textwidth}
+		\includegraphics[width=\textwidth]{bench_1.png}
+		\centering
+		\caption{Wykresy liczby odczytów spoza pamięci podręcznej.}
+		\label{impl::b1}
+	\end{subfigure}
+	\begin{subfigure}{0.5\textwidth}
+		\includegraphics[width=\textwidth]{bench_2.png}
+		\centering
+		\caption{Wykresy zużycia pamięci przez $\mathbf{RiffleScrambler}$ w zależności od parametru $g$.}
+		\label{impl::b2}
+	\end{subfigure}
+	\begin{subfigure}{0.5\textwidth}
+		\includegraphics[width=\textwidth]{bench_3.png}
+		\centering
+		\caption{Wykres czasu obliczania $\mathbf{RiffleScrambler}$ w zależności od parametru $g$.}
+		\label{impl::b3}
+	\end{subfigure}
+	\begin{subfigure}{0.5\textwidth}
+		\includegraphics[width=\textwidth]{bench_4.png}
+		\centering
+		\caption{Wykres czasu obliczania $\mathbf{RiffleScrambler}$ w zależności od parametru $\lambda$.}
+		\label{impl::b4}
+	\end{subfigure}
+		\begin{subfigure}{0.5\textwidth}
+		\includegraphics[width=\textwidth]{bench_5.png}
+		\centering
+		\caption{Wykres czasu obliczania $\mathbf{RiffleScrambler}$ w zależności od parametru $g$ dla stałej liczby wierzchołków w grafie.}
+		\label{impl::b5}
+	\end{subfigure}
+	\begin{subfigure}{0.5\textwidth}
+		\includegraphics[width=\textwidth]{bench_6.png}
+		\centering
+		\caption{Średni czas obliczania jednego wierzchołka w zależności od parametru $g$ dla stałej liczby wierzchołków w grafie.}
+		\label{impl::b6}
+	\end{subfigure}
+
+\end{figure}
+
+\section{$\mathbf{RiffleScrambler}$ z wiersza poleceń}
+Do implementacji dołączony został też program \texttt{rs} uruchamiany z wiersza poleceń umożliwiający testowanie działania funkcji $\mathbf{RiffleScrambler}$ w łatwy sposób.
+Aby wyświetlić instrukcje, jak używać tego programu należy wykonać polecenie \texttt{./rs -h} lub \texttt{./rs --help}.
+
+\begin{lstlisting}
+$ ./rs --help             
+Password hashing memory-hard function
+Usage:
+RiffleScrambler  Password is read from stdin [OPTION...] [optional args]
+
+-s, --salt arg   Salt for the given password
+-w, --width arg  Width of the graph (default: 12)
+-d, --depth arg  Number of stacks of the graph (default: 2)
+-f, --func arg   Internal hash function (default: sha256)
+-h, --help       Print help
+\end{lstlisting}
+
+Program przyjmuje parametry do uruchomienia funkcji $\mathbf{RiffleScrambler}$ w argumentach wywołania, natomiast hasło przyjmuje na standardowe wejście, ponieważ większość wierszy poleceń zapisuje historię wywołań programów i hasło podane jako argument wywołania mogłoby zostać zapisane w postaci jawnej.
+
+Przykład użycia programu do obliczenia funkcji dla hasła \texttt{password}, soli \texttt{somesalt}, parametru g \texttt{16}, parametru $\lambda$ \texttt{2} używając \texttt{sha256} jako funkcji wewnętrznej.
+\begin{lstlisting}[language=bash]
+$ echo -n "password" | ./rs somesalt -w 16 -d 2 -f sha224
+Graph width:	16
+Graph depth:	2
+Hash:       	166c88a5edfba7228fbf49a4bcd4cb2f01cc5fcdc850bf78c317a5c8
+Encoded:    	$g=16$d=2$s=c29tZXNhbHQ=$f=sha224$h=MTY2Yzg4YTVlZGZiYTcyMjhmYmY0(...)
+\end{lstlisting}
 
 \section{Przykład użycia}
+Wysokopoziomowy interfejs umożliwia uwierzytelnianie w wygodny sposób.
+Zaprezentowany zostanie przykład użycia biblioteki \texttt{riffle} w aplikacji internetowej
+podłączonej do bazy danych SQL. Aplikacja ta pozwala na zakładanie kont dla nowych użytkowników, oraz po zalogowaniu się na konto przez użytkownika, udostępnia użytkownikowi pewne zasoby.
+Biblioteka \texttt{riffle} zostanie wykorzystana przy tworzeniu nowego konta, w celu obliczenia wartości funkcji $\mathbf{RiffleScrambler}$ dla hasła użytkownika, którą można bezpiecznie trzymać w bazie danych oraz później podczas uwierzytelniania w celu weryfikacji poprawności hasła.
+
+
+Tabela użytkowników w bazie danych została utworzona następująco.
+\begin{minted}[linenos=true]{SQL}
+CREATE TABLE Users (
+UserID int,
+Login varchar(255),
+HahsEncoded varchar(255),
+Name varchar(255),)
+);
+\end{minted}
+
+\begin{minted}[mathescape]{C++}
+// importowanie interfejsu z biblioteki
+#include <riffle/riffle_scrambler.h>
+
+
+/**
+* Funkcja zapisująca użytkownika w bazie danych
+* @param login Login użytkownika
+* @param password Hasło użytkownika (w postaci jawnej)
+* @param name Imie użytkownika
+* @param address Adres użytkownika
+*/
+void create_account(const std::string &login, const std::string &password,
+	const std::string &name, const std::string &address) {
+	
+	// stowrzenie połączenia do bazy danych SQL
+	const auto database_adapter = get_sql_database_adapter();
+
+	// generowana jest losowa sól
+	const std::string salt = generate_random_salt();
+	// hasło użytkownika jest hashowane dla podanych parametrów oraz soli
+	const std::string hash_encoded = riffle_scrambler_encoded(12, 4, password, salt);
+
+	// jeden, bezpieczny do przechowywania
+	// zawierający informacje o paramertach, soli oraz hashu tekst
+	database_adapter.add_user(login, hash_encoded, name, address);
+}
+
+
+/**
+* Funkcja do autoryzacji użytkownika na podstawie podanego hasła
+* sprawdza, czy podane hasło jest takie samo, jak hasło podane przy tworzeniu konta,
+* które zapisane jest w bazie danych
+* @param login Login użytkownika
+* @param password Hasło podane przez użytkownika
+* @return true, jeśli podane przez użytkownika hasło jest poprawne,
+* false w przeciwnym przypadku
+*/
+bool is_password_valid(const std::string &login, const std::string &password) {
+	// stowrzenie połączenia do bazy danych SQL
+	const auto database_adapter = get_sql_database_adapter();
+
+	// pobranie wiersza z danymi użytkownika z bazy danych
+	const auto user = database_adapter.get_user_by_login(login);
+
+	// sprawdzenie czy wynik funkcji riffle_scrambler dla podanego przez użytkownika hasła
+	// zgadza się z poprawnym hasłem dla podanego loginu
+	return riffle_scrambler_verify(user.hash_encoded, password);
+}
+\end{minted}
+
+To, co zasługuje na docenienie podczas używania biblioteki \texttt{riffle}, to konieczność poświęcenia tylko jednej kolumny w tabeli, aby uzyskać możliwość uwierzytelniania użytkownika za pomocą hasła. Nie trzeba przechowywać soli, ani parametrów funkcji, ponieważ zawarte są one w zakodowanej wartości. Oznacza to, że można zmienić dowolne parametry funkcji używane podczas tworzenia nowych kont oraz uwierzytelniać użytkowników z hasłami zapisanymi wcześniej bez konieczności rozróżniania z jakimi parametrami jaki użytkownik zakładał konto.
 
 

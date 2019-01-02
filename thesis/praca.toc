@@ -24,9 +24,10 @@
 \contentsline {subsection}{\numberline {4.3.1}Wysokopoziomowy interfejs}{18}{subsection.4.3.1}
 \contentsline {subsection}{\numberline {4.3.2}Niskopoziomowy interfejs}{19}{subsection.4.3.2}
 \contentsline {section}{\numberline {4.4}Parametry}{19}{section.4.4}
-\contentsline {section}{\numberline {4.5}Wydajno\IeC {\'s}\IeC {\'c}}{20}{section.4.5}
-\contentsline {section}{\numberline {4.6}Przyk\IeC {\l }ad u\IeC {\.z}ycia}{20}{section.4.6}
-\contentsline {chapter}{\numberline {5}Instalacja i wdro\IeC {\.z}enie}{21}{chapter.5}
-\contentsline {chapter}{\numberline {6}Podsumowanie}{23}{chapter.6}
-\contentsline {chapter}{Bibliografia}{25}{chapter*.8}
-\contentsline {chapter}{\numberline {A}Zawarto\IeC {\'s}\IeC {\'c} p\IeC {\l }yty CD}{27}{appendix.A}
+\contentsline {section}{\numberline {4.5}Uwidacznianie si\IeC {\k e} w\IeC {\l }asno\IeC {\'s}ci \textit {memory-hard}}{20}{section.4.5}
+\contentsline {section}{\numberline {4.6}$\mathbf {RiffleScrambler}$ z wiersza polece\IeC {\'n}}{20}{section.4.6}
+\contentsline {section}{\numberline {4.7}Przyk\IeC {\l }ad u\IeC {\.z}ycia}{22}{section.4.7}
+\contentsline {chapter}{\numberline {5}Instalacja i wdro\IeC {\.z}enie}{25}{chapter.5}
+\contentsline {chapter}{\numberline {6}Podsumowanie}{27}{chapter.6}
+\contentsline {chapter}{Bibliografia}{29}{chapter*.9}
+\contentsline {chapter}{\numberline {A}Zawarto\IeC {\'s}\IeC {\'c} p\IeC {\l }yty CD}{31}{appendix.A}

@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{CREATE} \PYG{k}{TABLE} \PYG{n}{Users} \PYG{p}{(}
+\PYG{n}{UserID} \PYG{n+nb}{int}\PYG{p}{,}
+\PYG{n}{Login} \PYG{n+nb}{varchar}\PYG{p}{(}\PYG{l+m+mi}{255}\PYG{p}{),}
+\PYG{n}{HahsEncoded} \PYG{n+nb}{varchar}\PYG{p}{(}\PYG{l+m+mi}{255}\PYG{p}{),}
+\PYG{n}{Name} \PYG{n+nb}{varchar}\PYG{p}{(}\PYG{l+m+mi}{255}\PYG{p}{),)}
+\PYG{p}{);}
+\end{Verbatim}
