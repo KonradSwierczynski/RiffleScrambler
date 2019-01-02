@@ -4,8 +4,8 @@
 
 RiffleScrambler \cite{rs} jest nową rodziną acyklicznych grafów skierowanych (nazywaną RSG), której odpowiada funkcja \textit{memory-hard} z dostępem do pamięci niezależnym od hasła (iMHF).
 W funkcji tej, podobnie jak w Catenie, kolejność obliczeń zdefiniowana jest za pomocą grafu. 
-Przewagą funkcji RiffleScrambler, jest to, że graf generowany jest na podstawie soli, tak jak w funkcji Ballon Hashing. Oznacza, to, że dla każda sól odpowiada (z dużym prawdopodobieństwem) innemu grafowi, co zwiększa odporność na ataki równoległe. Dla Cateny są dwa predefiniowane grayf \textit{bit-reversal} i \textit{double-butterfly}.
-Jednocześnie RiffleScrambler zapewnia lepszą wydajność przy obliczaniu niż Ballon Hashing, ponieważ ma dużo mniejszy stopień wchodzący grafu, który jest równy 3.
+Przewagą funkcji RiffleScrambler, jest to, że graf generowany jest na podstawie soli, tak jak w funkcji Balloon Hashing. Oznacza, to, że dla każda sól odpowiada (z dużym prawdopodobieństwem) innemu grafowi, co zwiększa odporność na ataki równoległe. Dla Cateny są dwa predefiniowane grayf \textit{bit-reversal} i \textit{double-butterfly}.
+Jednocześnie RiffleScrambler zapewnia lepszą wydajność przy obliczaniu niż Balloon Hashing, ponieważ ma dużo mniejszy stopień wchodzący grafu, który jest równy 3.
 Ponieważ jest superkoncentratorem, osiąga kompromis pamięć-czas oraz dolne ograniczenie złożoności etykietowania równoległego takie same jak Catena.
 
 \section{Budowa grafu}
@@ -421,10 +421,51 @@ Procedurę $\mathbf{RiffleScrambler}(pwd, s, g,\lambda)$ można z grubsza przeds
 	$$ \Pi_{cc}^{ \parallel }(RSG_{\lambda}^{\overline{n}}) = O \left( n \left( \sqrt{( N n^{\frac{1}{3}} + n^{\frac{1}{3}} - N - 1)n \delta } + \frac{n}{n^{\frac{1}{3}}} \right) \right) = O \left( n^{1.667} \right). $$
 \end{proof}
 
+\section{Porówanie}
+
+MHF można porównywać za pomocą złożoności całkowitej, która mówi o koszcie równoległego obliczania funkcji.
+Im ta złożoność jest wyższa, tym bardziej czas obliczeń jest zdominowany przez koszt dostępu do pamięci, a więc funkcja jest bezpieczniejsza. Porównanie przedstawione jest w tabeli \ref{2::tab2}.
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|c | c | c |} 
+		\hline
+		Algorytm & Ograniczenie dolne & Ograniczenie górne\\
+		\hline
+		Argon2i-B & $\Omega(n^{1.667})$ & $O(n^{1.8})$ \\
+		\hline
+		Catena Butterfly & $\Omega(n^{1.5})$ & $O(n^{1.625})$ \\
+		\hline
+		RiffleScrambler & $\Omega(n^{1.5})$ & $O(n^{1.667})$ \\
+		\hline
+	\end{tabular}
+	\caption{\cite[Tablica 1]{depth} Porównianie złożoności całkowitej dla Argon2i, Catena (dla grafu Butterfly) oraz RiddleScrambler}
+	\label{2::tab2}
+\end{table}
 
 
+ Ważnym aspektem jest również czas obliczeń, czyli w ilu krokach można obliczyć daną funkcję. Ponieważ koszt obliczania funkcji ma pochodzić głównie z kosztu dostępu do pamięci, to czas obliczeń może zostać zminimalizowany. Jednocześnie przy próbie obliczenia funkcji z mniejszą, niż wymaganą ilością pamięci, czas obliczeń powinien rosnąć jak najszybciej, tak aby wymuszać użycie założonej ilości pamięci.
+ Tablica \ref{2::tab} zawiera porównanie właściwości czasu obliczeń (etykietowania) T w zależności od dostępnej pamięci S (ilości etykiet).
+ 
 
+\begin{table}[H]
+	\centering
+\begin{tabular}{|c | c | c | c | c | c|} 
+	\hline
+	 & $BHF_7$ & $BHG_3$ & Argon2i & Catena BFG & RiffleScrambler \\
+	 	\hline
+	Czas obliczeń T dla S = N & $8\lambda N$ & $4 \lambda N $ & $2 \lambda N$  & $4 \lambda N$ & $3 \lambda N$ \\
+	 	\hline
+	Czas obliczeń T dla $S \leq \frac{N}{64}$ & $T \geq \frac{2^{\lambda}-1}{32S} N^{2}$ & $T \geq \frac{\lambda N^2}{32S}$ & $T \geq \frac{ N^2}{1536S}$  & $T \geq \left( \frac{\lambda N^2}{64S} \right)^{\lambda}$ & $T \geq \left( \frac{\lambda N^2}{64S} \right)^{\lambda}$ \\
+	Czas obliczeń T dla $\frac{N}{64} \leq S \leq \frac{N}{20}$ & nieznany & \\
+	 	\hline
+	Graf zależny od soli & tak & tak & tak  & nie & tak \\
+	\hline
 
+\end{tabular}
+	\caption{ \cite[Tablica 4]{rs} Porównianie bezpieczeństwa i wydajności dla Balloon Hashing($BHF_7$ dla grafu o stopniu wejściowym 7,  $BHF_3$ dla grafu o stopniu wejściowym 3), Argon2i, Catena (dla grafu Butterfly) oraz RiffleScrambler}
+		\label{2::tab}
+\end{table}
 
 
 

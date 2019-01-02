@@ -1,6 +1,37 @@
-\chapter{Preliminaries}
+\chapter{Analiza problemu}
 \thispagestyle{chapterBeginStyle}
 \label{rozdzial1}
+
+\section{Wprowadzenie}
+
+Początkowo, w latach 60. XX wieku, hasła przechowywane były w postaci jawnej.
+W latach siedemdziesiątych zaczęto stosować funkcję \texttt{crypt}, początkowo opartą na symulacji mechanicznej maszyny szyfrującej M-209, a w kolejnych wersjach opartą na szyfrowaniu DES oraz opartą na funkcji jednokierunkowej. Metoda z szyfrowanie pozwalała odszyfrować hasła osobie znającej klucz, a oby dwie metody pozwalały znaleźć użytkowników z takim samym hasłem, co umożliwiało tworzenie bazu haseł i odpowiadającym im wynikom.
+Wprowadzono więc parametr nazwany solą (ang. \textit{salt}), który był losowo wybierany dla każdego hasła, a więc z dużym prawdopodobieństwem takie same hasła były przechowywane jako inne wartości.
+Ponieważ hasła nie są idealnie losowe, wystarczy obliczać funkcje tylko dla najczęściej używanych ciągów znaków, zamiast tak jak w ataku \textit{brute force} dla wszystkich.
+Gdy adwersarz zdobył plik z przechowywanym hashami, mógł dla każdego hasha próbować znaleźć odpowiadające mu hasło obliczając funkcję dla wszystkich pozycji w słowniku najczęściej występujących haseł.
+
+Aby zapobiec tego rodzaju atakom, zaczęto stosować funkcje hashujące na tyle ciężkie do obliczenia, alby atak słownikowy był jak najbardziej niepraktyczny. 
+Ponieważ funkcja hashująca musi być obliczana podczas każdego uwierzytelniania w celu sprawdzenia poprawności hasła, nie może być ona zbyt ciężka do obliczenia dla aplikacji uwierzytelniającej.
+Z drugiej strony, gdy krotka ($login$, $y$, $salt$) wycieknie, adwersarz przeprowadzający atak słownikowy obliczając funkcję hashującą dla każdej wartości ze słownik, co trzeba uczynić jak najbardziej kosztowne.
+Dobra funkcja do przechowywania haseł powinna być tak samo kosztowna do obliczenia dla aplikacji uwierzytelniającej jak dla adwersarza.
+
+W tym celu zaczęto stosować funkcje, które obliczają wiele razy kryptograficzną funkcję skrótu. Przykładem takiej funkcji jest PBKDF2 \cite{pbkdf2} (ang. \textit{Pssowrd-Based Key Derivation Function 2}), dla której zalecanym parametrem bezpieczeństwa w 2000 roku było 1024 iteracji, a już w 2005 zaczęto zalecać 4096 iteracji, z powodu wzrostu wydajności CPU.
+
+Takie podejście nie gwarantuje zabezpieczenia przed adwersarzem używającym sepcjalizowany układ scalony (ang. \textit{ASIC - Application-Specyfic Integrated Circut}).
+Układy takie są znacznie bardziej wydajne poz względem szybkości obliczania funkcji skrótu takich jak SHA256 czy MD5 niż tradycyjne architektury, a więc zwiększenie bezpieczeństwa za pomocą parametrów obciąży aplikację uwierzytelniającą w dużo większym stopniu, niż adwersarza.
+Dla przykładu Antimiser S9 \cite{antminer} potrafi w jednej sekundzie obliczyć $1.4\times 10^{13}$ wyników (dla funkcji double SHA256), podczas gdy obecnie dostępne karty graficzne są w stanie liczyć taką funkcję z prędkością $3\times 10^{10}$ wyników na sekundę, a procesory z prędkością około $10^9$ wyników na sekundę \cite{rs}.
+
+Zauważono jednak, że na różnych architekturach koszt dostępu do pamięci jest dużo bardziej zrównoważony niż koszt obliczeń. \cite{percival2009stronger}.
+Zaproponowano więc memory-hard functions (MHF), które wywołują podczas obliczania wiele kosztownych czasowo odwołań do pamięci.
+
+O MHF można myśleć jako o pewnej kolejności dostępu do komórek pamięci. Odwołania następują do już wcześniej obliczonych wartości w komórkach.
+Zatem kolejność tą można opisać jako acykliczny graf skierowany (DAG, ang. \textit{directed acyclic graph}).
+
+MKF możemy oznaczyć jako funkcję z dostępem do pamięci zależnym od danych dMHF(ang. \textit{data-dependent MHF}) oraz z dostępem do pamięci niezależnym od danych iMHF(ang. \textit{data-independent MHF})). Ponieważ dostęp do pamięci oparty na podanym haśle może umożliwiać przeprowadzenia ataków na przykład opartych na kolejności dostępu do pamięci, w pracy omówione są jedynie funkcjie typu iMHF.
+
+Istnieje już wiele funkcji typu \textit{memory-hard}. Jednymi z najbardziej popularnych, a co za tym idzie, najlepiej zbadanych są Argon2 \cite{biryukov2016argon2}, Catena \cite{forler2013catena} oraz Ballon Hashing \cite{boneh2016balloon}.
+
+\section{Notacja}
 
 W dalszej części używana będzie następująca notacja.
 Zbiory $\mathbb{N} = \{ 0,1,2,\dots \}$, $ \mathbb{N}^{+} = \{ 1, 2, \dots \}$.
