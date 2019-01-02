@@ -27,7 +27,12 @@
 \contentsline {section}{\numberline {4.5}Uwidacznianie si\IeC {\k e} w\IeC {\l }asno\IeC {\'s}ci \textit {memory-hard}}{20}{section.4.5}
 \contentsline {section}{\numberline {4.6}$\mathbf {RiffleScrambler}$ z wiersza polece\IeC {\'n}}{20}{section.4.6}
 \contentsline {section}{\numberline {4.7}Przyk\IeC {\l }ad u\IeC {\.z}ycia}{22}{section.4.7}
+\contentsline {section}{\numberline {4.8}Testy}{23}{section.4.8}
 \contentsline {chapter}{\numberline {5}Instalacja i wdro\IeC {\.z}enie}{25}{chapter.5}
+\contentsline {section}{\numberline {5.1}Biblioteka}{25}{section.5.1}
+\contentsline {section}{\numberline {5.2}Testy}{25}{section.5.2}
+\contentsline {section}{\numberline {5.3}Pomiary wydajno\IeC {\'s}ci}{25}{section.5.3}
+\contentsline {section}{\numberline {5.4}$\mathbf {RiffleScrambler}$ z wiersza polece\IeC {\'n}}{25}{section.5.4}
 \contentsline {chapter}{\numberline {6}Podsumowanie}{27}{chapter.6}
 \contentsline {chapter}{Bibliografia}{29}{chapter*.9}
 \contentsline {chapter}{\numberline {A}Zawarto\IeC {\'s}\IeC {\'c} p\IeC {\l }yty CD}{31}{appendix.A}

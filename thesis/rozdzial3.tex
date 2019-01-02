@@ -308,3 +308,15 @@ bool is_password_valid(const std::string &login, const std::string &password) {
 To, co zasługuje na docenienie podczas używania biblioteki \texttt{riffle}, to konieczność poświęcenia tylko jednej kolumny w tabeli, aby uzyskać możliwość uwierzytelniania użytkownika za pomocą hasła. Nie trzeba przechowywać soli, ani parametrów funkcji, ponieważ zawarte są one w zakodowanej wartości. Oznacza to, że można zmienić dowolne parametry funkcji używane podczas tworzenia nowych kont oraz uwierzytelniać użytkowników z hasłami zapisanymi wcześniej bez konieczności rozróżniania z jakimi parametrami jaki użytkownik zakładał konto.
 
 
+\section{Testy}
+Do implementacji zostały dołączone testy jednostkowe pisane przy wykorzystaniu biblioteki Catch2 \cite{catch}.
+
+Testowane jest zewnętrzny interfejs oraz funkcje wewnętrzne.
+
+Przykład uruchomienia testów.
+\begin{lstlisting}
+$ ./catch_test 
+===============================================================================
+All tests passed (740 assertions in 23 test cases)
+\end{lstlisting}
+
