@@ -29,13 +29,13 @@
 \contentsline {subsection}{\numberline {4.3.2}Niskopoziomowy interfejs}{19}{subsection.4.3.2}
 \contentsline {section}{\numberline {4.4}Parametry}{19}{section.4.4}
 \contentsline {section}{\numberline {4.5}Uwidacznianie si\IeC {\k e} w\IeC {\l }asno\IeC {\'s}ci \textit {memory-hard}}{20}{section.4.5}
-\contentsline {section}{\numberline {4.6}$\mathbf {RiffleScrambler}$ z wiersza polece\IeC {\'n}}{22}{section.4.6}
+\contentsline {section}{\numberline {4.6}RiffleScrambler w wierszu polece\IeC {\'n}}{22}{section.4.6}
 \contentsline {section}{\numberline {4.7}Przyk\IeC {\l }ad u\IeC {\.z}ycia}{22}{section.4.7}
 \contentsline {section}{\numberline {4.8}Testy}{24}{section.4.8}
-\contentsline {section}{\numberline {4.9}Kompilowanie i u\IeC {\.z}ycie}{24}{section.4.9}
-\contentsline {subsection}{\numberline {4.9.1}Biblioteka}{24}{subsection.4.9.1}
-\contentsline {subsection}{\numberline {4.9.2}Testy}{24}{subsection.4.9.2}
-\contentsline {subsection}{\numberline {4.9.3}$\mathbf {RiffleScrambler}$ z wiersza polece\IeC {\'n}}{24}{subsection.4.9.3}
+\contentsline {section}{\numberline {4.9}U\IeC {\.z}ycie implementacji}{24}{section.4.9}
+\contentsline {subsection}{\numberline {4.9.1}Wymagania}{24}{subsection.4.9.1}
+\contentsline {subsection}{\numberline {4.9.2}Biblioteka}{24}{subsection.4.9.2}
+\contentsline {subsection}{\numberline {4.9.3}Testy}{24}{subsection.4.9.3}
 \contentsline {chapter}{\numberline {5}Podsumowanie}{25}{chapter.5}
 \contentsline {chapter}{Bibliografia}{27}{chapter*.11}
 \contentsline {chapter}{\numberline {A}Zawarto\IeC {\'s}\IeC {\'c} p\IeC {\l }yty CD}{29}{appendix.A}

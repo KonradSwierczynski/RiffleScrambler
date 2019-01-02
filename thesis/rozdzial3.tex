@@ -211,7 +211,7 @@ Wykres \ref{impl::b3} przedstawia wpływ na czas obliczeń $\mathbf{RiffleScramb
 \end{figure}
 
 \newpage
-\section{$\mathbf{RiffleScrambler}$ z wiersza poleceń}
+\section{RiffleScrambler w wierszu poleceń}
 Do implementacji dołączony został też program \texttt{rs} uruchamiany z wiersza poleceń umożliwiający testowanie działania funkcji $\mathbf{RiffleScrambler}$ w łatwy sposób.
 Aby wyświetlić instrukcje, jak używać tego programu należy wykonać polecenie \texttt{./rs -h} lub \texttt{./rs --help}.
 
@@ -302,7 +302,7 @@ bool is_password_valid(const std::string &login, const std::string &password) {
 	const auto user = database_adapter.get_user_by_login(login);
 
 	// sprawdzenie czy wynik funkcji riffle_scrambler dla podanego przez użytkownika hasła
-	// zgadza się z poprawnym hasłem dla podanego loginu
+	// zgadza się z poprawnym hasłem dla podanego loginuxe
 	return riffle_scrambler_verify(user.hash_encoded, password);
 }
 \end{minted}
@@ -325,7 +325,9 @@ All tests passed (740 assertions in 23 test cases)
 
 Wymagania - cmake - make -openssl - kompilator
 
-\section{Kompilowanie i użycie}
+\section{Użycie implementacji}
+\subsection{Wymagania}
+Do kompilacji potrzebny jest kompilator języka C++ wspierający wersję C++17
 \subsection{Biblioteka}
 Kody biblioteki \texttt{riffle} znajdują się w katalogi \texttt{RiffleScrambler} zawierającym 
 plik \texttt{CMakeLists.txt}.
@@ -334,5 +336,4 @@ W celu skompilowania biblioteki należy uruchomić polecenie \texttt{\$ cmake CM
 
 \subsection{Testy}
 
-\subsection{$\mathbf{RiffleScrambler}$ z wiersza poleceń}
 

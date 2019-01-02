@@ -234,22 +234,22 @@ Procedura $\mathbf{RiffleShuffle}$ przedstawiona jest w pseudokodzie \ref{rs::rs
 
 
 \begin{algorithm}
-	\caption{$\mathbf{RiffleShuffle}$}
+	\caption{$\mathbf{InverseRiffleShuffle}$}
 	\label{rs::riffleshuffle}
 	\SetAlgoLined
-	\KwIn{N - wielkość premutacji do wygenerowania, getNextBit - generator bitów losowych}
-	\KwOut{$\sigma$ - permtacja wielkości N}
+	\KwIn{N - wielkość permutacji do wygenerowania, getNextBit - generator bitów losowych}
+	\KwOut{$\sigma$ - perumtacja wielkości N}
 	
 	\tcc{$perm$ zawiera krotki będące początkowym indeksem oraz wyrazem binarnym.
 	$perm[i] = (id, bin)$ dla $i\in \{0,\dots,N-1\}$}
 
-	$perm = ((0, ````),(1,````),\dots,(N-1,````))$ \;
+	$perm = \textlangle (0, ````),(1,````),\dots,(N-1,````) \textrangle$ \;
 	
-	\While{$\exists_{i \in \{0,\dots,N-2\}} perm[i][1] == perm[i+1][1]$}{
+	\While{$\exists_{i \in \{0,\dots,N-2\}} \ perm[i][bin] == perm[i+1][bin]$}{
 		$numberOfOnes = 0$ \;
 		\For{$i = 0$ \KwTo $N - 1$}{
 			$newBit = bitGenerator()$ \;
-			$perm[i][1] = perm[i][1] + newBit$ \; 
+			$perm[i][bin] = perm[i][bin] \ | \ newBit$ \; 
 			\If{$newBit == ``1``$}{
 				$numberOfOnes = numberOfOnes + 1$ \;
 			}
@@ -258,7 +258,7 @@ Procedura $\mathbf{RiffleShuffle}$ przedstawiona jest w pseudokodzie \ref{rs::rs
 		$lastIndexOfZeros = numOfOnes$ \;
 		
 		\For{$i = 0$ \KwTo $N - 1$}{
-			\eIf{$lastBit(permutation[i][1]) == ``1``$}{
+			\eIf{$lastBit(permutation[i][bin]) == ``1``$}{
 				$tmp[lastIndexOfOnes] = permutation[i]$ \;
 				$lastIndexOfOnes = lastIndexOfOnes + 1$ \;	
 			} {
@@ -271,7 +271,7 @@ Procedura $\mathbf{RiffleShuffle}$ przedstawiona jest w pseudokodzie \ref{rs::rs
 
 
 	}
-	$\sigma = (perm[0].id,perm[1].id,\dots,perm[N-1].id)$ \;
+	$\sigma = \textlangle perm[0][id],perm[1][id],\dots,perm[N-1][id] \textrangle$ \;
 \end{algorithm}
 
 
@@ -436,10 +436,13 @@ Im ta złożoność jest wyższa, tym bardziej czas obliczeń jest zdominowany p
 		\hline
 		Algorytm & Ograniczenie dolne & Ograniczenie górne\\
 		\hline
+		\\[-1em]
 		Argon2i-B & $\tilde{\Omega}(n^{1.667})$ & $\tilde{O}(n^{1.8})$ \\
 		\hline
+		\\[-1em]
 		Catena Butterfly & $\tilde{\Omega}(n^{1.5})$ & $\tilde{O}(n^{1.625})$ \\
 		\hline
+		\\[-1em]
 		RiffleScrambler & $\tilde{\Omega}(n^{1.5})$ & $\tilde{O}(n^{1.667})$ \\
 		\hline
 	\end{tabular}
@@ -456,13 +459,17 @@ Im ta złożoność jest wyższa, tym bardziej czas obliczeń jest zdominowany p
 	\centering
 \begin{tabular}{|c | c | c | c | c | c|} 
 	\hline
+	\\[-1em]
 	 & $BHF_7$ & $BHG_3$ & Argon2i & Catena BFG & RiffleScrambler \\
 	 	\hline
+	 \\[-1em]
 	Czas obliczeń T dla S = N & $8\lambda N$ & $4 \lambda N $ & $2 \lambda N$  & $4 \lambda N$ & $3 \lambda N$ \\
 	 	\hline
-	Czas obliczeń T dla $S \leq \frac{N}{64}$ & $T \geq \frac{2^{\lambda}-1}{32S} N^{2}$ & $T \geq \frac{\lambda N^2}{32S}$ & $T \geq \frac{ N^2}{1536S}$  & $T \geq \left( \frac{\lambda N^2}{64S} \right)^{\lambda}$ & $T \geq \left( \frac{\lambda N^2}{64S} \right)^{\lambda}$ \\
-	Czas obliczeń T dla $\frac{N}{64} \leq S \leq \frac{N}{20}$ & nieznany & \\
+	 \\[-1em]
+	Czas obliczeń T dla $S \leq \frac{N}{64}$ & $T \geq \frac{2^{\lambda}-1}{32S} N^{2}$ & \multirow{2}{*}{$T \geq \frac{\lambda N^2}{32S}$} & \multirow{2}{*}{$T \geq \frac{ N^2}{1536S}$}  & \multirow{2}{*}{$T \geq \left( \frac{\lambda N^2}{64S} \right)^{\lambda}$} & \multirow{2}{*}{$T \geq \left( \frac{\lambda N^2}{64S} \right)^{\lambda}$} \\
+	Czas obliczeń T dla $\frac{N}{64} \leq S \leq \frac{N}{20}$ & nieznany & & & & \\
 	 	\hline
+	 \\[-1em]
 	Graf zależny od soli & tak & tak & tak  & nie & tak \\
 	\hline
 
