@@ -153,7 +153,7 @@ pokazali, że istnieje zależność między złożonością etykietowania, a wł
 
 \section{Grafy rzędowe}
 
-\begin{definition}[Graf N rzędowy] Niech $n, N \in \mathbb{N}^{+}$ takie, że $N + 1$ dzieli $n$ oraz niech $k=n/(N + 1)$. Mówimy, że graf $G$ jest $N$ rzędowy, jeżeli $G$ zawiera ścieżkę przechodzącą przez $n$ wierzchołków $(v_{1},\dots,v_{n})$ oraz dzieląc go na warstwy $L_{j} = \{v_{jk + 1},\dots,v_{jk + k} \}$, dla $j \in \{0,\dots,N\}$, pozostałe krawędzie łączą wierzchołki z niższej warstwy $L_{j}$ jedynie z wierzchołkami z wyższych warstw $L_{i}$, $i \in \{ j+1,\dots,N \}$.
+\begin{definition}[Graf N rzędowy] Niech $n, N \in \mathbb{N}^{+}$ takie, że $N + 1$ dzieli $n$ oraz niech $k=n/(N + 1)$. Mówimy, że graf $G$ jest $N$ rzędowy, jeżeli $G$ zawiera ścieżkę przechodzącą przez $n$ wierzchołków $(v_{1},\dots,v_{n})$ oraz dzieląc go na rzędy $L_{j} = \{v_{jk + 1},\dots,v_{jk + k} \}$, dla $j \in \{0,\dots,N\}$, pozostałe krawędzie łączą wierzchołki z niższego rzędu $L_{j}$ jedynie z wierzchołkami z wyższych rzędów $L_{i}$, $i \in \{ j+1,\dots,N \}$.
 \end{definition}
 
 
@@ -162,71 +162,6 @@ pokazali, że istnieje zależność między złożonością etykietowania, a wł
 	Niech $G$ będzie $N$ rzędowym grafem, wtedy dla dowolnego $t \in \mathbb{N}^{+}$, $G$ jest $(n/t, N t + t - N -1)$-reducible.
 \end{lemma}
 
-
-\section{Ograniczenia złożoności RSG}
-
-\begin{theorem}
-	Niech $ \lambda, n \in \mathbb{N}^{+}$ takie, że $n = \overline{n}(2 \lambda c + 1) $, gdzie $c \in \mathbb{N}$ i $ \overline{n} = 2^{c}$.
-	Wtedy dla $ g = \lfloor \sqrt{ \overline{n}} \rfloor$
-	$ RSG_{\lambda}^{ \overline{n}} \in \mathbb{D}_{1,g}^{\lambda, \overline{n}} $
-	oraz
-	$ \Pi_{cc}^{ \parallel }(RSG_{\lambda}^{\overline{n}}) = \Omega \left( \frac{n^{1.5}}{c \sqrt{c \lambda}} \right) $.
-\end{theorem}
-
-\begin{proof}
-	Niech $G = RSG_{\lambda}^{ \overline{n}}$, niech $G_{1}, G_{2}, \dots , G_{ \lambda }$ będą
-	podgrafami $G$ opisanymi w TODO DEF[...].
-	Pokażemy, że każdy $G_{i}$ jest (g, $\overline{n}$)-dispresed dla $g = \lfloor \sqrt{ \overline{n}} \rfloor $.
-	
-	Wybierzmy $i \in [ \lambda ]$ niech $L_{1}$ będzie ostatnimi $\overline{n}$ wierzchołkami w porządku topologicznym grafu $G_{i}$.
-	Oznaczamy wierzchołki zbioru $L_{1}$ poprzez ${1} \times [ \overline{n} ]$, gdzie druga pozycja odpowiada kolejności wierzchołka w porządku topologicznym.
-	Niech $ \overline{g} = \lfloor \overline{n} / g \rfloor$, dla każdego $j \in [ \overline{g}]$
-	$L_{1, j} = \{ <1, jg + x> : x \in [0, g-1] \}$.
-	Pokażemy, że wszystkie $L_{1, j}$ mają (g, g)-dependency.
-	
-	Niech $L_{0}$ będzie $\overline{n}$ pierwszymi wierzchołkami $G_{i}$, które oznaczamy ${0} \times [\overline{n}]$ (ponownie druga pozycja odpowiada porządkowi topograficznemu).
-	Zauważmy, że dla $n \textgreater 1$ i $g = \lfloor \sqrt{ \overline{n}} \rfloor$ prawdą jest, że $g(g - 2c + 1) \leq n$.
-	Zatem zbiór $S = \{ <0, i(g - 2c + 1_)>: i \in [g] \}$ jest całkowicie zawarty w $L_{0}$.
-	
-	Z własności $RSG$ TODO [Superconcentrator- ....] wynika, że skoro zbiory $S$ oraz $L_{1,j}$ mają po $g$ wierzchołków, to istnieje $g$ wierzchołkowo-rozłącznych ścieżek o długości $2c$ między wierzchołkami tych zbiorów. Zatem $L_{1,j}$ ma (g, 2c)-dependency.
-	
-	Rozszerzmy to do (g,g)-dependency.
-	Niech ścieżka $p$ zaczynająca się w wierzchołku $<0, v> \in S$ będzie ścieżką w (g, 2c)-dependency $L_{1,j}$. Zauważmy, że istnieje ścieżka przechodząca przez wszystkie wierzchołki $L_{0}$ oraz, że wierzchołki zbiory $S$ są oddzielone między sobą o $g - 2c$ wierzchołków.
-	Możemy dodać na początek ścieżki $p$ ścieżkę $( <0, v - (g - 2c - 1)>, <0, v - (g - 2c -2)>, \dots, <0, v>)$.
-	Otrzymujemy w ten sposób ścieżkę $p_{+}$ o długości $2c + g - 2c = g$.
-	Ponieważ każda para ścieżek $p \neq q$ w (g, 2c)-dependency $L_{1,j}$ jest wierzchołkowo-rozłączna,
-	to w szczególności zaczynać się muszą w różnych wierzchołkach $<0, v_{p}> \neq <0, v_{q}>$.
-	Ponieważ wierzchołki w $S$ są od siebie oddalone o $g - 2c$ wierzchołków, zatem ścieżki $p^{+}$ i $q_{+}$ nadal pozostają rozłączne.
-	Rozszerzając w ten sposób wszystkie ścieżki z (g, 2c)-dependency otrzymujemy ścieżki wierzchołkowo-rozłączne długości $g$. Z tego wynika, że $L_{1,j}$ ma (g, g)-dependency, co dowodzi, że $ RSG_{\lambda}^{ \overline{n}} \in \mathbb{D}_{1,g}^{\lambda, \overline{n}} $.
-	Pozostaje obliczyć górne ograniczenie używając twierdzenia \ref{1::disp}.
-	
-	$$ \Pi_{cc}^{ \parallel }(RSG_{\lambda}^{\overline{n}}) = \lambda g \left( \frac{ \overline{n}}{2} - g \right) \geq \lambda \lfloor \sqrt{ \overline{n}} \rfloor \left( \frac{ \overline{n}}{2} - \lfloor \sqrt{ \overline{n}} \rfloor \right) = \lambda \sqrt{ \overline{n}} \left( \frac{ \overline{n}}{2} - \sqrt{ \overline{n}} \right) - O(\overline{n}) =  \Omega \left( \lambda \overline{n} \right) = \Omega \left( \frac{n^{1.5}}{c \sqrt{c \lambda}} \right) $$
-	
-\end{proof}
-
-
-
-\begin{theorem}
-	Niech $\lambda, g \in \mathbb{N}^{+}$, $N = 2^{g}$, $n = N(2 \lambda g + 1)$, wtedy
-	$$ \Pi_{cc}^{ \parallel }(RSG_{\lambda}^{\overline{n}}) = O \left( n^{1.667} \right) $$
-\end{theorem}
-
-\begin{proof}
-	Kożystając, z [...], $RSG_{\lambda}^{N}$ jest $N$ rzędowym grafem.
-	Z lematu 2.2 wynika więc, że $RSG_{\lambda}^{N}$  jest ($n / t$, $N + t - N - 1$)-reducible dla dowolnego $t \geq 1$.
-	Z lematu \ref{1::rze} wynika, że $\Pi_{cc}^{ \parallel }(RSG_{\lambda}^{\overline{n}}) = O \left( n \left( \sqrt{( N t + t - N - 1)n \delta } + \frac{n}{t} \right) \right)$.
-	Aby dostać najdokładniejsze (najmniejsze) ograniczenie górne trzeba zminimalizować
-	$n \left( \sqrt{( N t + t - N - 1)n \delta } + \frac{n}{t} \right)$.
-	Zanim jednak przejdziemy do minimalizowania, uprośćmy nieco to wyrażenie
-	$$ n \left( \sqrt{( N t + t - N - 1)n \delta } + \frac{n}{t} \right) \leq n \left( \sqrt{ 2N t n \delta } + \frac{n}{t} \right) .$$
-	Teraz możemy znaleźć minimum względem naszego parametru $t$.
-	$$ \frac{\partial}{\partial t} n \left( \sqrt{( 2N t)n \delta } + \frac{n}{t} \right) = \frac{ \sqrt{ 2 \delta N n^{3} }}{2t} - \frac{n^{2}}{t^{2}}$$
-	Minimum znajduje się w punkcje, gdzie pochodna ma wartość zero.
-	$$ \frac{ \sqrt{ 2 \delta N n^{3} }}{2t} - \frac{n^{2}}{t^{2}} = 0$$
-	$$ t = \frac{2n^{2}}{ \sqrt{ 2 \delta N n^{3} }} = O \left( n^{\frac{1}{3}} \right) $$
-	Zatem podstawiając $t$ minimalizujące ograniczenie górne do wzoru z twierdzenia \ref{1::redu} otrzymujemy
-	$$ \Pi_{cc}^{ \parallel }(RSG_{\lambda}^{\overline{n}}) = O \left( n \left( \sqrt{( N n^{\frac{1}{3}} + n^{\frac{1}{3}} - N - 1)n \delta } + \frac{n}{n^{\frac{1}{3}}} \right) \right) = O \left( n^{1.667} \right). $$
-\end{proof}
 
 
 
