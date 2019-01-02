@@ -1,5 +1,6 @@
 \chapter{Riffle Scrambler}
 \thispagestyle{chapterBeginStyle}
+\label{razdzial2}
 
 RiffleScrambler \cite{rs} jest nową rodziną acyklicznych grafów skierowanych (nazywaną RSG), której odpowiada funkcja \textit{memory-hard} z dostępem do pamięci niezależnym od hasła (iMHF).
 W funkcji tej, podobnie jak w Catenie, kolejność obliczeń zdefiniowana jest za pomocą grafu. 
@@ -404,7 +405,7 @@ Procedurę $\mathbf{RiffleScrambler}(pwd, s, g,\lambda)$ można z grubsza przeds
 \end{theorem}
 
 \begin{proof}
-	Kożystając, z [...], $RSG_{\lambda}^{N}$ jest $N$ rzędowym grafem.
+	Kożystając, z twierdzenia \ref{rs::rzed}, $RSG_{\lambda}^{N}$ jest $N$ rzędowym grafem.
 	Z lematu 2.2 wynika więc, że $RSG_{\lambda}^{N}$  jest ($n / t$, $N + t - N - 1$)-reducible dla dowolnego $t \geq 1$.
 	Z lematu \ref{1::rze} wynika, że $\Pi_{cc}^{ \parallel }(RSG_{\lambda}^{\overline{n}}) = O \left( n \left( \sqrt{( N t + t - N - 1)n \delta } + \frac{n}{t} \right) \right)$.
 	Aby dostać najdokładniejsze (najmniejsze) ograniczenie górne trzeba zminimalizować

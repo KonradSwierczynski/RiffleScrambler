@@ -78,18 +78,18 @@ Oznacza to, że koszt obliczania funkcji opartej na takim grafie (taką funkcją
 
 \section{Superkoncentrator}
 Superkoncentrator jest grafem, w którym moc zbioru przodków dla wierzchołków szybko rośnie wraz z numerem pokolenia. Oznacza to, że zbiór kolejnych wierzchołków, będzie posiadał liczebny zbiór rodziców, co czyni superkoncentrator bardzo przydatnym do konstrukcji MHF.
-\begin{definition}[N-superkoncentrator] Skierowany graf acykliczny $G = (V, E)$ o ustalonym stopniu wchodzącym, $N$ wejściach i
+\begin{definition}[N-Superkoncentrator] Skierowany graf acykliczny $G = (V, E)$ o ustalonym stopniu wchodzącym, $N$ wejściach i
 	$N$ wyjściach nazywany jest N-Superkoncentratorem, gdy dla każdego $k \in [N]$
 	oraz dla każdej pary podzbiorów $V_{1} \subset V$ $k$ wejść i $V_{2} \subset V$ $k$ wyjść istnieje
 	$k$ wierzchołkowo-rozłącznych ścieżek łączących wierzchołki ze zbioru $V_{1}$ z wierzchołkami w $V_{2}$.
 \end{definition}
 
-\begin{definition}[(N, $\lambda$)-superkoncentrator] Niech $G_{i}, i = 0, \dots, \lambda-1$ będą N-Superkoncentratorami.
+\begin{definition}[(N, $\lambda$)-Superkoncentrator] Niech $G_{i}, i = 0, \dots, \lambda-1$ będą N-Superkoncentratorami.
 	Niech graf $G$ będzie połączeniem wyjść $G_{i}$ do odpowiadających wejść w $G_{i+1}$ dla $i = 0, \dots, \lambda - 2$.
 	Graf $G$ jest nazywany (N, $\lambda$)-Superkoncentratorem.
 \end{definition}
 
-\begin{lemma}[Ograniczenie dolne dla (N, $ \lambda $)-superkoncentratora] \cite[Lemat 1]{rs}
+\begin{lemma}[Ograniczenie dolne dla (N, $ \lambda $)-Superkoncentratora] \cite[Lemat 1]{rs}
 	Etykietowanie (N, $\lambda$)-Superkoncentratora używając $S \leq N/20$ etykiet, wymaga $T$ kroków, gdzie
 	$$ T \geq N \left( \frac{ \lambda N}{64 S} \right) ^{ \lambda }.$$
 \end{lemma}
