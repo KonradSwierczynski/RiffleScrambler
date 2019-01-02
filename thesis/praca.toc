@@ -32,11 +32,10 @@
 \contentsline {section}{\numberline {4.6}$\mathbf {RiffleScrambler}$ z wiersza polece\IeC {\'n}}{20}{section.4.6}
 \contentsline {section}{\numberline {4.7}Przyk\IeC {\l }ad u\IeC {\.z}ycia}{22}{section.4.7}
 \contentsline {section}{\numberline {4.8}Testy}{23}{section.4.8}
-\contentsline {chapter}{\numberline {5}Instalacja i wdro\IeC {\.z}enie}{25}{chapter.5}
-\contentsline {section}{\numberline {5.1}Biblioteka}{25}{section.5.1}
-\contentsline {section}{\numberline {5.2}Testy}{25}{section.5.2}
-\contentsline {section}{\numberline {5.3}Pomiary wydajno\IeC {\'s}ci}{25}{section.5.3}
-\contentsline {section}{\numberline {5.4}$\mathbf {RiffleScrambler}$ z wiersza polece\IeC {\'n}}{25}{section.5.4}
-\contentsline {chapter}{\numberline {6}Podsumowanie}{27}{chapter.6}
-\contentsline {chapter}{Bibliografia}{29}{chapter*.11}
-\contentsline {chapter}{\numberline {A}Zawarto\IeC {\'s}\IeC {\'c} p\IeC {\l }yty CD}{31}{appendix.A}
+\contentsline {section}{\numberline {4.9}Kompilowanie i u\IeC {\.z}ycie}{24}{section.4.9}
+\contentsline {subsection}{\numberline {4.9.1}Biblioteka}{24}{subsection.4.9.1}
+\contentsline {subsection}{\numberline {4.9.2}Testy}{24}{subsection.4.9.2}
+\contentsline {subsection}{\numberline {4.9.3}$\mathbf {RiffleScrambler}$ z wiersza polece\IeC {\'n}}{24}{subsection.4.9.3}
+\contentsline {chapter}{\numberline {5}Podsumowanie}{25}{chapter.5}
+\contentsline {chapter}{Bibliografia}{27}{chapter*.11}
+\contentsline {chapter}{\numberline {A}Zawarto\IeC {\'s}\IeC {\'c} p\IeC {\l }yty CD}{29}{appendix.A}

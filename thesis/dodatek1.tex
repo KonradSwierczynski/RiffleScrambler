@@ -2,5 +2,17 @@
 \thispagestyle{chapterBeginStyle}
 \label{plytaCD}
 
-W tym rozdziale należy krótko omówić zawartość dołączonej płyty CD.
+Dołączona do pracy płyta CD zawiera kod implementacji wraz z testami, skryptami do analizy wydajności oraz programem do testowania funkcji z lini poleceń.
+Struktura katologów na płycie CD.
+\begin{itemize}
+	\item \texttt{RiffleScrambler} - katalog zawierający implementację funkcji $\mathbf{RiffleScrambler}$, implementacja podzielona jest na pliki nagłówkowe znajdujące się w podkatalogu \texttt{include} oraz pliki źródłowe znajdujące się w podkatalogu \texttt{src}.
+	
+	\item \texttt{test} - w tym katalogu znajdują się testy jednostkowe oraz biblioteka \texttt{catch.hpp} używana do przeprowadzania testów.
+	
+	\item \texttt{benchmark} - katalog zawierający kod testów wydajnościowych razem ze skryptem \texttt{run\_benchmarks.sh} służącym do uruchamiania testów. W katalogu znajdują się również podkatalogi \texttt{results} zawierający pliki z wynikami testów oraz podkatalog \texttt{plots}, w kórym znajduje się skrypt \texttt{plot\_results.py} służący do przedstawiania wyników w formie wykresów.
+	
+	\item \texttt{rs} - katalog zwierający program do uruchamiania funkcji $\mathbf{RiffleScrambler}$ z linii poleceń.
+\end{itemize}
+
+W każdym z wymienionych katalogów znajdują się dodatkowo pliki \texttt{CMakeLists.txt} pozwalające na łatwą kompilację źródeł.
 

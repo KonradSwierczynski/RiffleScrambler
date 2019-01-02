@@ -158,22 +158,22 @@ pokazali, że istnieje zależność między złożonością etykietowania, a wł
 \end{definition}
 
 \begin{definition}
-	[Graf rozproszony, ang. \textit{dispresed}] Niech $g, k \in \mathbb{N}$ i $g \geq k$. DAG G jest nazywany (g, k)-dispresed jeżeli istnieje uporządkowanie jego wierzchołków takie, że następujące warunki są spełnione.
+	[Graf rozproszony, ang. \textit{dispersed}] Niech $g, k \in \mathbb{N}$ i $g \geq k$. DAG G jest nazywany (g, k)-dispersed jeżeli istnieje uporządkowanie jego wierzchołków takie, że następujące warunki są spełnione.
 	Niech $[k]$ oznacza ostatnie $k$ wierzchołków o uporządkowaniu G i niech $L_{j} = [jg, (j + 1)g - 1]$ będzie j-tym podprzedziałem.
 	Wtedy $\forall j \in [ \lfloor k / g \rfloor ]$ przedział $L_{j}$ ma (g, g)-dependency.
-	W ogólności, jeżeli dla $ \epsilon \in (0, 1] $ każdy przedział $L_{j}$ ma tylko ($\epsilon$g, g)-dependency, graf G nazywany jest ($\epsilon$, g, g)-dispresed.
+	W ogólności, jeżeli dla $ \epsilon \in (0, 1] $ każdy przedział $L_{j}$ ma tylko ($\epsilon$g, g)-dependency, graf G nazywany jest ($\epsilon$, g, g)-dispersed.
 \end{definition}
 
 \begin{definition}
-	Acykliczny graf skierowany $G = (V, E)$ nazywany jest ($\lambda$,$\epsilon$,g,k)-dispresed jeżeli istnieje $\lambda \in \mathbb{N}^{+} $ rozłącznych podzbiorów wierzchołków \{$ L_{i} \subseteq V$\},
+	Acykliczny graf skierowany $G = (V, E)$ nazywany jest ($\lambda$,$\epsilon$,g,k)-dispersed jeżeli istnieje $\lambda \in \mathbb{N}^{+} $ rozłącznych podzbiorów wierzchołków \{$ L_{i} \subseteq V$\},
 	każdy o rozmiarze $k$ oraz spełnione są następujące warunki.
 	\begin{enumerate}
 		\item Dla każdego $L_{i}$ istnieje ścieżka przechodząca przez wszystkie wierzchołki $L_{i}$.
 		
 		\item Dla ustalonego porządku topologicznego G. Dla każdego $i \in [\lambda]$ niech
-		$G_{i}$ będzie podgrafem G, zawierającym wszystkie wierzchołki z G, aż do ostatniego wierzchołka z $L_{i}$. $G_{i}$ jest ($\epsilon$,g,k)-dispresed.
+		$G_{i}$ będzie podgrafem G, zawierającym wszystkie wierzchołki z G, aż do ostatniego wierzchołka z $L_{i}$. $G_{i}$ jest ($\epsilon$,g,k)-dispersed.
 	\end{enumerate}
-	Zbiór grafów, które są ($\lambda$, $\epsilon$, g, k)-dispresed oznaczamy jako $\mathbb{D}_{\epsilon,g}^{\lambda,k}$.
+	Zbiór grafów, które są ($\lambda$, $\epsilon$, g, k)-disperesed oznaczamy jako $\mathbb{D}_{\epsilon,g}^{\lambda,k}$.
 \end{definition}
 
 \begin{theorem} \cite[Twierdzenie 6]{depth} \label{1::disp}

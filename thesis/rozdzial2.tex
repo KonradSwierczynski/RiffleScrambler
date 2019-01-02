@@ -358,7 +358,7 @@ Procedurę $\mathbf{RiffleScrambler}(pwd, s, g,\lambda)$ można z grubsza przeds
 
 \section{Ograniczenia złożoności RSG}
 
-\begin{theorem}
+\begin{theorem} \label{rs::lower}
 	Niech $ \lambda, n \in \mathbb{N}^{+}$ takie, że $n = \overline{n}(2 \lambda c + 1) $, gdzie $c \in \mathbb{N}$ i $ \overline{n} = 2^{c}$.
 	Wtedy dla $ g = \lfloor \sqrt{ \overline{n}} \rfloor$
 	$ RSG_{\lambda}^{ \overline{n}} \in \mathbb{D}_{1,g}^{\lambda, \overline{n}} $
@@ -399,7 +399,7 @@ Procedurę $\mathbf{RiffleScrambler}(pwd, s, g,\lambda)$ można z grubsza przeds
 
 
 
-\begin{theorem}
+\begin{theorem} \label{rs::upper}
 	Niech $\lambda, g \in \mathbb{N}^{+}$, $N = 2^{g}$, $n = N(2 \lambda g + 1)$, wtedy
 	$$ \Pi_{cc}^{ \parallel }(RSG_{\lambda}^{\overline{n}}) = O \left( n^{1.667} \right) $$
 \end{theorem}
@@ -439,7 +439,7 @@ Im ta złożoność jest wyższa, tym bardziej czas obliczeń jest zdominowany p
 		RiffleScrambler & $\Omega(n^{1.5})$ & $O(n^{1.667})$ \\
 		\hline
 	\end{tabular}
-	\caption{\cite[Tablica 1]{depth} Porównianie złożoności całkowitej dla Argon2i, Catena (dla grafu Butterfly) oraz RiddleScrambler}
+	\caption{\cite[Tablica 1]{depth} Porównianie złożoności całkowitej dla Argon2i, Catena (dla grafu Butterfly) oraz RiddleScrambler (Twierdzenia  \ref{rs::lower}, \ref{rs::upper}).}
 	\label{2::tab2}
 \end{table}
 
@@ -463,7 +463,7 @@ Im ta złożoność jest wyższa, tym bardziej czas obliczeń jest zdominowany p
 	\hline
 
 \end{tabular}
-	\caption{ \cite[Tablica 4]{rs} Porównianie bezpieczeństwa i wydajności dla Balloon Hashing($BHF_7$ dla grafu o stopniu wejściowym 7,  $BHF_3$ dla grafu o stopniu wejściowym 3), Argon2i, Catena (dla grafu Butterfly) oraz RiffleScrambler}
+	\caption{ \cite[Tablica 4]{rs} Porównianie bezpieczeństwa i wydajności dla Balloon Hashing($BHF_7$ dla grafu o stopniu wejściowym 7,  $BHF_3$ dla grafu o stopniu wejściowym 3), Argon2i, Catena (dla grafu Butterfly) oraz RiffleScrambler.}
 		\label{2::tab}
 \end{table}
 
