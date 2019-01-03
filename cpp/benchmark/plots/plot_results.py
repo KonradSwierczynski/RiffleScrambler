@@ -118,7 +118,7 @@ def read_node_time_bench_results():
 
 def draw_cache_bench():
     x, y = read_cache_bench_results()
-    plt.plot(x, y)
+    plt.plot(x, y, '--bo')
     plt.title("Cache misses")
     plt.ylabel("Procent odwołań do danych, których nie było w p. podręcznej")
     plt.xlabel("Parametr g")
@@ -126,7 +126,7 @@ def draw_cache_bench():
 
 def draw_mem_bench():
     x, y = read_mem_bench_results()
-    plt.plot(x, y)
+    plt.plot(x, y, '--bo')
     plt.title("Użycie pamięci, a rozmiar grafu")
     plt.ylabel("Użycie pamięci [B]")
     plt.xlabel("Parametr g")
@@ -134,14 +134,14 @@ def draw_mem_bench():
 
 def draw_width_time_bench():
     x, y = read_width_time_bench_results()
-    plt.plot(x, y)
+    plt.plot(x, y, '--bo')
     plt.title("Czas obliczeń, a rozmiar grafu")
     plt.ylabel("Czas obliczeń [ms]")
     plt.xlabel("Parametr g")
 
 def draw_depth_time_bench():
     x, y = read_depth_time_bench_results()
-    plt.plot(x, y)
+    plt.plot(x, y, '--bo')
     plt.title("Czas obliczeń, a ilość warstw grafu")
     plt.ylabel("Czas obliczeń [ms]")
     plt.xlabel("Parametr lambda")
@@ -149,15 +149,15 @@ def draw_depth_time_bench():
 
 def draw_const_vertices_time_bench():
     x, y, _ = read_node_time_bench_results()
-    plt.plot(x, y)
+    plt.plot(x, y, '--bo')
     plt.title("Czas obliczania dla stałej ilości wierzchołków w grafie")
     plt.ylabel("Czas obliczeń [ms]")
     plt.xlabel("Parametr g")
 
 def draw_node_time_bench():
     x, _, y = read_node_time_bench_results()
-    plt.plot(x, y)
-    plt.title("Czas obliczania dla pojedyńczego wierzchołka, przy stałej ilości wierzchołków w grafie")
+    plt.plot(x, y, '--bo')
+    plt.title("Czas obliczania dla pojedynczego wierzchołka")
     plt.ylabel("Czas obliczeń [ms]")
     plt.xlabel("Parametr g")
 
