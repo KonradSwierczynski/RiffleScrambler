@@ -7,20 +7,11 @@
 
 int main() {
     std::string pwd = "test123!?", salt = "salt";
-    uint64_t g = 12, d = 4;
+    uint64_t g = 12, d = 2;
 
-    const auto hash = riffle_scrambler(pwd, salt, g, d);
-    const auto hash2 = riffle_scrambler(pwd.c_str(), pwd.length(), salt.c_str(), salt.length(), g, d);
-    std::cout << "1. Hash: " << hash << " " << hash2
-              << "\t" << std::endl << "base64: " << base64_encode((unsigned char *)hash.c_str(), hash.length())
-              << "\t" << std::endl;
+    const auto hash = riffle_scrambler_encoded(g, d, pwd, salt);
 
-    const std::string encoded = riffle_scrambler_encoded(g, d, pwd, salt);
-    std::cout << "2. Encoded: " << encoded << std::endl;
-
-    const auto result = riffle_scrambler_verify(encoded, "test123!?");
-
-    std::cout << "3. Verify res: " << result << std::endl;
+    std::cout << hash << std::endl;
 
 
 

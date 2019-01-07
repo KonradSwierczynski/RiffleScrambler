@@ -53,7 +53,7 @@ const RiffleScramberContext decode_string(const std::string encoded) {
     hash_func_index = encoded.find(HASH_FUNC_PREFIX);
     hash_index = encoded.find(HASH_PREFIX);
 
-    const std::array values = {garlic_index, depth_index, salt_index, hash_func_index, hash_index};
+    const std::array<size_t, 5> values = {garlic_index, depth_index, salt_index, hash_func_index, hash_index};
 
     if(std::any_of(values.begin(), values.end(),
             [](const size_t i){ return i == std::string::npos;})) {

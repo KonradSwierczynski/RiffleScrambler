@@ -17,7 +17,8 @@
 
 using namespace std;
 
-const string WIDTH_TIME_OUT_FILE_NAME = "width_time.out", NODE_TIME_OUT_FILE_NAME = "node_time.out";
+const string WIDTH_TIME_OUT_FILE_NAME = "width_time.out", NODE_TIME_OUT_FILE_NAME = "node_time.out",
+    DEPTH_TIME_OUT_FILE_NAME = "depth_time.out";
 
 
 void benchmark_riffle_scrambler_width_time() {
@@ -49,8 +50,37 @@ void benchmark_riffle_scrambler_width_time() {
     results_file.close();
 }
 
+void benchmark_riffle_scrambler_depth_time() {
+    progress_bar bar{cout, 70, "Depth time"};
+    const uint64_t max_graph_depth = 100, repetitions = 10, graph_width= 10;
+
+    vector<vector<double>> execution_times{max_graph_depth+ 1};
+
+    for(uint64_t graph_depth = 1; graph_depth <= max_graph_depth; graph_depth++) {
+        for(int i = 0; i < repetitions; i++) {
+            double execution_time = benchmark_riffle_scrambler_call(graph_width, graph_depth);
+            execution_times[graph_depth].push_back(execution_time);
+        }
+
+        sort(execution_times[graph_depth].begin(), execution_times[graph_depth].end());
+
+        bar.write(double(graph_depth) / double(max_graph_depth));
+    }
+
+    ofstream results_file;
+    results_file.open(DEPTH_TIME_OUT_FILE_NAME);
+
+    results_file << "Execution time for different graph depth (width: " << graph_width << ")" << endl;
+    results_file << "Width\tMean\tMedian"  << endl;
+    for(int i = 1; i <= max_graph_depth; i++) {
+        results_file << i << "\t" << get_mean(execution_times[i]) << "\t" << get_median(execution_times[i]) << endl;
+    }
+
+    results_file.close();
+}
+
 void benchmark_riffle_scrambler_node_time() {
-    const uint64_t max_graph_width = 20, vertices = 8000000, repetitions = 10;
+    const uint64_t max_graph_width = 18, vertices = 10000000, repetitions = 10;
     progress_bar bar{cout, 70, "Node time"};
 
     vector<vector<double>> execution_times{max_graph_width + 1};
@@ -74,7 +104,7 @@ void benchmark_riffle_scrambler_node_time() {
 
     results_file << "Execution time for different graph width with constant vertices number (" << vertices << ")" << endl;
     results_file << "Width\tMean\tMedian\tNode mean\tNode median"  << endl;
-    for(int i = 1; i <= max_graph_width; i++) {
+    for(int i = 1; static_cast<uint64_t>(i) <= max_graph_width; i++) {
         uint64_t ui = static_cast<uint64_t>(i);
         const uint64_t graph_depth = get_depth_for_width_and_vertices(ui, vertices);
         const uint64_t vertices = get_number_of_vertices(ui, graph_depth);
@@ -115,6 +145,7 @@ int main(int argc, char **argv) {
 
     benchmark_riffle_scrambler_width_time();
     benchmark_riffle_scrambler_node_time();
+    benchmark_riffle_scrambler_depth_time();
 
     return 0;
 }

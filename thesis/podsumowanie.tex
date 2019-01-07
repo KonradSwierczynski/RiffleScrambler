@@ -1,0 +1,12 @@
+\chapter{Podsumowanie}
+\thispagestyle{chapterBeginStyle}
+\label{podsumowanie}
+
+W części teoretycznej niniejszej pracy udało się udowodnić dolne i górne ograniczenie na złożoność etykietowania grafu, ograniczenie dolne wynosi $\Omega(n^{1.5})$ i jest równe ograniczeniu górnemu Catena Dragonfly oraz Butterfly. Ograniczenie górne wynosi $O(n^{1,667})$, czyli jest wyższe, niż ograniczenie dla algorytmu Catena wynoszące $O(n^{1.625})$. Jednak wnioskując po podobieństwie tych grafów, bardzo prawdopodobne jest to, że istnieje lepsze ograniczenie górne, niż pokazane. Dlatego jest to możliwy kierunek rozwinięcia pracy.
+
+W części praktycznej udało się zrealizować założenie o zachowaniu wymagań konkursu na funkcje do przechowywania haseł, ponadto zaproponowano nowy, wydajniejszy algorytm do generowania permutacji, który sprawdza poprawność permutacji w czasie liniowym, zamiast kwadratowego oraz cechuje się niższą złożonością pamięciową.
+Stworzono również wysokopoziomowy interfejs, który jest dużą zaletą patrząc na aplikacje uwierzytelniające pisane w językach wysokopoziomowych.
+
+Wydajność czasowa jest na dobrym poziomie, jednak wydajność pamięciowa mogłaby zostać poprawiona poprzez zmianę generowania struktury grafu, co okazało się podczas analizy pamięciowej gotowej implementacji. Zamiast generować od razu cały graf, który zajmuje stosunkowo dużo pamięci, można by trzymać jedynie obliczone obecnie używane krawędzie, a kolejne generować dopiero, gdy zajdzie potrzeba, co zmniejszyło by użycie pamięci.
+
+

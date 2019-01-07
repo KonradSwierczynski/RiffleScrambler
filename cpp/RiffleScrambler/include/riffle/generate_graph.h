@@ -11,6 +11,6 @@
 
 typedef std::vector<std::vector<std::vector<uint64_t>>> riffle_graph;
 
-riffle_graph gen_graph(const std::vector<uint64_t> seeds, const uint64_t g);
+riffle_graph gen_graph(const std::vector<uint64_t> &seeds, const uint64_t g);
 
 #endif // CPP_GENERATE_GRAPH_H
