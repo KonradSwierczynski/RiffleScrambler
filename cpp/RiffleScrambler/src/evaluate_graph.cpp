@@ -9,7 +9,7 @@
 
 #include <string>
 
-const HashResult eval_graph(const riffle_graph edges, const uint64_t depth,
+const HashResult eval_graph(const riffle_graph &edges, const uint64_t depth,
                        const uint64_t g, const void *const password, const size_t pwdlen_bytes,
                        const MD_Wrapper wrapper) {
     const uint64_t length = uint64_t(1) << g;

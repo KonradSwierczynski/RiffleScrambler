@@ -1,3 +1,4 @@
+cmake_minimum_required(VERSION 3.13)
 
 file(GLOB_RECURSE RIFFLE_SOURCES "src/*.cpp")
 file(GLOB_RECURSE RIFFLE_HEADERS "include/*.h")
