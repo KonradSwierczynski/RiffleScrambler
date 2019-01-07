@@ -9,20 +9,6 @@
 #include <string>
 #include <vector>
 
-/**
- * Hashowanie hasła za pomocą RiffleScrambler, wynik zwracany jest do zmiennej @hash
- * @param pwd Wskaźnik na hasło
- * @param pwdlen_bytes Rozmiar hasła w bajtach
- * @param salt Wskaźnika na sól
- * @param saltlen_bytes Rozmiar soli w bajtach
- * @param t_cost Parametr "lambda" oznaczający ilość iteracji
- * @param m_cost Parametr "g" oznaczający koszt rozmiar używanej pamięci
- * @param hash Bufor do którego będzie zapisany hash hasła
- * @param hashlen Rozmiar bufora, oznacza ile bajtów z hasha hasła ma zostać zapisane
- * @return RIFFLE_SCRAMBLER_OK jeśli obliczenia zakończyły się pomyślnie, kod błędu w przeciwnym przypadku
- */
-int riffle_scrambler(void *hash, const size_t hashlen, const void *pwd, const size_t pwdlen_bytes,
-        const void *salt, const size_t saltlen_bytes, const uint64_t t_cost, const uint64_t m_cost);
 
 /**
  * Hashowanie hasła za pomocą RiffleScrambler

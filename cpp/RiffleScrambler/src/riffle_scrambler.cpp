@@ -13,7 +13,6 @@
 
 #include <riffle/encoding.h>
 
-#include <iostream>
 
 /**
  * Hashowanie hasła za pomocą RiffleScrambler

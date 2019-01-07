@@ -70,7 +70,18 @@ int main(int argc, char **argv) {
         exit(2);
     }
 
-    const auto hashResult = _riffle_scrambler(width, depth, password.c_str(), password.size(), salt.c_str(), salt.size(), hash_func);
+    HashResult hashResult;
+
+    try {
+        hashResult = _riffle_scrambler(width, depth, password.c_str(), password.size(), salt.c_str(),
+                                                  salt.size(), hash_func);
+    } catch (const std::out_of_range& e) {
+        std::cerr << "Hash function \"" << hash_func << "\" not available!" << std::endl;
+        std::cout << "Available hash functions: sha224, sha256, sha384, sha512, sha1, "
+                     "md5, mdc2, ripemd160, blake2s256, blake2s512." << std::endl;
+        return 1;
+    }
+
     const auto encoded = encode_string(width, depth, salt.c_str(), salt.length(), hash_func, hashResult);
 
     std::cout << "Graph width:\t" << width << std::endl;
