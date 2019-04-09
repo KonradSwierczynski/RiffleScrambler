@@ -9,7 +9,7 @@ int main() {
     std::string pwd = "test123!?", salt = "salt";
     uint64_t g = 12, d = 2;
 
-    const auto hash = riffle_scrambler_encoded(g, d, pwd, salt);
+    const std::string hash = riffle_scrambler_encoded(g, d, pwd, salt);
 
     std::cout << hash << std::endl;
 

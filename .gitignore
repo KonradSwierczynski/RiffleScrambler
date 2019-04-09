@@ -195,4 +195,5 @@ venv.bak/
 tmp/
 cpp/cmake-build-debug/
 papers/
+thesis/
 
