@@ -34,8 +34,6 @@ def riffle_shuffle(length: bytes, salt: int, hash_func: Callable[[bytes, bytes],
     return permutation
 
 
-
-
 class PermElement:
     def __init__(self, id):
         self._id = id
@@ -58,23 +56,23 @@ class PermElement:
 class PRNG:
     def __init__(self, salt: bytes):
         self._position = 0
-        self._calculate_next_buffor(salt)
+        self._calculate_next_buffer(salt)
 
     def get_next_bit(self):
-        if self._position == len(self._buffor):
+        if self._position == len(self._buffer):
             self._position = 0
-            self._calculate_next_buffor()
-        next_bit = self._buffor[self._position] == '1'
+            self._calculate_next_buffer()
+        next_bit = self._buffer[self._position] == '1'
         self._position += 1
         return next_bit
 
-    def _calculate_next_buffor(self, salt=None):
+    def _calculate_next_buffer(self, salt=None):
         from bitstring import Bits
         if salt:
             self._hash = hashlib.sha1(salt)
         else:
             self._hash.update(self._hash.digest())
-        self._buffor = Bits(f'0x{self._hash.hexdigest()}').bin
+        self._buffer = Bits(f'0x{self._hash.hexdigest()}').bin
 
 
 def faster_riffle_shuffle(length: int, salt: bytes) -> List[int]:
@@ -88,7 +86,6 @@ def faster_riffle_shuffle(length: int, salt: bytes) -> List[int]:
             new_bit = prng.get_next_bit()
             num_of_ones += new_bit
             perm_elem.set_bit_b(iterations, new_bit)
-            # perm_elem.add_bit(new_bit)
 
         new_perm = [None] * length
         last_index = 0
@@ -100,12 +97,6 @@ def faster_riffle_shuffle(length: int, salt: bytes) -> List[int]:
             else:
                 new_perm[last_zero_index] = permutation[i]
                 last_zero_index += 1
-            # if permutation[i].get_first_bit():
-            #     new_perm[last_index] = permutation[i]
-            #     last_index += 1
-            # else:
-            #     new_perm[last_zero_index] = permutation[i]
-            #     last_zero_index += 1
 
         permutation = new_perm
         good_permutation = True
@@ -113,19 +104,13 @@ def faster_riffle_shuffle(length: int, salt: bytes) -> List[int]:
             if permutation[i].get_value_b() == permutation[i - 1].get_value_b():
                 good_permutation = False
                 break
-            # if permutation[i].get_value() == permutation[i - 1].get_value():
-            #     good_permutation = False
-            #     break
         iterations += 1
-    print(iterations)
     return [perm_elem.get_id() for perm_elem in permutation]
 
 
 if __name__ == '__main__':
     import cProfile
-
     cProfile.run("print(faster_riffle_shuffle(2 ** 12, b'test'))")
-
 
 
 def int_to_bytes(x):
@@ -140,6 +125,7 @@ def bytes_last_bit(bytes):
     from bitstring import BitArray
     b_arr = BitArray(bytes)
     return int(b_arr.bin[-1], 2)
+
 
 # Returns 0 or 1 randomly, dummy simulation of hash function
 # Not secure

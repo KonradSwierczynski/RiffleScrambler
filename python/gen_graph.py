@@ -5,11 +5,8 @@ from riffle_permutation import riffle_permutation, complement_riffle_permutation
 
 # For given list of 2^g numbers of length g generates graph (2^g)-Double-Riffle-Grapph
 def gen_graph(g: int, perm: List[int]) -> List[List[int]]:
-    print("\tCreating new Matrix...")
     perm_matrix = BinMatrix(perm, g)
-    print("\tCreated. Genetrating rows...")
     B = [perm_matrix.get_row_as_num(i) for i in range(g)]
-    print("\tRows generated.")
     edges = [[[] for _ in range(2**g)] for _ in range(2*g)]
 
     for row in range(g):

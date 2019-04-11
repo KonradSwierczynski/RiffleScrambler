@@ -7,10 +7,6 @@ Created on Fri Sep 21 16:41:29 2018
 """
 
 
-# [a, b, c, d]
-#  0  1  2  3
- 
-
 # Converts number to string of binary representation of a given length
 def num_to_bin_str(num: int, length: int) -> str:
     b = bin(num)[2:]
@@ -35,10 +31,11 @@ class BinMatrix:
             row += num_to_bin_str(num, self.b_lenght)[row_index]
         return int(row, 2)
 
+
 # Example
 # For given permutation perm = [0, 1, 2, ... , 15]
 # Binary representation is as follows
-# Colums represents numbers in given permutation col_{i} == perm[i]
+# Columns represents numbers in given permutation col_{i} == perm[i]
 # Rows
 # Col:   0  1  2  3  4  5  6  7  8  9  10 11 12 13 14 15
 # Row 0: 0  0  0  0  0  0  0  0  1  1  1  1  1  1  1  1

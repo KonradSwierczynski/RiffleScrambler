@@ -6,6 +6,8 @@ from typing import List
 zeros = 0
 ones = 0
 total_zeros = 0
+
+
 def rank(binary_word: str, index: int) -> int:
     global zeros
     global ones
@@ -59,7 +61,6 @@ def complement_riffle_permutation(B: int, length: int) -> List[int]:
 # by switching '0' to '1' and '1' to '0'
 def binary_complement(binary_string: str) -> str:
     return binary_string.replace('0', 'x').replace('1', '0').replace('x', '1')
-
 
 
 def inverted(perm: List[int], val: int) -> int:

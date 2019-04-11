@@ -16,5 +16,3 @@ def trace_trajectories_(B):
     for i in range(1, len(B)):
         trajectories.append(inverted_riffle_permutation(trajectories[i - 1], B[i]))
     return trajectories
-
-# riffle_shuffle(8, 2, lambda x, y: (x + y) % 2)
