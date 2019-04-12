@@ -50,8 +50,8 @@ Testing RiffleScrambler times and memory statistics for different parameters.
 
 ## Python
 
-* [RiffleScrambler](#rifflescrambler-1) library
-* [rs](#rs) command line interface
+* [RiffleScrambler](#rifflescrambler-2) library
+* [rs](#rs-1) command line interface
 
 #### RiffleScrambler
 Implementation in Python3.7.
