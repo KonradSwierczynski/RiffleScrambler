@@ -69,7 +69,7 @@ class PRNG:
     def _calculate_next_buffer(self, salt=None):
         from bitstring import Bits
         if salt:
-            self._hash = hashlib.sha1(salt)
+            self._hash = hashlib.sha256(salt)
         else:
             self._hash.update(self._hash.digest())
         self._buffer = Bits(f'0x{self._hash.hexdigest()}').bin

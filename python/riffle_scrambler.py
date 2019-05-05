@@ -1,21 +1,20 @@
+import hashlib
 from riffle_shuffle import riffle_shuffle, faster_riffle_shuffle
 from gen_graph import gen_graph
-import hashlib
 
 
 def hash_func(*args):
-    val = b''
+    h = hashlib.sha256()
     for x in args:
-        val += x
+        h.update(x)
+    return h.hexdigest().encode()
 
-    return hashlib.sha1(val).hexdigest().encode()
 
+def riffle_scrambler(salt, width, password, depth):
+    perm = faster_riffle_shuffle(2 ** width, salt)
+    edges = gen_graph(width, perm)
 
-def riffle_scrambler(salt, g, x, depth):
-    perm = faster_riffle_shuffle(2 ** g, salt)
-    edges = gen_graph(g, perm)
-
-    return evaluate_graph(edges, g, x, depth, hash_func)
+    return evaluate_graph(edges, width, password, depth, hash_func)
 
 
 def evaluate_graph(edges, g, x, depth, hash_func):
