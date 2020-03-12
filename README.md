@@ -1,7 +1,7 @@
 
 # RiffleScrambler
 
-The project contains two versions ([Python](#python), [C++](#c)) of RiffleScrambler implemented during working on BSc Thesis.
+The project contains two versions ([Python](#python), [C++](#c)) of RiffleScrambler - a memory-hard password storing function.
 Both versions slightly modify (optimize) original algorithms from the [paper](https://arxiv.org/pdf/1807.06443.pdf).
 
 
@@ -11,10 +11,6 @@ Both versions slightly modify (optimize) original algorithms from the [paper](ht
 * [rs](#rs) command line interface
 * [Tests](#tests)
 * [Benchmarks](#benchmarks)
-
-#### RiffleScrambler
-C++ and C API for RiffleScrambler.
-- [ ] TODO: translate [documentation](./mhf_riffle_scrambler_implementation_PL.pdf) and comments to english (BSc Thesis required it in polish).
 
 #### `rs`
 Command line interface for using RiffleScrambler.
